@@ -37,7 +37,7 @@
         </div>
         <script type="text/javascript" src="./node_modules/vue/dist/vue.js"></script>
         <script type="text/javascript" src="./node_modules/vue-material/dist/vue-material.js"></script>
-        <script type="text/javascript" src="./js/index.js"></script>
+        <script type="text/javascript" src="./index.js"></script>
     </body>
 
 </html>
