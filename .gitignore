@@ -53,3 +53,6 @@ Temporary Items
 
 # Modules
 node_modules/
+
+# Netbeans
+nb-configuration.xml
