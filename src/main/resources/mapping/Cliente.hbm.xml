@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <query name="Cliente.findByAtivo">
+        <![CDATA[from Cliente where ativo  = :ativo]]>
+    </query>
+    <sql-query name="Cliente.findByAtivo2">
+        <return alias="cliente" class="br.ufpr.tads.dac.lol.model.Cliente"/>
+	<![CDATA[select * from cliente where ativo = :ativo]]>
+    </sql-query>
+</hibernate-mapping>
