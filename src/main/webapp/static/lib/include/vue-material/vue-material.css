@@ -1,0 +1,9 @@
+body > div#app  {
+    margin-top: 20px;
+}
+.md-card {
+    width: 100%;
+}
+form {
+    padding: 12px;
+}
