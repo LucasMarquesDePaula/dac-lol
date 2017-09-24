@@ -1,4 +1,4 @@
-package br.ufpr.tads.dac.lol.web;
+package br.ufpr.tads.dac.lol.controller;
 
 import java.io.IOException;
 import java.util.Date;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import br.ufpr.tads.dac.lol.data.HibernateUtil;
+import br.ufpr.tads.dac.lol.dao.HibernateUtil;
 import br.ufpr.tads.dac.lol.model.Category;
 import br.ufpr.tads.dac.lol.model.Cliente;
 import br.ufpr.tads.dac.lol.model.Stock;

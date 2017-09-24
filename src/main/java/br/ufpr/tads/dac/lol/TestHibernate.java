@@ -6,12 +6,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import br.ufpr.tads.dac.lol.data.HibernateUtil;
+import br.ufpr.tads.dac.lol.dao.HibernateUtil;
 import br.ufpr.tads.dac.lol.model.Cliente;
 
 public class TestHibernate {
 
-    @SuppressWarnings("unchecked")
     public static void main(String[] args) {
 
         System.out.println("Hibernate many to many - join table + extra column (Annotation)");
