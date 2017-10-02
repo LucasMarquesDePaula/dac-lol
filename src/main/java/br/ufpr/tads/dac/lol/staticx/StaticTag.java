@@ -12,14 +12,14 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  */
 public abstract class StaticTag extends SimpleTagSupport {
 
-    protected static String BASE_DIR = "static";
+    protected static String BASE_DIR = "lol/static";
 
     private String res;
     private String base;
     private String body;
 
     protected StaticTag(String base) {
-        this.base = String.format("%s/%s", BASE_DIR, base);
+        this.base = String.format("/%s/%s", BASE_DIR, base);
     }
 
     abstract String out();
@@ -36,7 +36,7 @@ public abstract class StaticTag extends SimpleTagSupport {
                 .getOut()
                 .println(out());
     }
-    
+
     public String getRes() {
         return this.res;
     }

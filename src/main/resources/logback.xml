@@ -9,13 +9,9 @@
 	</appender>
 
 	<logger name="br.ufpr.tads.dac.lol">
-		<level value="debug" />
+		<appender-ref ref="STDOUT" />
 	</logger>
-
-	<logger name="org.springframework">
-		<level value="info" />
-	</logger>
-
+	
 	<root>
 		<level value="error" />
 		<appender-ref ref="STDOUT" />

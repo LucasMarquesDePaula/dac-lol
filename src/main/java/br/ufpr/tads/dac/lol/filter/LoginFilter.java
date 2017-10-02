@@ -1,0 +1,56 @@
+package br.ufpr.tads.dac.lol.filter;
+
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ *
+ * @author Lucas
+ */
+@WebFilter("/*")
+public class LoginFilter implements Filter {
+
+//    private final static Logger logger = Logger.getLogger(LoginFilter.class.getName());
+
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
+        HttpSession session = request.getSession(false);
+
+        String contextPath = request.getContextPath();
+        String requestURI = request.getRequestURI();
+        String loginURI = String.format("%s/login", contextPath);
+
+        boolean loggedIn = session != null && session.getAttribute("user") != null;
+        boolean loginRequest = requestURI.equals(loginURI);
+        boolean staticRequest = requestURI.startsWith(String.format("%s/static/", contextPath));
+
+        if (loggedIn || loginRequest || staticRequest || true) {
+//            logger.log(Level.FINEST, String.format("Logged: [%s]", session != null ? session.getAttribute("user") : ""));
+            chain.doFilter(req, res);
+        } else {
+//            logger.log(Level.FINEST, String.format("Redirect: [%s]", loginURI));
+            response.sendRedirect(loginURI);
+        }
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void destroy() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}

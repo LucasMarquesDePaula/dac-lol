@@ -1,12 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufpr.tads.dac.lol.controller;
 
+import br.ufpr.tads.dac.lol.facede.ClienteFacede;
+import br.ufpr.tads.dac.lol.model.Cliente;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.util.List;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,61 +19,98 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lucas
  */
-@WebServlet(name = "ClienteController", urlPatterns = {"/cliente"})
+@WebServlet(name = "ClienteController", urlPatterns = { "/cliente/*" })
 public class ClienteController extends Controller {
+	private Logger logger = LoggerFactory.getLogger(ClienteController.class);
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath("login/form.jsp"));
-        requestDispatcher.forward(request, response);
-    }
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String pathInfo = request.getRequestURI();
+		logger.debug(pathInfo);
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+		try {
+			String[] pathParts = pathInfo.split("/");
+			String page = pathParts[pathParts.length - 1];
+			
+			if("grid".equals(page)) {
+				request.setAttribute("items", new ClienteFacede().list(200, 0));
+				request.getRequestDispatcher(viewPath("cliente/grid.jsp")).forward(request, response);
+			} else if (page.replaceAll("[^0-9]", "g").equals(page)) {
+				ClienteFacede facede = new ClienteFacede();
+				Cliente cliente = facede.find(Integer.parseInt(page));
+				request.setAttribute("model", cliente);
+				request.getRequestDispatcher(viewPath("cliente/form.jsp")).forward(request, response);
+			} else {
+				request.getRequestDispatcher(viewPath("cliente/form.jsp")).forward(request, response);
+			}
+		} catch (Exception e) {
+			logger.error("", e);
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);	
+		}
+		
+	}
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			String pathInfo = request.getPathInfo();
+			logger.debug(pathInfo);
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+			String[] pathParts = pathInfo.split("/");
+			String action = pathParts[1];
+
+			ClienteFacede facede = new ClienteFacede();
+
+			Cliente cliente;
+			switch (action) {
+			case "create":
+				cliente = new Cliente();
+				break;
+			case "update":
+				cliente = facede.find(Integer.parseInt(pathParts[2]));
+				break;
+			default:
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+				return;
+			}
+
+			List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+			for (FileItem item : multiparts) {
+		
+					switch (item.getFieldName()) {
+					case "nome":
+						cliente.setNome(item.getString());						
+						break;
+					case "cpf":
+						cliente.setCpf(item.getString());						
+						break;
+					case "email":
+						cliente.setEmail(item.getString());						
+						break;
+					case "endereco":
+						cliente.setEmail(item.getString());						
+						break;
+					case "foto":
+						cliente.setFoto(item.get());						
+						break;
+					case "sexo":
+						cliente.setSexo(item.getString());						
+						break;
+					default:
+						break;
+					}
+	
+			}
+
+			facede.save(cliente);
+			
+			request.setAttribute("message", "Cliente Cadastrado com sucesso!");
+			request.getRequestDispatcher(viewPath("message/success.jsp")).forward(request, response);
+
+		} catch (Exception e) {
+			logger.debug("", e);
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+		}
+	}
 
 }

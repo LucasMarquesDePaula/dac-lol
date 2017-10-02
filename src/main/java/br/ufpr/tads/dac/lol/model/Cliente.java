@@ -1,22 +1,20 @@
 package br.ufpr.tads.dac.lol.model;
 
-import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
+import java.util.List;
 
 /**
  * The persistent class for the cliente database table.
  * 
  */
 @Entity
-@NamedQuery(name="Cliente.findAll", query="SELECT c FROM Cliente c")
-public class Cliente implements Serializable {
-	private static final long serialVersionUID = 1L;
+@NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
+public class Cliente extends Model<Integer> {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
 	private byte ativo;
 
@@ -33,18 +31,20 @@ public class Cliente implements Serializable {
 
 	private String sexo;
 
-	//bi-directional many-to-one association to Pedido
-	@OneToMany(mappedBy="cliente")
+	// bi-directional many-to-one association to Pedido
+	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
 
 	public Cliente() {
 	}
 
-	public int getId() {
+	@Override
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	@Override
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

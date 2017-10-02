@@ -26,12 +26,12 @@
 
 #loading-overlay.hidden:before {
     opacity: 0;
+    height: 0;
 }
 
 #loading-overlay.hidden:not(:required):after {
     display: none;
 }
-
 
 /* :not(:required) hides these rules from IE9 and below */
 #loading-overlay:not(:required) {

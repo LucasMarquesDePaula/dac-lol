@@ -14,8 +14,11 @@ public class AppContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        String contextPath = sce.getServletContext().getContextPath();
         sce.getServletContext().setAttribute("app", new HashMap<String, Object>() {{
             put("name", "Laundry Online");
+            put("contextPath", contextPath);
+            put("staticResourcesDir", String.format("%s/static", contextPath));
         }});
     }
 

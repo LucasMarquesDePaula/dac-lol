@@ -1,5 +1,4 @@
 <%@ taglib prefix = "st" uri = "/WEB-INF/static.tld" %>
-
 <!--Vue-->
 <st:js res="vue/vue.js" />
 

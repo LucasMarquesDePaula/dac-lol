@@ -101,8 +101,8 @@ public class StaticResourceServlet extends HttpServlet {
     private StaticResource getStaticResource(HttpServletRequest request) throws IllegalArgumentException, UnsupportedEncodingException, FileNotFoundException {
 
         String url = request.getRequestURL().toString();
-        String context = request.getContextPath();
-        String pathInfo = url.substring(url.indexOf(context) + context.length());
+        String context = "/static/";
+        String pathInfo = url.substring(url.indexOf(context));
 
         if (pathInfo == null || pathInfo.isEmpty() || "/".equals(pathInfo)) {
             throw new IllegalArgumentException(String.format("Invalid path: %s", url));

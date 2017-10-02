@@ -2,52 +2,77 @@ package br.ufpr.tads.dac.lol.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public abstract class Dao<E> {
 
-    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	private static Session session;
 
-    private final Class<E> entityClass;
+	private final Class<E> entityClass;
 
-    public Dao(Class<E> entityClass) {
-        this.entityClass = entityClass;
-    }
+	public Dao(Class<E> entityClass) {
+		this.entityClass = entityClass;
+	}
 
-    protected Session getSession() {
-        return this.sessionFactory.getCurrentSession();
-    }
+	public static Session getSession() {
+		if (session == null) {
+			session = sessionFactory.openSession();
+		}
+		return session;
 
-    public E findById(final Serializable id) {
-        return (E) getSession().get(this.entityClass, id);
-    }
+	}
 
-    public Serializable save(E entity) {
-        return getSession().save(entity);
-    }
+	public Transaction beginTransaction() {
+		return getSession().beginTransaction();
+	}
+	
+	public void commit() {
+		getSession().getTransaction().commit();
+	}
+	
+	public E findById(Serializable id) {
+		return (E) getSession().get(this.entityClass, id);
+	}
 
-    public void delete(E entity) {
-        getSession().delete(entity);
-    }
+	public E save(E entity) {
+		getSession().save(entity);
+		return entity;
+	}
 
-    public void deleteAll() {
-        List<E> entities = findAll();
-        for (E entity : entities) {
-            getSession().delete(entity);
-        }
-    }
+	public E update(E entity) {
+		getSession().save(entity);
+		return entity;
+	}
 
-    public List<E> findAll() {
-        return getSession().createCriteria(this.entityClass).list();
-    }
-    
-    public void clear() {
-        getSession().clear();
-    }
+	public void delete(E entity) {
+		getSession().delete(entity);
+	}
 
-    public void flush() {
-        getSession().flush();
-    }
+	public void deleteAll() {
+		List<E> entities = findAll();
+		for (E entity : entities) {
+			getSession().delete(entity);
+		}
+	}
+
+	public List<E> findAll() {
+		return getSession().createCriteria(this.entityClass).list();
+	}
+
+	public Criteria createCriteria() {
+		return getSession().createCriteria(this.entityClass);
+	}
+
+	public void clear() {
+		getSession().clear();
+	}
+
+	public void flush() {
+		getSession().flush();
+	}
 
 }

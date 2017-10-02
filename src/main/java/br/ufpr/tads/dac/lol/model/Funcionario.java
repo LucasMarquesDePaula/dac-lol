@@ -19,7 +19,7 @@ public class Funcionario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private byte ativo;
+	private Byte ativo;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="data_nascimento")
