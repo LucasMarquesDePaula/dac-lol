@@ -4,6 +4,15 @@ body > div#app  {
 .md-card {
     width: 100%;
 }
+
+/*.md-layout > .md-input-container {
+    margin-left: 10px;
+    margin-right: 10px;
+}*/
+
 form {
-    padding: 12px;
+    /*padding: 12px;*/
+}
+.hidden {
+    display: none;
 }

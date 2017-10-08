@@ -11,13 +11,23 @@
             <h3 class="md-title">Sidenav content</h3>
         </div>
     </md-toolbar>
-
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Nisi cupiditate esse necessitatibus beatae nobis, 
-        deserunt ut est fugit, tempora deleniti, eligendi commodi doloribus. 
-        Nemo, assumenda possimus, impedit inventore perferendis iusto!
-    </p>
+    <md-list class="md-dense">
+        <md-list-item>
+            <md-icon>person</md-icon>
+            <span>Clientes</span>
+            <md-list-expand>
+                <md-list>
+                    <md-list-item class="md-inset" href="/lol/cliente/grid" >
+                        <span>Listar</span>
+                        <md-icon>list</md-icon> 
+                    </md-list-item>
+                    <md-list-item class="md-inset" href="/lol/cliente/form" >
+                        <span>Adicionar</span>
+                        <md-icon>add</md-icon> 
+                    </md-list-item>
+                </md-list>
+            </md-list-expand>
+        </md-list-item>
+    </md-list>
 </md-sidenav>
-
 <st:js res="include/sidenav-left/sidenav-left.js"/>

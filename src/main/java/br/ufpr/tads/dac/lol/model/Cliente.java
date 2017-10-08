@@ -1,129 +1,173 @@
 package br.ufpr.tads.dac.lol.model;
 
+import java.io.Serializable;
 import javax.persistence.*;
-
 import java.util.List;
 
 /**
  * The persistent class for the cliente database table.
- * 
+ *
  */
 @Entity
 @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
-public class Cliente extends Model<Integer> {
+public class Cliente extends Model<Integer> implements Authenticable, Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    private static final long serialVersionUID = 1L;
 
-	private byte ativo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	private String cpf;
+    private byte ativo;
 
-	private String email;
+    @Column(unique = true)
+    private String cpf;
 
-	private String endereco;
+    @Column(unique = true)
+    private String email;
 
-	@Lob
-	private byte[] foto;
+    private String endereco;
 
-	private String nome;
+    @Lob
+    private byte[] foto;
 
-	private String sexo;
+    private String nome;
 
-	// bi-directional many-to-one association to Pedido
-	@OneToMany(mappedBy = "cliente")
-	private List<Pedido> pedidos;
+    private String senha;
 
-	public Cliente() {
-	}
+    private String sexo;
 
-	@Override
-	public Integer getId() {
-		return this.id;
-	}
+    private String telefone;
 
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    //bi-directional many-to-one association to Pedido
+    @OneToMany(mappedBy = "cliente", targetEntity = Pedido.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Pedido> pedidos;
 
-	public byte getAtivo() {
-		return this.ativo;
-	}
+    public Cliente() {
+    }
 
-	public void setAtivo(byte ativo) {
-		this.ativo = ativo;
-	}
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
 
-	public String getCpf() {
-		return this.cpf;
-	}
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public byte getAtivo() {
+        return this.ativo;
+    }
 
-	public String getEmail() {
-		return this.email;
-	}
+    public void setAtivo(byte ativo) {
+        this.ativo = ativo;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getCpf() {
+        return this.cpf;
+    }
 
-	public String getEndereco() {
-		return this.endereco;
-	}
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
+    public String getEmail() {
+        return this.email;
+    }
 
-	public byte[] getFoto() {
-		return this.foto;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setFoto(byte[] foto) {
-		this.foto = foto;
-	}
+    public String getEndereco() {
+        return this.endereco;
+    }
 
-	public String getNome() {
-		return this.nome;
-	}
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public byte[] getFoto() {
+        return this.foto;
+    }
 
-	public String getSexo() {
-		return this.sexo;
-	}
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
 
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
+    public String getNome() {
+        return this.nome;
+    }
 
-	public List<Pedido> getPedidos() {
-		return this.pedidos;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
+    public String getSenha() {
+        return this.senha;
+    }
 
-	public Pedido addPedido(Pedido pedido) {
-		getPedidos().add(pedido);
-		pedido.setCliente(this);
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
-		return pedido;
-	}
+    public String getSexo() {
+        return this.sexo;
+    }
 
-	public Pedido removePedido(Pedido pedido) {
-		getPedidos().remove(pedido);
-		pedido.setCliente(null);
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
 
-		return pedido;
-	}
+    public String getTelefone() {
+        return this.telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public List<Pedido> getPedidos() {
+        return this.pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public Pedido addPedido(Pedido pedido) {
+        getPedidos().add(pedido);
+        pedido.setCliente(this);
+
+        return pedido;
+    }
+
+    public Pedido removePedido(Pedido pedido) {
+        getPedidos().remove(pedido);
+        pedido.setCliente(null);
+
+        return pedido;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getEmail();
+    }
+
+    @Override
+    public void setUsername(String userName) {
+        this.setEmail(userName);
+    }
+
+    @Override
+    public String getPassword() {
+        return this.getSenha();
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.setSenha(Authenticable.Util.generateHash(String.format("#%d~@~%s", this.getId(), password)));
+    }
 
 }

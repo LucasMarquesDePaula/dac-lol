@@ -12,12 +12,12 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Pedido.findAll", query="SELECT p FROM Pedido p")
-public class Pedido implements Serializable {
+public class Pedido extends Model<Integer> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	private byte cancelado;
 
@@ -77,6 +77,7 @@ public class Pedido implements Serializable {
 
 	//bi-directional many-to-one association to Cliente
 	@ManyToOne
+	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 
 	//bi-directional many-to-one association to Funcionario
@@ -90,17 +91,17 @@ public class Pedido implements Serializable {
 	private Funcionario funcionarioPagamento;
 
 	//bi-directional many-to-one association to PedidoTipoRoupa
-	@OneToMany(mappedBy="pedido")
-	private List<PedidoTipoRoupa> pedidoTipoRoupas;
+	@OneToMany(mappedBy = "id.pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PedidoTipoRoupa> pedidoTiposRoupa;
 
 	public Pedido() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -272,26 +273,26 @@ public class Pedido implements Serializable {
 		this.funcionarioPagamento = funcionarioPagamento;
 	}
 
-	public List<PedidoTipoRoupa> getPedidoTipoRoupas() {
-		return this.pedidoTipoRoupas;
+	public List<PedidoTipoRoupa> getPedidoTiposRoupa() {
+		return this.pedidoTiposRoupa;
 	}
 
-	public void setPedidoTipoRoupas(List<PedidoTipoRoupa> pedidoTipoRoupas) {
-		this.pedidoTipoRoupas = pedidoTipoRoupas;
+	public void setPedidoTiposRoupa(List<PedidoTipoRoupa> pedidoTiposRoupa) {
+		this.pedidoTiposRoupa = pedidoTiposRoupa;
 	}
 
-	public PedidoTipoRoupa addPedidoTipoRoupa(PedidoTipoRoupa pedidoTipoRoupa) {
-		getPedidoTipoRoupas().add(pedidoTipoRoupa);
-		pedidoTipoRoupa.setPedido(this);
+	public PedidoTipoRoupa addPedidoTiposRoupa(PedidoTipoRoupa pedidoTiposRoupa) {
+		getPedidoTiposRoupa().add(pedidoTiposRoupa);
+		pedidoTiposRoupa.setPedido(this);
 
-		return pedidoTipoRoupa;
+		return pedidoTiposRoupa;
 	}
 
-	public PedidoTipoRoupa removePedidoTipoRoupa(PedidoTipoRoupa pedidoTipoRoupa) {
-		getPedidoTipoRoupas().remove(pedidoTipoRoupa);
-		pedidoTipoRoupa.setPedido(null);
+	public PedidoTipoRoupa removePedidoTiposRoupa(PedidoTipoRoupa pedidoTiposRoupa) {
+		getPedidoTiposRoupa().remove(pedidoTiposRoupa);
+		pedidoTiposRoupa.setPedido(null);
 
-		return pedidoTipoRoupa;
+		return pedidoTiposRoupa;
 	}
 
 }

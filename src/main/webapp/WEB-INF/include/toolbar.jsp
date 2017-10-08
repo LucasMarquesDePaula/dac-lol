@@ -21,7 +21,7 @@
                 <md-icon>filter_list</md-icon>
             </md-button>
             <md-menu-content>
-                <md-menu-item>${user}</md-menu-item>
+                <md-menu-item>${authenticable.username}</md-menu-item>
                 <md-menu-item @click="logout()"><a href="#">Logout</a></md-menu-item>
             </md-menu-content>
         </md-menu>

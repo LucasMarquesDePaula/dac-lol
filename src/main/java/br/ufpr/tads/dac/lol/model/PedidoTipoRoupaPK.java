@@ -9,28 +9,37 @@ import javax.persistence.*;
  */
 @Embeddable
 public class PedidoTipoRoupaPK implements Serializable {
-	//default serial version id, required for serializable classes.
+	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
+	@ManyToOne
+	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
-	private TipoRoupa tipoRoupa;
 
+	@ManyToOne
+	@JoinColumn(name = "tipoRoupa_id")
+	private TipoRoupa tipoRoupa;
+	
 	public PedidoTipoRoupaPK() {
 	}
+
+	
 	public Pedido getPedido() {
 		return this.pedido;
 	}
+
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
+
 	public TipoRoupa getTipoRoupa() {
 		return this.tipoRoupa;
 	}
+
 	public void setTipoRoupa(TipoRoupa tipoRoupa) {
 		this.tipoRoupa = tipoRoupa;
 	}
 
-        @Override
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
@@ -38,19 +47,17 @@ public class PedidoTipoRoupaPK implements Serializable {
 		if (!(other instanceof PedidoTipoRoupaPK)) {
 			return false;
 		}
-		PedidoTipoRoupaPK castOther = (PedidoTipoRoupaPK)other;
-		return 
-			(this.pedido.equals(castOther.pedido))
-			&& (this.tipoRoupa.equals(castOther.tipoRoupa));
+		PedidoTipoRoupaPK castOther = (PedidoTipoRoupaPK) other;
+		return (this.getPedido().getId() == castOther.getPedido().getId())
+				&& (this.getTipoRoupa().getId() == castOther.getTipoRoupa().getId());
 	}
 
-        @Override
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.pedido.getId();
-		hash = hash * prime + this.tipoRoupa.getId();
-		
+		hash = hash * prime + this.getPedido().getId();
+		hash = hash * prime + this.getTipoRoupa().getId();
+
 		return hash;
 	}
 }

@@ -9,70 +9,74 @@ import org.hibernate.Transaction;
 
 public abstract class Dao<E> {
 
-	private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-	private static Session session;
+    private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private static Session session;
 
-	private final Class<E> entityClass;
+    private final Class<E> entityClass;
 
-	public Dao(Class<E> entityClass) {
-		this.entityClass = entityClass;
-	}
+    public Dao(Class<E> entityClass) {
+        this.entityClass = entityClass;
+    }
 
-	public static Session getSession() {
-		if (session == null) {
-			session = sessionFactory.openSession();
-		}
-		return session;
+    public static Session getSession() {
+        if (session == null) {
+            session = sessionFactory.openSession();
+        }
+        return session;
 
-	}
+    }
 
-	public Transaction beginTransaction() {
-		return getSession().beginTransaction();
-	}
-	
-	public void commit() {
-		getSession().getTransaction().commit();
-	}
-	
-	public E findById(Serializable id) {
-		return (E) getSession().get(this.entityClass, id);
-	}
+    public Transaction beginTransaction() {
+        return getSession().beginTransaction();
+    }
 
-	public E save(E entity) {
-		getSession().save(entity);
-		return entity;
-	}
+    public void commit() {
+        getSession().getTransaction().commit();
+    }
 
-	public E update(E entity) {
-		getSession().save(entity);
-		return entity;
-	}
+    public void rollback() {
+        getSession().getTransaction().rollback();
+    }
 
-	public void delete(E entity) {
-		getSession().delete(entity);
-	}
+    public E findById(Serializable id) {
+        return (E) getSession().get(this.entityClass, id);
+    }
 
-	public void deleteAll() {
-		List<E> entities = findAll();
-		for (E entity : entities) {
-			getSession().delete(entity);
-		}
-	}
+    public E save(E entity) {
+        getSession().save(entity);
+        return entity;
+    }
 
-	public List<E> findAll() {
-		return getSession().createCriteria(this.entityClass).list();
-	}
+    public E update(E entity) {
+        getSession().save(entity);
+        return entity;
+    }
 
-	public Criteria createCriteria() {
-		return getSession().createCriteria(this.entityClass);
-	}
+    public void delete(E entity) {
+        getSession().delete(entity);
+    }
 
-	public void clear() {
-		getSession().clear();
-	}
+    public void deleteAll() {
+        List<E> entities = findAll();
+        for (E entity : entities) {
+            getSession().delete(entity);
+        }
+    }
 
-	public void flush() {
-		getSession().flush();
-	}
+    public List<E> findAll() {
+        return getSession().createCriteria(this.entityClass).list();
+    }
+
+    public Criteria createCriteria() {
+        return getSession().createCriteria(this.entityClass);
+    }
+
+    public void clear() {
+        getSession().clear();
+    }
+
+    public void flush() {
+        getSession().flush();
+    }
 
 }

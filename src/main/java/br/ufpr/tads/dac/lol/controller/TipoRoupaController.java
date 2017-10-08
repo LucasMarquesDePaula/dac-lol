@@ -5,72 +5,38 @@
  */
 package br.ufpr.tads.dac.lol.controller;
 
+import br.ufpr.tads.dac.lol.facede.CrudFacede;
+import br.ufpr.tads.dac.lol.facede.TipoRoupaFacede;
+import br.ufpr.tads.dac.lol.model.TipoRoupa;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Lucas
  */
-@WebServlet(name = "TipoRoupaController", urlPatterns = {"/tipo-roupa"})
-public class TipoRoupaController extends Controller {
+@WebServlet(name = "TipoRoupaController", urlPatterns = {"/tipo-roupa/*"})
+public class TipoRoupaController extends CrudController<TipoRoupa> {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath("login/form.jsp"));
-        requestDispatcher.forward(request, response);
+    private static final Logger logger = LoggerFactory.getLogger(TipoRoupaController.class);
+
+    @Override
+    protected Logger getLogger() {
+        return logger;
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected TipoRoupa getModel() {
+        return new TipoRoupa();
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected CrudFacede<TipoRoupa> getFacede() {
+        return new TipoRoupaFacede();
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

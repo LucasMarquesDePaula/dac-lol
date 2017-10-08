@@ -4,11 +4,11 @@ import br.ufpr.tads.dac.lol.dao.Dao;
 import br.ufpr.tads.dac.lol.model.Model;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +22,10 @@ public abstract class CrudFacede<T extends Model> {
 
     protected abstract Dao<T> getDao();
 
+    protected abstract void beforeSave(T model, Dao<T> dao) throws ValidationException;
+
+    protected abstract void beforeDelete(T model, Dao<T> dao) throws IllegalOperationException;
+
     public T find(Serializable id) throws NotFoundException {
         try {
             T model = getDao().findById(id);
@@ -29,50 +33,92 @@ public abstract class CrudFacede<T extends Model> {
                 throw new NotFoundException();
             }
             return model;
-        } catch (Exception e) {
+        } catch (NotFoundException e) {
             logger.error("", e);
             throw new NotFoundException(e.getMessage());
         }
     }
 
-    public void save(T model) throws IllegalOperationException {
+    public void save(T model) throws ValidationException {
+        Dao<T> dao = getDao();
         try {
-            Dao<T> dao = getDao();
             dao.beginTransaction();
+            beforeSave(model, dao);
             dao.save(model);
             dao.commit();
-        } catch (Exception e) {
-        	logger.error("", e);
-            throw new IllegalOperationException(e.getMessage());
+        } finally {
+            try {
+                dao.rollback();
+            } catch (Exception ex) {
+            }
         }
     }
 
-    public List<T> list(int limit, int offset) {
-        return getDao()
-                .createCriteria()
-                .setFirstResult(offset)
-                .setMaxResults(limit)
-                .list();
-    }
+    @SuppressWarnings("unchecked")
+    public QueryReturn<T> list(Example example, Integer limit, Integer offset, Map<String, String> sort) {
+        Criteria criteria = getDao().createCriteria();
 
-    public List<T> list(Example example, int limit, int offset) {
-        return (List<T>)getDao()
-        		.createCriteria()
-                .add(example)
-                .setFirstResult(offset)
-                .setMaxResults(limit)
-                .list();
+        if (example != null) {
+            criteria.add(example);
+        }
+        if (limit != null) {
+            criteria.setMaxResults(limit);
+        }
+        if (offset != null) {
+            criteria.setFirstResult(offset);
+        }
+
+        if (sort != null) {
+            sort.entrySet().forEach((Map.Entry<String, String> entry) -> {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                if ("desc".equals(value)) {
+                    criteria.addOrder(Order.desc(key));
+                } else {
+                    criteria.addOrder(Order.asc(key));
+                }
+            });
+        }
+
+        List<T> list = (List<T>) criteria.list();
+
+        criteria.setProjection(Projections.rowCount());
+        Long count = (Long) criteria.uniqueResult();
+
+        return new QueryReturn<>(count == null ? 0L : count, list);
     }
 
     public void delete(T model) throws IllegalOperationException {
+        Dao<T> dao = getDao();
         try {
-            Dao<T> dao = getDao();
             dao.beginTransaction();
+            beforeDelete(model, dao);
             dao.delete(model);
             dao.commit();
-        } catch (Exception e) {
-        	logger.error("", e);
-            throw new IllegalOperationException(e.getMessage());
+        } finally {
+            try {
+                dao.rollback();
+            } catch (Exception ex) {
+            }
+        }
+    }
+
+    public class QueryReturn<T> {
+
+        private final long count;
+        private final List<T> list;
+
+        protected QueryReturn(long count, List<T> list) {
+            this.count = count;
+            this.list = list;
+        }
+
+        public long getCount() {
+            return count;
+        }
+
+        public List<T> getList() {
+            return list;
         }
     }
 }

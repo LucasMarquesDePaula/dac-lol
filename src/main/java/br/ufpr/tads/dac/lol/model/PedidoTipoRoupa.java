@@ -4,33 +4,23 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
 /**
  * The persistent class for the pedido_tipo_roupa database table.
  * 
  */
 @Entity
-@Table(name="pedido_tipo_roupa")
-@NamedQuery(name="PedidoTipoRoupa.findAll", query="SELECT p FROM PedidoTipoRoupa p")
-public class PedidoTipoRoupa implements Serializable {
+@Table(name = "pedido_tipo_roupa")
+@NamedQuery(name = "PedidoTipoRoupa.findAll", query = "SELECT p FROM PedidoTipoRoupa p")
+public class PedidoTipoRoupa extends Model<PedidoTipoRoupaPK> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private PedidoTipoRoupaPK id;
 
-	private int quantidade;
+	private Integer quantidade;
 
-	@Column(name="valor_unitario")
+	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
-
-	//bi-directional many-to-one association to Pedido
-	@ManyToOne
-	private Pedido pedido;
-
-	//bi-directional many-to-one association to TipoRoupa
-	@ManyToOne
-	@JoinColumn(name="tipo_roupa_id")
-	private TipoRoupa tipoRoupa;
 
 	public PedidoTipoRoupa() {
 	}
@@ -43,11 +33,11 @@ public class PedidoTipoRoupa implements Serializable {
 		this.id = id;
 	}
 
-	public int getQuantidade() {
+	public Integer getQuantidade() {
 		return this.quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
@@ -59,20 +49,22 @@ public class PedidoTipoRoupa implements Serializable {
 		this.valorUnitario = valorUnitario;
 	}
 
+	@Transient
 	public Pedido getPedido() {
-		return this.pedido;
+		return this.getId().getPedido();
 	}
 
 	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+		this.getId().setPedido(pedido);
 	}
 
+	@Transient
 	public TipoRoupa getTipoRoupa() {
-		return this.tipoRoupa;
+		return this.getId().getTipoRoupa();
 	}
 
 	public void setTipoRoupa(TipoRoupa tipoRoupa) {
-		this.tipoRoupa = tipoRoupa;
+		this.getId().setTipoRoupa(tipoRoupa);
 	}
 
 }

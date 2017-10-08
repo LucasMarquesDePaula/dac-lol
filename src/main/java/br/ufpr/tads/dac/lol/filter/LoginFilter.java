@@ -19,29 +19,26 @@ import javax.servlet.http.HttpSession;
 @WebFilter("/*")
 public class LoginFilter implements Filter {
 
-//    private final static Logger logger = Logger.getLogger(LoginFilter.class.getName());
-
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) res;
-        HttpSession session = request.getSession(false);
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
+        HttpSession session = ((HttpServletRequest) request).getSession(false);
 
-        String contextPath = request.getContextPath();
-        String requestURI = request.getRequestURI();
+        String contextPath = ((HttpServletRequest) request).getContextPath();
+        String requestURI = ((HttpServletRequest) request).getRequestURI();
         String loginURI = String.format("%s/login", contextPath);
 
-        boolean loggedIn = session != null && session.getAttribute("user") != null;
+        boolean loggedIn = session != null && session.getAttribute("accessLevel") != null;
         boolean loginRequest = requestURI.equals(loginURI);
         boolean staticRequest = requestURI.startsWith(String.format("%s/static/", contextPath));
+        boolean publicRequest = requestURI.startsWith(String.format("%s/public/", contextPath));
 
-        if (loggedIn || loginRequest || staticRequest || true) {
-//            logger.log(Level.FINEST, String.format("Logged: [%s]", session != null ? session.getAttribute("user") : ""));
-            chain.doFilter(req, res);
-        } else {
-//            logger.log(Level.FINEST, String.format("Redirect: [%s]", loginURI));
-            response.sendRedirect(loginURI);
+        if (loggedIn || loginRequest || staticRequest || publicRequest) {
+            chain.doFilter(request, response);
+            return;
         }
+
+        ((HttpServletResponse) response).sendRedirect(loginURI);
+
     }
 
     @Override

@@ -1,14 +1,21 @@
 package br.ufpr.tads.dac.lol.facede;
 
-public class IllegalOperationException extends Exception {
-	private static final long serialVersionUID = 1L;
-	
-	public IllegalOperationException() {		
-	}
+import java.util.Map;
 
-	
-	public IllegalOperationException(String message) {
-	 super(message);	
-	}
+/**
+ *
+ * @author Lucas
+ */
+class IllegalOperationException extends FacedeException {
+    public IllegalOperationException() {
+        super();
+    }
+
+    public IllegalOperationException(String message) {
+        super(message);
+    }
+
+    public IllegalOperationException(String message, Map<String, String> messages) {
+        super(message, messages);
+    }
 }
-

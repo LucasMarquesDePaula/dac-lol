@@ -9,7 +9,7 @@
     <property name="hibernate.connection.password">@dac</property>
     <property name="javax.persistence.validation.mode">NONE</property>
     <mapping class="br.ufpr.tads.dac.lol.model.Cliente"/>
-    <mapping resource="mapping/Cliente.hbm.xml"/>
+    <mapping resource="./mapping/Cliente.hbm.xml"/>
     <mapping class="br.ufpr.tads.dac.lol.model.Funcionario"/>
     <mapping class="br.ufpr.tads.dac.lol.model.Pedido"/>
     <mapping class="br.ufpr.tads.dac.lol.model.PedidoTipoRoupa"/>

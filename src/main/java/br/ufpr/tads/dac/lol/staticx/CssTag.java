@@ -19,7 +19,7 @@ public class CssTag extends StaticTag {
     String out() {
         String res = getRes();
         if (res != null) {
-            return String.format("<link type=\"text/css\"rel=\"stylesheet\" href=\"%s/%s\">", getBase(), res);
+            return String.format("<link type=\"text/css\" rel=\"stylesheet\" href=\"%s/%s\" />", getBase(), res);
         }
         return String.format("<style type=\"text/css\">\n%s\n</style>", getBody());
     }

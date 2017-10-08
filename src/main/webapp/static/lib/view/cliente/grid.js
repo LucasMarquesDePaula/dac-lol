@@ -1,4 +1,9 @@
 const app = new Vue({
-  el: "#app"
+  el: "#app",
+  methods: {
+      onPagination() {
+          console.log(arguments);
+      }
+  }
 });
 

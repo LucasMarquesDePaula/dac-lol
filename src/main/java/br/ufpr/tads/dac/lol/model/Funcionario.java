@@ -5,144 +5,164 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the funcionario database table.
- * 
+ *
  */
 @Entity
-@NamedQuery(name="Funcionario.findAll", query="SELECT f FROM Funcionario f")
-public class Funcionario implements Serializable {
-	private static final long serialVersionUID = 1L;
+@NamedQuery(name = "Funcionario.findAll", query = "SELECT f FROM Funcionario f")
+public class Funcionario extends Model<Integer> implements Authenticable, Serializable {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+    private static final long serialVersionUID = 1L;
 
-	private Byte ativo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="data_nascimento")
-	private Date dataNascimento;
+    private byte ativo;
 
-	private String email;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "data_nascimento")
+    private Date dataNascimento;
 
-	@Lob
-	private byte[] foto;
+    private String email;
 
-	private String nome;
+    @Lob
+    private byte[] foto;
 
-	private String senha;
+    private String nome;
 
-	//bi-directional many-to-one association to Pedido
-	@OneToMany(mappedBy="funcionarioRealizacao")
-	private List<Pedido> pedidosRealizados;
+    private String senha;
 
-	//bi-directional many-to-one association to Pedido
-	@OneToMany(mappedBy="funcionarioPagamento")
-	private List<Pedido> pedidosPagamentos;
+    //bi-directional many-to-one association to Pedido
+    @OneToMany(mappedBy = "funcionarioRealizacao")
+    private List<Pedido> pedidosRealizados;
 
-	public Funcionario() {
-	}
+    //bi-directional many-to-one association to Pedido
+    @OneToMany(mappedBy = "funcionarioPagamento")
+    private List<Pedido> pedidosPagamentos;
 
-	public int getId() {
-		return this.id;
-	}
+    public Funcionario() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public byte getAtivo() {
-		return this.ativo;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setAtivo(byte ativo) {
-		this.ativo = ativo;
-	}
+    public byte getAtivo() {
+        return this.ativo;
+    }
 
-	public Date getDataNascimento() {
-		return this.dataNascimento;
-	}
+    public void setAtivo(byte ativo) {
+        this.ativo = ativo;
+    }
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
+    public Date getDataNascimento() {
+        return this.dataNascimento;
+    }
 
-	public String getEmail() {
-		return this.email;
-	}
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return this.email;
+    }
 
-	public byte[] getFoto() {
-		return this.foto;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setFoto(byte[] foto) {
-		this.foto = foto;
-	}
+    public byte[] getFoto() {
+        return this.foto;
+    }
 
-	public String getNome() {
-		return this.nome;
-	}
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getNome() {
+        return this.nome;
+    }
 
-	public String getSenha() {
-		return this.senha;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+    public String getSenha() {
+        return this.senha;
+    }
 
-	public List<Pedido> getPedidosRealizados() {
-		return this.pedidosRealizados;
-	}
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
-	public void setPedidosRealizados(List<Pedido> pedidosRealizados) {
-		this.pedidosRealizados = pedidosRealizados;
-	}
+    public List<Pedido> getPedidosRealizados() {
+        return this.pedidosRealizados;
+    }
 
-	public Pedido addPedidosRealizado(Pedido pedidosRealizado) {
-		getPedidosRealizados().add(pedidosRealizado);
-		pedidosRealizado.setFuncionarioRealizacao(this);
+    public void setPedidosRealizados(List<Pedido> pedidosRealizados) {
+        this.pedidosRealizados = pedidosRealizados;
+    }
 
-		return pedidosRealizado;
-	}
+    public Pedido addPedidosRealizado(Pedido pedidosRealizado) {
+        getPedidosRealizados().add(pedidosRealizado);
+        pedidosRealizado.setFuncionarioRealizacao(this);
 
-	public Pedido removePedidosRealizado(Pedido pedidosRealizado) {
-		getPedidosRealizados().remove(pedidosRealizado);
-		pedidosRealizado.setFuncionarioRealizacao(null);
+        return pedidosRealizado;
+    }
 
-		return pedidosRealizado;
-	}
+    public Pedido removePedidosRealizado(Pedido pedidosRealizado) {
+        getPedidosRealizados().remove(pedidosRealizado);
+        pedidosRealizado.setFuncionarioRealizacao(null);
 
-	public List<Pedido> getPedidosPagamentos() {
-		return this.pedidosPagamentos;
-	}
+        return pedidosRealizado;
+    }
 
-	public void setPedidosPagamentos(List<Pedido> pedidosPagamentos) {
-		this.pedidosPagamentos = pedidosPagamentos;
-	}
+    public List<Pedido> getPedidosPagamentos() {
+        return this.pedidosPagamentos;
+    }
 
-	public Pedido addPedidosPagamento(Pedido pedidosPagamento) {
-		getPedidosPagamentos().add(pedidosPagamento);
-		pedidosPagamento.setFuncionarioPagamento(this);
+    public void setPedidosPagamentos(List<Pedido> pedidosPagamentos) {
+        this.pedidosPagamentos = pedidosPagamentos;
+    }
 
-		return pedidosPagamento;
-	}
+    public Pedido addPedidosPagamento(Pedido pedidosPagamento) {
+        getPedidosPagamentos().add(pedidosPagamento);
+        pedidosPagamento.setFuncionarioPagamento(this);
 
-	public Pedido removePedidosPagamento(Pedido pedidosPagamento) {
-		getPedidosPagamentos().remove(pedidosPagamento);
-		pedidosPagamento.setFuncionarioPagamento(null);
+        return pedidosPagamento;
+    }
 
-		return pedidosPagamento;
-	}
+    public Pedido removePedidosPagamento(Pedido pedidosPagamento) {
+        getPedidosPagamentos().remove(pedidosPagamento);
+        pedidosPagamento.setFuncionarioPagamento(null);
+
+        return pedidosPagamento;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getEmail();
+    }
+
+    @Override
+    public void setUsername(String userName) {
+        this.setEmail(userName);
+    }
+
+    @Override
+    public String getPassword() {
+        return this.getSenha();
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.setSenha(Authenticable.Util.generateHash(String.format("#%d~!~%s", this.getId(), password)));
+    }
 
 }
