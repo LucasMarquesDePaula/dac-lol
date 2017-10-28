@@ -27,8 +27,7 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
 
     private String email;
 
-    @Lob
-    private byte[] foto;
+    private String foto;
 
     private String nome;
 
@@ -45,10 +44,12 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
     public Funcionario() {
     }
 
+    @Override
     public Integer getId() {
         return this.id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -77,11 +78,11 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
         this.email = email;
     }
 
-    public byte[] getFoto() {
+    public String getFoto() {
         return this.foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 

@@ -1,5 +1,6 @@
 package br.ufpr.tads.dac.lol.dao;
 
+import br.ufpr.tads.dac.lol.model.Model;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -7,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public abstract class Dao<E> {
+public abstract class Dao<E extends Model> {
 
     private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private static Session session;
@@ -43,12 +44,11 @@ public abstract class Dao<E> {
     }
 
     public E save(E entity) {
-        getSession().save(entity);
-        return entity;
-    }
-
-    public E update(E entity) {
-        getSession().save(entity);
+        if (entity.getId() == null) {
+            getSession().persist(entity);
+        } else {
+            getSession().merge(entity);
+        }
         return entity;
     }
 

@@ -46,25 +46,32 @@ public abstract class CrudFacede<T extends Model> {
             beforeSave(model, dao);
             dao.save(model);
             dao.commit();
-        } finally {
+        } catch (ValidationException ve) {
             try {
                 dao.rollback();
             } catch (Exception ex) {
             }
+            try {
+                dao.flush();
+            } catch (Exception ex) {
+            }
+            throw ve;
         }
     }
 
     @SuppressWarnings("unchecked")
-    public QueryReturn<T> list(Example example, Integer limit, Integer offset, Map<String, String> sort) {
+    public QueryResult<T> list(Example example, Integer limit, Integer offset, Map<String, String> sort) {
         Criteria criteria = getDao().createCriteria();
+        Criteria criteriaCount = getDao().createCriteria();
 
         if (example != null) {
             criteria.add(example);
+            criteriaCount.add(example);
         }
-        if (limit != null) {
+        if (limit != null && limit > 0) {
             criteria.setMaxResults(limit);
         }
-        if (offset != null) {
+        if (offset != null && offset > 0) {
             criteria.setFirstResult(offset);
         }
 
@@ -82,10 +89,10 @@ public abstract class CrudFacede<T extends Model> {
 
         List<T> list = (List<T>) criteria.list();
 
-        criteria.setProjection(Projections.rowCount());
-        Long count = (Long) criteria.uniqueResult();
+        criteriaCount.setProjection(Projections.rowCount());
+        Long count = (Long) criteriaCount.uniqueResult();
 
-        return new QueryReturn<>(count == null ? 0L : count, list);
+        return new QueryResult<>(count == null ? 0L : count, list);
     }
 
     public void delete(T model) throws IllegalOperationException {
@@ -95,6 +102,8 @@ public abstract class CrudFacede<T extends Model> {
             beforeDelete(model, dao);
             dao.delete(model);
             dao.commit();
+        } catch (Exception ex) {
+            dao.flush();
         } finally {
             try {
                 dao.rollback();
@@ -103,12 +112,12 @@ public abstract class CrudFacede<T extends Model> {
         }
     }
 
-    public class QueryReturn<T> {
+    public class QueryResult<T> {
 
         private final long count;
         private final List<T> list;
 
-        protected QueryReturn(long count, List<T> list) {
+        protected QueryResult(long count, List<T> list) {
             this.count = count;
             this.list = list;
         }

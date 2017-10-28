@@ -6,7 +6,7 @@ import java.util.Map;
  *
  * @author Lucas
  */
-class IllegalOperationException extends FacedeException {
+public class IllegalOperationException extends FacedeException {
     public IllegalOperationException() {
         super();
     }

@@ -1,87 +1,52 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufpr.tads.dac.lol.controller;
 
-import static br.ufpr.tads.dac.lol.controller.Controller.viewPath;
+import br.ufpr.tads.dac.lol.facede.CrudFacede;
+import br.ufpr.tads.dac.lol.facede.PedidoFacede;
+import br.ufpr.tads.dac.lol.model.Pedido;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Lucas
  */
 @WebServlet(name = "PedidoController", urlPatterns = {"/pedido"})
-public class PedidoController extends Controller {
+public class PedidoController extends CrudController<Pedido> {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private static Logger logger = LoggerFactory.getLogger(PedidoController.class);
 
-        String viewName = "" + request.getParameter("v");
-        switch (viewName) {
-            case "form":
-                request.getRequestDispatcher(viewPath("pedido/form.jsp"))
-                        .forward(request, response);
-                break;
-            default:
-                request.getRequestDispatcher(viewPath("pedido/grid.jsp"))
-                        .forward(request, response);
-        }
-
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        super.doGet(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        super.doPost(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected Logger getLogger() {
+        return logger;
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    protected Pedido getModel() {
+        return new Pedido();
+    }
 
+    @Override
+    protected CrudFacede<Pedido> getFacede() {
+        return new PedidoFacede();
+    }
+
+    @Override
+    protected String getBasePath() {
+        return "pedido";
+    }
 }

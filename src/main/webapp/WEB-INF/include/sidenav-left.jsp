@@ -28,6 +28,38 @@
                 </md-list>
             </md-list-expand>
         </md-list-item>
+        <md-list-item>
+            <md-icon>person</md-icon>
+            <span>Funcionario</span>
+            <md-list-expand>
+                <md-list>
+                    <md-list-item class="md-inset" href="/lol/funcionario/grid" >
+                        <span>Listar</span>
+                        <md-icon>list</md-icon> 
+                    </md-list-item>
+                    <md-list-item class="md-inset" href="/lol/funcionario/form" >
+                        <span>Adicionar</span>
+                        <md-icon>add</md-icon> 
+                    </md-list-item>
+                </md-list>
+            </md-list-expand>
+        </md-list-item>
+        <md-list-item>
+            <md-icon>local laundry service</md-icon>
+            <span>Tipo de Roupa</span>
+            <md-list-expand>
+                <md-list>
+                    <md-list-item class="md-inset" href="/lol/tipo-roupa/grid" >
+                        <span>Listar</span>
+                        <md-icon>list</md-icon> 
+                    </md-list-item>
+                    <md-list-item class="md-inset" href="/lol/tipo-roupa/form" >
+                        <span>Adicionar</span>
+                        <md-icon>add</md-icon> 
+                    </md-list-item>
+                </md-list>
+            </md-list-expand>
+        </md-list-item>
     </md-list>
 </md-sidenav>
 <st:js res="include/sidenav-left/sidenav-left.js"/>

@@ -20,7 +20,7 @@ public class TipoRoupa extends Model<Integer> implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	private byte ativo;
+	private Byte ativo;
 
 	private String descricao;
 
@@ -47,11 +47,11 @@ public class TipoRoupa extends Model<Integer> implements Serializable {
 		this.id = id;
 	}
 
-	public byte getAtivo() {
+	public Byte getAtivo() {
 		return this.ativo;
 	}
 
-	public void setAtivo(byte ativo) {
+	public void setAtivo(Byte ativo) {
 		this.ativo = ativo;
 	}
 

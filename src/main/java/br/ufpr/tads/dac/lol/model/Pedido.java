@@ -19,7 +19,7 @@ public class Pedido extends Model<Integer> implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	private byte cancelado;
+	private Byte cancelado;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_hora_cadastro")
@@ -53,12 +53,12 @@ public class Pedido extends Model<Integer> implements Serializable {
 	private String enderecoEntrega;
 
 	@Column(name="entrega_frustrada")
-	private byte entregaFrustrada;
+	private Byte entregaFrustrada;
 
 	@Column(name="entrega_frustrada_justificativa")
 	private String entregaFrustradaJustificativa;
 
-	private byte entregue;
+	private Byte entregue;
 
 	@Column(name="observacao_cliente")
 	private String observacaoCliente;
@@ -67,13 +67,13 @@ public class Pedido extends Model<Integer> implements Serializable {
 	private String observacaoInterna;
 
 	@Column(name="orcamento_confirmado")
-	private byte orcamentoConfirmado;
+	private Byte orcamentoConfirmado;
 
-	private byte pago;
+	private Byte pago;
 
-	private byte realizado;
+	private Byte realizado;
 
-	private byte recebido;
+	private Byte recebido;
 
 	//bi-directional many-to-one association to Cliente
 	@ManyToOne
@@ -105,11 +105,11 @@ public class Pedido extends Model<Integer> implements Serializable {
 		this.id = id;
 	}
 
-	public byte getCancelado() {
+	public Byte getCancelado() {
 		return this.cancelado;
 	}
 
-	public void setCancelado(byte cancelado) {
+	public void setCancelado(Byte cancelado) {
 		this.cancelado = cancelado;
 	}
 
@@ -177,11 +177,11 @@ public class Pedido extends Model<Integer> implements Serializable {
 		this.enderecoEntrega = enderecoEntrega;
 	}
 
-	public byte getEntregaFrustrada() {
+	public Byte getEntregaFrustrada() {
 		return this.entregaFrustrada;
 	}
 
-	public void setEntregaFrustrada(byte entregaFrustrada) {
+	public void setEntregaFrustrada(Byte entregaFrustrada) {
 		this.entregaFrustrada = entregaFrustrada;
 	}
 
@@ -193,11 +193,11 @@ public class Pedido extends Model<Integer> implements Serializable {
 		this.entregaFrustradaJustificativa = entregaFrustradaJustificativa;
 	}
 
-	public byte getEntregue() {
+	public Byte getEntregue() {
 		return this.entregue;
 	}
 
-	public void setEntregue(byte entregue) {
+	public void setEntregue(Byte entregue) {
 		this.entregue = entregue;
 	}
 
@@ -217,35 +217,35 @@ public class Pedido extends Model<Integer> implements Serializable {
 		this.observacaoInterna = observacaoInterna;
 	}
 
-	public byte getOrcamentoConfirmado() {
+	public Byte getOrcamentoConfirmado() {
 		return this.orcamentoConfirmado;
 	}
 
-	public void setOrcamentoConfirmado(byte orcamentoConfirmado) {
+	public void setOrcamentoConfirmado(Byte orcamentoConfirmado) {
 		this.orcamentoConfirmado = orcamentoConfirmado;
 	}
 
-	public byte getPago() {
+	public Byte getPago() {
 		return this.pago;
 	}
 
-	public void setPago(byte pago) {
+	public void setPago(Byte pago) {
 		this.pago = pago;
 	}
 
-	public byte getRealizado() {
+	public Byte getRealizado() {
 		return this.realizado;
 	}
 
-	public void setRealizado(byte realizado) {
+	public void setRealizado(Byte realizado) {
 		this.realizado = realizado;
 	}
 
-	public byte getRecebido() {
+	public Byte getRecebido() {
 		return this.recebido;
 	}
 
-	public void setRecebido(byte recebido) {
+	public void setRecebido(Byte recebido) {
 		this.recebido = recebido;
 	}
 

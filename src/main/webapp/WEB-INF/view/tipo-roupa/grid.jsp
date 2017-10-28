@@ -3,7 +3,7 @@
 <%@ taglib prefix = "st" uri = "/WEB-INF/static.tld" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="title" value="Clientes"/>
+<c:set var="title" value="Tipos de Roupa"/>
 
 <!DOCTYPE html>
 <html>
@@ -23,6 +23,12 @@
                     <md-table-card>
                         <form>
                             <md-layout :md-gutter="true">
+                                <md-layout md-flex="10">
+                                    <md-input-container>
+                                        <label>Código</label>
+                                        <md-input name="id" value="${param.id}"></md-input>
+                                    </md-input-container>
+                                </md-layout>
                                 <md-layout md-flex="30">
                                     <md-input-container>
                                         <label>Nome</label>
@@ -31,20 +37,14 @@
                                 </md-layout>
                                 <md-layout md-flex="20">
                                     <md-input-container>
+                                        <label>Data Nascimento</label>
+                                        <md-input name="dataNascimento" type="date" value="<fmt:formatDate value="${param.dataNascimento}" pattern="yyyy-MM-dd"/>"></md-input>
+                                    </md-input-container>
+                                </md-layout>
+                                <md-layout md-flex="20">
+                                    <md-input-container>
                                         <label>E-mail</label>
                                         <md-input name="email" value="${param.email}"></md-input>
-                                    </md-input-container>
-                                </md-layout>
-                                <md-layout md-flex="20">
-                                    <md-input-container>
-                                        <label>CPF</label>
-                                        <md-input name="cpf" value="${param.cpf}"></md-input>
-                                    </md-input-container>
-                                </md-layout>
-                                <md-layout md-flex="20">
-                                    <md-input-container>
-                                        <label>Endereço</label>
-                                        <md-input name="endereco" value="${param.endereco}"></md-input>
                                     </md-input-container>
                                 </md-layout>
                                 <md-layout md-flex="10">
@@ -59,27 +59,21 @@
                         <md-table @sort="onSort" md-sort="${param.sortField}" md-sort-type="${param.sortDirection}">
                             <md-table-header>
                                 <md-table-row>
-                                    <md-table-head></md-table-head>
                                     <md-table-head md-sort-by="id">Cód.</md-table-head>
                                     <md-table-head md-sort-by="nome">Nome</md-table-head>
-                                    <md-table-head md-sort-by="cpf">CPF</md-table-head>
-                                    <md-table-head md-sort-by="email">E-mail</md-table-head>
-                                    <md-table-head md-sort-by="endereco">Endereço</md-table-head>
+                                    <md-table-head md-sort-by="descricao">Descrição</md-table-head>
+                                    <md-table-head md-sort-by="prazoLavagem">Prazo</md-table-head>
+                                    <md-table-head md-sort-by="precoLavagem">Preço</md-table-head>                                    
                                 </md-table-row>
                             </md-table-header>
                             <md-table-body>
                                 <c:forEach var="item" items="${queryResult.list}">
                                     <md-table-row>
-                                        <md-table-cell>
-                                            <md-avatar>
-                                                <img src="${item.foto}" alt="Foto">
-                                            </md-avatar>
-                                        </md-table-cell>
                                         <md-table-cell><c:out value="${item.id}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.nome}"/></md-table-cell>
-                                        <md-table-cell><c:out value="${item.cpf}"/></md-table-cell>
-                                        <md-table-cell><c:out value="${item.email}"/></md-table-cell>
-                                        <md-table-cell><c:out value="${item.endereco}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${item.descricao}"/></md-table-cell>
+                                        <md-table-cell><fmt:formatNumber value="${item.prazoLavagem}"/></md-table-cell>
+                                        <md-table-cell><fmt:formatNumber value="${item.precoLavagem}" type="currency"/></md-table-cell>
                                         <md-table-cell>
                                             <md-button class="md-icon-button" href="${contextPath}/${basePath}/form/${item.id}" target="_blank">
                                                 <md-icon>edit</md-icon>
@@ -91,7 +85,7 @@
                         </md-table>
                         <div class="md-table-pagination">
                             <span class="md-table-pagination-label">Nº de Linhas: </span>
-                            <span>${offset + 1} - ${offset + limit > queryResult.count ? queryResult.count : offset + limit} de ${queryResult.count}</span>
+                            <span>${offset} - ${offset + limit > queryResult.count ? queryResult.count : offset + limit} de ${queryResult.count}</span>
                             <md-button class="md-icon-button" @click="prevPage(${limit}, ${offset}, ${queryResult.count})"  :disabled="${offset <= 0}">
                                 <md-icon>keyboard_arrow_left</md-icon>
                             </md-button>
@@ -103,6 +97,6 @@
                 </md-layout>
             </md-layout>
         </div>
-        <st:js res="view/cliente/grid.js"/>
+        <st:js res="view/${basePath}/grid.js"/>
     </body>
 </html>

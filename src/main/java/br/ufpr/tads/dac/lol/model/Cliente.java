@@ -18,7 +18,7 @@ public class Cliente extends Model<Integer> implements Authenticable, Serializab
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private byte ativo;
+    private Byte ativo;
 
     @Column(unique = true)
     private String cpf;
@@ -28,8 +28,7 @@ public class Cliente extends Model<Integer> implements Authenticable, Serializab
 
     private String endereco;
 
-    @Lob
-    private byte[] foto;
+    private String foto;
 
     private String nome;
 
@@ -56,11 +55,11 @@ public class Cliente extends Model<Integer> implements Authenticable, Serializab
         this.id = id;
     }
 
-    public byte getAtivo() {
+    public Byte getAtivo() {
         return this.ativo;
     }
 
-    public void setAtivo(byte ativo) {
+    public void setAtivo(Byte ativo) {
         this.ativo = ativo;
     }
 
@@ -88,11 +87,11 @@ public class Cliente extends Model<Integer> implements Authenticable, Serializab
         this.endereco = endereco;
     }
 
-    public byte[] getFoto() {
+    public String getFoto() {
         return this.foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 

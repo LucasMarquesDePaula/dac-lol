@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufpr.tads.dac.lol.controller;
 
 import br.ufpr.tads.dac.lol.facede.CrudFacede;
@@ -26,6 +21,16 @@ public class TipoRoupaController extends CrudController<TipoRoupa> {
     private static final Logger logger = LoggerFactory.getLogger(TipoRoupaController.class);
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        super.doGet(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        super.doPost(request, response);
+    }
+
+    @Override
     protected Logger getLogger() {
         return logger;
     }
@@ -38,5 +43,10 @@ public class TipoRoupaController extends CrudController<TipoRoupa> {
     @Override
     protected CrudFacede<TipoRoupa> getFacede() {
         return new TipoRoupaFacede();
+    }
+
+    @Override
+    protected String getBasePath() {
+        return "tipo-roupa";
     }
 }
