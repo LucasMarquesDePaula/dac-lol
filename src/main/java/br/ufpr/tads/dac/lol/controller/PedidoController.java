@@ -2,6 +2,7 @@ package br.ufpr.tads.dac.lol.controller;
 
 import br.ufpr.tads.dac.lol.facede.CrudFacede;
 import br.ufpr.tads.dac.lol.facede.PedidoFacede;
+import br.ufpr.tads.dac.lol.model.Cliente;
 import br.ufpr.tads.dac.lol.model.Pedido;
 import java.io.IOException;
 import java.util.Date;
@@ -52,6 +53,12 @@ public class PedidoController extends CrudController<Pedido> {
         super.doPost(request, response);
     }
 
+    @Override
+    protected void beforeCreate(HttpServletRequest request, HttpServletResponse response, Pedido model) {
+        model.setDataHoraCadastro(new Date());
+        model.setCliente((Cliente)request.getSession().getAttribute("authenticable"));
+    }    
+    
     @Override
     protected Logger getLogger() {
         return logger;

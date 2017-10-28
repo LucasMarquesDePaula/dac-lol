@@ -1,106 +1,73 @@
 <%-- 
     Document   : form
-    Created on : 23/09/2017, 19:51:12
+    Created on : 30/09/2017, 21:10:44
     Author     : Lucas
 --%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="st" uri="/WEB-INF/static.tld"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix = "st" uri = "/WEB-INF/static.tld" %>
-
-<c:set var="title" value="Pedidos"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="title" value="Novo Pedido" />
 
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title><c:out value="${title}"/></title>
-        <jsp:include page="../../include/vue-material.jsp" />
-        <st:css res="page/pedido/form.css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title><c:out value="${title}" /></title>
+        <jsp:include page="../../include/vue-material.jsp"/>
+        <st:css res="view/${basePath}/form.css" />
     </head>
     <body>
-
+        <jsp:include page="../../include/layout.jsp">
+            <jsp:param name="title" value="${title}" />
+        </jsp:include>
         <div id="app">
             <md-layout md-align="center">
                 <md-layout md-flex="66">
-                    <md-table-card>
-                        <form>
-                            <md-layout :md-gutter="true">
-                                <md-layout>
-                                    <md-input-container>
-                                        <label>Tipo de Roupa</label>
-                                        <md-select>
-                                            <md-option value="camiseta">Camiseta</md-option>
-                                            <md-option value="jaqueta">Jaqueta</md-option>
-                                            <md-option value="moletom">Moletom</md-option>
-                                        </md-select>
-                                    </md-input-container>
+                    <c:if test="${!empty message}">
+                        <md-card class="${messages == null || messages.length == 0 ? 'md-primary' : 'md-warn'}">
+                            <md-card-header>
+                                <div class="md-title">${message}</div>
+                            </md-card-header>
+                        </md-card>
+                    </c:if>
+                    <md-card>
+                        <form method="POST" action='${contextPath}/${basePath}/${empty model.id ? "create" : "update"}/${model.id}' accept-charset="ISO-8859-1">
+                            <md-card-content>
+                                <md-layout :md-gutter="true">
+                                    <md-layout md-flex="100">
+                                        <md-input-container class="${empty messages.enderecoEntrega ? '' : 'md-input-invalid'}">
+                                            <label>Endereço</label>
+                                            <md-input name="enderecoEntrega" :required="true" value="${model.enderecoEntrega}"></md-input>
+                                            <span class="md-error"><c:out value="${messages.enderecoEntrega}"/></span>
+                                        </md-input-container>
+                                    </md-layout>
                                 </md-layout>
-                                <md-layout>
-                                    <md-input-container>
-                                        <label>Tecido</label>
-                                        <md-select name="filtro">
-                                            <md-option value="alg">Algodão</md-option>
-                                            <md-option value="jeans">Jeans</md-option>
-                                            <md-option value="seda">Seda</md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                </md-layout>
-                            </md-layout>
 
-                            <md-layout :md-gutter="true">
-                                <md-layout>
-                                    <md-input-container>
-                                        <label>Quatidade</label>
-                                        <md-input type="number"></md-input>
-                                    </md-input-container>
+                                <md-layout :md-gutter="true">
+                                    <md-layout md-flex="100">
+                                        <md-input-container class="${empty messages.observacaoCliente ? '' : 'md-input-invalid'}">
+                                            <label>Observação</label>
+                                            <md-input name="observacaoCliente" :required="false" value="${model.observacaoCliente}"></md-input>
+                                            <span class="md-error"><c:out value="${messages.observacaoCliente}"/></span>
+                                        </md-input-container>
+                                    </md-layout>
                                 </md-layout>
-                                <md-layout>
-                                    <md-input-container>
-                                        <label>Observações</label>
-                                        <md-input></md-input>
-                                    </md-input-container>
-                                </md-layout>
-                            </md-layout>
-                            <md-button class="md-add md-fab">
-                                <md-icon>add</md-icon>
-                            </md-button>
+
+                                <md-card-actions>
+                                    <md-button type="submit" class="md-fab md-fab-bottom-right">
+                                        <md-icon>save</md-icon>
+                                    </md-button>
+                                </md-card-actions>
+                            </md-card-content>
+
                         </form>
-
-                        <md-toolbar>
-                            <h1 class="md-title">Roupas adicionadas</h1>
-                        </md-toolbar>
-
-                        <md-table md-sort="name" md-sort-type="desc">
-                            <md-table-header>
-                                <md-table-row>
-                                    <md-table-head md-sort-by="roupa">Tipo de Roupa</md-table-head>
-                                    <md-table-head md-sort-by="tecido">Tecido</md-table-head>
-                                    <md-table-head md-sort-by="qtde">Quantidade</md-table-head>
-                                    <md-table-head md-sort-by="prazo">Prazo de Lavagem</md-table-head>
-                                    <md-table-head md-sort-by="preco">Preço</md-table-head>
-                                </md-table-row>
-                            </md-table-header>
-
-                            <md-table-body>
-                                <md-table-row v-for="(row, index) in 2" :key="index">
-                                    <md-table-cell>Camiseta</md-table-cell>
-                                    <md-table-cell>Algodão</md-table-cell>
-                                    <md-table-cell>5</md-table-cell>
-                                    <md-table-cell>01/01/1901</md-table-cell>
-                                    <md-table-cell>R$ 1,99</md-table-cell>
-                                </md-table-row>
-                            </md-table-body>
-                        </md-table>
-                        <md-card-actions>
-                            <md-button class="md-raised md-primary">Confirmar Pedido</md-button>
-                            <md-button class="md-raised md-primary">Cancelar Pedido</md-button>
-                        </md-card-actions>
-                    </md-table-card>
+                    </md-card>
                 </md-layout>
             </md-layout>
         </div>
-        <st:js res="page/pedido/form.js"/>
+        <st:js res="vue-the-mask/vue-the-mask.js"/>
+        <st:js res="view/${basePath}/form.js"/>
     </body>
 </html>
-

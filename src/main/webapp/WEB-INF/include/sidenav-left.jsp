@@ -8,7 +8,7 @@
 <md-sidenav id="sidenav-left" ref="self" class="md-left" :md-swipeable="true">
     <md-toolbar class="md-large">
         <div class="md-toolbar-container">
-            <h3 class="md-title">Sidenav content</h3>
+            <h3 class="md-title">Menu Principal</h3>
         </div>
     </md-toolbar>
     <md-list class="md-dense">
