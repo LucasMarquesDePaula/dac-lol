@@ -45,7 +45,7 @@
             </md-list-expand>
         </md-list-item>
         <md-list-item>
-            <md-icon>local laundry service</md-icon>
+            <md-icon>local_laundry_service</md-icon>
             <span>Tipo de Roupa</span>
             <md-list-expand>
                 <md-list>
@@ -54,6 +54,22 @@
                         <md-icon>list</md-icon> 
                     </md-list-item>
                     <md-list-item class="md-inset" href="/lol/tipo-roupa/form" >
+                        <span>Adicionar</span>
+                        <md-icon>add</md-icon> 
+                    </md-list-item>
+                </md-list>
+            </md-list-expand>
+        </md-list-item>
+        <md-list-item>
+            <md-icon>format_list_bulleted</md-icon>
+            <span>Pedido</span>
+            <md-list-expand>
+                <md-list>
+                    <md-list-item class="md-inset" href="/lol/pedido/grid" >
+                        <span>Listar</span>
+                        <md-icon>list</md-icon> 
+                    </md-list-item>
+                    <md-list-item class="md-inset" href="/lol/pedido/form" >
                         <span>Adicionar</span>
                         <md-icon>add</md-icon> 
                     </md-list-item>

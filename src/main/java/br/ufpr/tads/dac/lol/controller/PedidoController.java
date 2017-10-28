@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Lucas
  */
-@WebServlet(name = "PedidoController", urlPatterns = {"/pedido"})
+@WebServlet(name = "PedidoController", urlPatterns = {"/pedido/*"})
 public class PedidoController extends CrudController<Pedido> {
 
     private static Logger logger = LoggerFactory.getLogger(PedidoController.class);
