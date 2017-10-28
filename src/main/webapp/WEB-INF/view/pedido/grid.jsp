@@ -19,52 +19,69 @@
         </jsp:include>
         <div id="app">
             <md-layout md-align="center">
-                <md-layout md-flex="66">
+                <md-layout md-flex="70">
                     <md-table-card>
                         <form>
-                            <md-layout :md-gutter="true">
-                                <md-layout md-flex="30">
-                                    <md-input-container>
-                                        <label>Nome</label>
-                                        <md-input name="nome" value="${param.nome}"></md-input>
-                                    </md-input-container>
+                            <div class="field-group">
+                                <md-layout :md-gutter="true">
+                                    <md-layout md-flex="30">
+                                        <md-input-container>
+                                            <label for="select">Opções de Visualização</label>
+                                            <md-select v-model="tipoFiltro">
+                                                <md-option value="pda">Pedidos Dia Atual</md-option>
+                                                <md-option value="ppp">Pedidos por Período</md-option>
+                                                <md-option value="pnr">Pedidos Não Resolvidos</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </md-layout>
+                                    <md-layout v-if="tipoFiltro === 'ppp'" md-flex="20">
+                                        <md-input-container>
+                                            <label>Data Inicial</label>
+                                            <md-input type="date" name="dataInicial" value="${param.email}"></md-input>
+                                        </md-input-container>
+                                    </md-layout>
+                                    <md-layout v-if="tipoFiltro === 'ppp'" md-flex="20">
+                                        <md-input-container>
+                                            <label>Data Final</label>
+                                            <md-input type="date" name="dataFinal" value="${param.cpf}"></md-input>
+                                        </md-input-container>
+                                    </md-layout>
+                                    <md-layout md-flex="10">
+                                        <md-toolbar>
+                                            <md-button type="submit" class="md-icon-button">
+                                                <md-icon>search</md-icon>
+                                            </md-button>
+                                        </md-toolbar>
+                                    </md-layout>
                                 </md-layout>
-                                <md-layout md-flex="20">
-                                    <md-input-container>
-                                        <label>E-mail</label>
-                                        <md-input name="email" value="${param.email}"></md-input>
-                                    </md-input-container>
-                                </md-layout>
-                                <md-layout md-flex="20">
-                                    <md-input-container>
-                                        <label>CPF</label>
-                                        <md-input name="cpf" value="${param.cpf}"></md-input>
-                                    </md-input-container>
-                                </md-layout>
-                                <md-layout md-flex="20">
-                                    <md-input-container>
-                                        <label>Endereço</label>
-                                        <md-input name="endereco" value="${param.endereco}"></md-input>
-                                    </md-input-container>
-                                </md-layout>
-                                <md-layout md-flex="10">
-                                    <md-toolbar>
-                                        <md-button type="submit" class="md-icon-button">
-                                            <md-icon>search</md-icon>
-                                        </md-button>
-                                    </md-toolbar>
-                                </md-layout>
-                            </md-layout>
+                            </div>
                         </form>
+
                         <md-table @sort="onSort" md-sort="${param.sortField}" md-sort-type="${param.sortDirection}">
                             <md-table-header>
                                 <md-table-row>
-                                    <md-table-head></md-table-head>
                                     <md-table-head md-sort-by="id">Cód.</md-table-head>
-                                    <md-table-head md-sort-by="nome">Nome</md-table-head>
-                                    <md-table-head md-sort-by="cpf">CPF</md-table-head>
-                                    <md-table-head md-sort-by="email">E-mail</md-table-head>
-                                    <md-table-head md-sort-by="endereco">Endereço</md-table-head>
+                                    <md-table-head md-sort-by="cliente">Nome Cliente</md-table-head>
+                                    <md-table-head md-sort-by="dataHoraCadastro">Data/Hora Cadastro</md-table-head>
+                                    <md-table-head md-sort-by="enderecoEntrega">Endereço Entrega</md-table-head>
+                                    <md-table-head md-sort-by="observacaoCliente">Obs. Cliente</md-table-head>
+                                    <md-table-head md-sort-by="observacaoInterna">Obs. Interna</md-table-head>
+                                    <md-table-head md-sort-by="dataHoraPrazo">Data/Hora Prazo</md-table-head>
+                                    <md-table-head md-sort-by="realizado">Realizado?</md-table-head>
+                                    <md-table-head md-sort-by="dataHoraRealizacao">Data/Hora Realização</md-table-head>
+                                    <md-table-head md-sort-by="funcionarioRealizacao">Cód. Funcionário</md-table-head>
+                                    <md-table-head md-sort-by="cancelado">Cancelado?</md-table-head>
+                                    <md-table-head md-sort-by="dataHoraCancelamento">Data/Hora Cancelamento?</md-table-head>
+                                    <md-table-head md-sort-by="orcamentoConfirmado">Orçado?</md-table-head>
+                                    <md-table-head md-sort-by="dataHoraConfirmacaoOrcamento">Data/Hora Orçamento</md-table-head>
+                                    <md-table-head md-sort-by="pago">Pago?</md-table-head>
+                                    <md-table-head md-sort-by="dataHoraPagamento">Data/Hora Pagamento</md-table-head>
+                                    <md-table-head md-sort-by="funcionarioPagamento">Cód. Func. Pagamento</md-table-head>
+                                    <md-table-head md-sort-by="recebido">Recebido?</md-table-head>
+                                    <md-table-head md-sort-by="dataHoraRecebimento">Data/Hora Recebimento</md-table-head>
+                                    <md-table-head md-sort-by="entregue">Entregue?</md-table-head>
+                                    <md-table-head md-sort-by="entregaFrustrada">Entrega Frustrada?</md-table-head>
+                                    <md-table-head md-sort-by="entregaFrustradaJustificativa">Justificativa</md-table-head>
                                 </md-table-row>
                             </md-table-header>
                             <md-table-body>
@@ -72,13 +89,29 @@
                                     <md-table-row>
                                         <md-table-cell><c:out value="${item.id}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.cliente.nome}"/></md-table-cell>
-                                        <md-table-cell><fmt:formatDate value="${item.dataHoraCadastro}"/></md-table-cell>
+                                        <md-table-cell><fmt:formatDate type="both" value="${item.dataHoraCadastro}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.enderecoEntrega}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.observacaoCliente}"/></md-table-cell>
-                                        <md-table-cell>
-                                            <md-button class="md-icon-button" href="${contextPath}/${basePath}/form/${item.id}" target="_blank">
-                                                <md-icon>edit</md-icon>
-                                            </md-button>
+                                        <md-table-cell><c:out value="${item.observacaoInterna}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${item.dataHoraPrazo}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${(item.realizado==1) ? 'Sim' : 'Não'}"/></md-table-cell>
+                                        <md-table-cell><fmt:formatDate type="both" value="${item.dataHoraRealizacao}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${item.funcionarioRealizacao}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${(item.cancelado==1) ? 'Sim' : 'Não'}"/></md-table-cell>
+                                        <md-table-cell><fmt:formatDate type="both" value="${item.dataHoraCancelamento}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${(item.orcamentoConfirmado==1) ? 'Sim' : 'Não'}"/></md-table-cell>
+                                        <md-table-cell><fmt:formatDate type="both" value="${item.dataHoraConfirmacaoOrcamento}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${(item.pago==1) ? 'Sim' : 'Não'}"/></md-table-cell>
+                                        <md-table-cell><fmt:formatDate type="both" value="${item.dataHoraPagamento}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${item.funcionarioPagamento}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${(item.recebido==1) ? 'Sim' : 'Não'}"/></md-table-cell>
+                                        <md-table-cell><fmt:formatDate type="both" value="${item.dataHoraRecebimento}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${(item.entregue==1) ? 'Sim' : 'Não'}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${(item.entregaFrustrada==1) ? 'Sim' : 'Não'}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${item.entregaFrustradaJustificativa}"/></md-table-cell>
+                                        <md-button class="md-icon-button" href="${contextPath}/${basePath}/form/${item.id}" target="_blank">
+                                            <md-icon>edit</md-icon>
+                                        </md-button>
                                         </md-table-cell>
                                     </md-table-row>
                                 </c:forEach>
@@ -98,6 +131,6 @@
                 </md-layout>
             </md-layout>
         </div>
-        <st:js res="view/cliente/grid.js"/>
+        <st:js res="view/${basePath}/grid.js"/>
     </body>
 </html>

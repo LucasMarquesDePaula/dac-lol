@@ -87,6 +87,8 @@ public abstract class CrudFacede<T extends Model> {
             });
         }
 
+        processListCriteria(criteria);
+        
         List<T> list = (List<T>) criteria.list();
 
         criteriaCount.setProjection(Projections.rowCount());
@@ -110,6 +112,10 @@ public abstract class CrudFacede<T extends Model> {
             } catch (Exception ex) {
             }
         }
+    }
+
+    protected void processListCriteria(Criteria criteria) {
+        
     }
 
     public class QueryResult<T> {

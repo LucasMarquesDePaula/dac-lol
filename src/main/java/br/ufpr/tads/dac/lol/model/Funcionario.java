@@ -166,4 +166,8 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
         this.setSenha(Authenticable.Util.generateHash(String.format("#%d~!~%s", this.getId(), password)));
     }
 
+    @Override
+    public String toString() {
+        return getNome() + " (" + getId() + ")"; 
+    }
 }
