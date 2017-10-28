@@ -67,7 +67,7 @@ public class ValidationUtil {
             }
 
             // Verifica se os digitos calculados conferem com os digitos informados.
-            return cpf.substring(9, 10).equals(dig10) && cpf.substring(10, 11).equals(dig11);
+            return cpf.charAt(9) == dig10 && cpf.charAt(10) == dig11;
         } catch (NumberFormatException ignored) {
             return false;
         }
