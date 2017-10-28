@@ -32,7 +32,7 @@ public class LoginFilter implements Filter {
         boolean staticRequest = requestURI.startsWith(String.format("%s/static/", contextPath));
         boolean publicRequest = requestURI.startsWith(String.format("%s/public/", contextPath));
 
-        if (loggedIn || loginRequest || staticRequest || publicRequest || true) {
+        if (loggedIn || loginRequest || staticRequest || publicRequest) {
             chain.doFilter(request, response);
             return;
         }

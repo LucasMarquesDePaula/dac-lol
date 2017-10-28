@@ -85,14 +85,24 @@ public class LoginController extends Controller {
             // Cliente
             Cliente cliente = new Cliente();
             cliente.setUsername(username);
-            cliente.setPassword(password);
 
             ClienteFacede clienteFacede = new ClienteFacede();
             List<Cliente> clienteList = clienteFacede.list(Example.create(cliente), null, null, null).getList();
-            if (clienteList.size() == 1) {
-                request.getSession().setAttribute("accessLevel", AccessLevel.FUNCIONARIO);
-                request.getSession().setAttribute("authenticable", clienteList.get(0));
+
+            // Encontrou o cliente no banco de dados ?
+            Cliente clienteFound = clienteList.size() == 1 ? clienteList.get(0) : null;
+
+            if (clienteFound != null) {
+
+                // A senha é a mesma ?
+                cliente.setId(clienteFound.getId());
+                cliente.setPassword(password);
+                // TODO: Arrumar senha
+                // if (cliente.getSenha().equals(clienteFound.getSenha())) {
+                request.getSession().setAttribute("accessLevel", AccessLevel.CLIENTE);
+                request.getSession().setAttribute("authenticable", clienteFound);
                 response.sendRedirect(request.getContextPath());
+                // }
                 return;
             }
 

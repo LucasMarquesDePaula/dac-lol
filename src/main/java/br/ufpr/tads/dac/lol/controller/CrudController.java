@@ -147,6 +147,7 @@ public abstract class CrudController<T extends Model> extends Controller {
             request.setAttribute("basePath", getBasePath());
             switch (action) {
                 case "create":
+                    beforeCreate(request, response, model);
                     facede.save(model);
                     request.setAttribute("message", "Cadastrado com sucesso!");
                     break;
@@ -172,6 +173,9 @@ public abstract class CrudController<T extends Model> extends Controller {
         } finally {
             request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
         }
+    }
+
+    protected void beforeCreate(HttpServletRequest request, HttpServletResponse response, T model) {
     }
 
     static class NotCrudActionException extends ServletException {
