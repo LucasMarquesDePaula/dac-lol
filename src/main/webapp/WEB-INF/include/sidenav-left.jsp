@@ -73,6 +73,10 @@
                         <span>Adicionar</span>
                         <md-icon>add</md-icon> 
                     </md-list-item>
+                    <md-list-item class="md-inset" href="/lol/pedido/edit" >
+                        <span>Editar Rapidamente</span>
+                        <md-icon>edit</md-icon> 
+                    </md-list-item>
                 </md-list>
             </md-list-expand>
         </md-list-item>

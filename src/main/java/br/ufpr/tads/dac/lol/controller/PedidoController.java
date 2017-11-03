@@ -71,6 +71,8 @@ public class PedidoController extends CrudController<Pedido> {
 
     @Override
     protected CrudFacede<Pedido> getFacede() {
+        //Abre o Pedido, pega a parte do critério SQL e adciona um critério
+        //código como ele está fazendo ali
         return new PedidoFacede() {
             @Override
             protected void processListCriteria(Criteria criteria) {

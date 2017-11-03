@@ -110,6 +110,8 @@ public abstract class CrudController<T extends Model> extends Controller {
                     request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
                 case "view":
                     request.getRequestDispatcher(viewPath(String.format("%s/view.jsp", getBasePath()))).forward(request, response);
+                case "edit":
+                    request.getRequestDispatcher(viewPath(String.format("%s/edit.jsp", getBasePath()))).forward(request, response);
                 default:
                     response.sendError(HttpServletResponse.SC_NOT_FOUND);
             }
