@@ -31,6 +31,12 @@
                                 <div class="md-title">${message}</div>
                             </md-card-header>
                         </md-card>
+                        <c:if test="${message == 'Cadastrado com sucesso!'}">
+                            <c:url value="../../pedido-item/form" var="urlItensPedido" >
+                                <c:param name="id" value="${model.id}" />
+                            </c:url>
+                            <c:redirect url="${urlItensPedido}"></c:redirect>
+                        </c:if>
                     </c:if>
                     <md-card>
                         <form method="POST" action='${contextPath}/${basePath}/${empty model.id ? "create" : "update"}/${model.id}' accept-charset="ISO-8859-1">

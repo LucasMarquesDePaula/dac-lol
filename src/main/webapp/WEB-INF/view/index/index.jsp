@@ -11,18 +11,18 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><c:out value="${title}" /></title>
-<jsp:include page="../../include/vue-material.jsp"/>
-<st:css res="view/index/index.css" />
-</head>
-<body>
-	<jsp:include page="../../include/layout.jsp">
-		<jsp:param name="title" value="${title}" />
-	</jsp:include>
-	<div id="app"></div>
-	<st:js res="view/index/index.js" />
-</body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title><c:out value="${title}" /></title>
+        <jsp:include page="../../include/vue-material.jsp"/>
+        <st:css res="view/index/index.css" />
+    </head>
+    <body>
+        <jsp:include page="../../include/layout.jsp">
+            <jsp:param name="title" value="${title}" />
+        </jsp:include>
+        <div id="app"></div>
+        <st:js res="view/index/index.js" />
+    </body>
 </html>
 
