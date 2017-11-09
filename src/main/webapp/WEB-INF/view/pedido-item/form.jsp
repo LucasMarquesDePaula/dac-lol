@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "st" uri = "/WEB-INF/static.tld" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<c:set var="title" value="Pedido Itens"/>
+<c:set var="title" value="Itens do Pedido"/>
 
 <!DOCTYPE html>
 <html>
@@ -27,13 +27,13 @@
                     <md-table-card>
                         <form>
                             <md-layout :md-gutter="true">
-                                <md-layout md-flex="20">
+                                <md-layout md-flex="10">
                                     <md-input-container>
-                                        <label>Pedido</label>
+                                        <label>ID Pedido</label>
                                         <md-input value="${model.id}" readonly></md-input>
                                     </md-input-container>  
                                 </md-layout>
-                                <md-layout md-flex="20">
+                                <md-layout md-flex="90">
                                     <md-input-container>
                                         <label>Endereço</label>
                                         <md-input value="${model.enderecoEntrega}" readonly></md-input>
@@ -41,7 +41,7 @@
                                 </md-layout> 
                             </md-layout>
                             <md-layout :md-gutter="true">
-                                <md-layout md-flex="33">
+                                <md-layout md-flex="100">
                                     <md-input-container>
                                         <label>Cliente</label>
                                         <md-input value="${model.cliente.nome}" readonly></md-input>
@@ -54,8 +54,8 @@
                                         <label>Tipo de Roupa</label>
                                         <md-select>
                                             <md-option value="camiseta">Camiseta</md-option>
-                                            <md-option value="jaqueta">Jaqueta</md-option>
-                                            <md-option value="moletom">Moletom</md-option>
+                                            <md-option value="camiseta">Camiseta</md-option>
+                                            <md-option value="camiseta">Camiseta</md-option>
                                         </md-select>
                                     </md-input-container>
                                 </md-layout>
