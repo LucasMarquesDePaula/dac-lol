@@ -32,9 +32,7 @@
                             </md-card-header>
                         </md-card>
                         <c:if test="${message == 'Cadastrado com sucesso!'}">
-                            <c:url value="../../pedido-item/form" var="urlItensPedido" >
-                                <c:param name="id" value="${model.id}" />
-                            </c:url>
+                            <c:url value="../../pedido-item/form/${model.id}" var="urlItensPedido" ></c:url>
                             <c:redirect url="${urlItensPedido}"></c:redirect>
                         </c:if>
                     </c:if>

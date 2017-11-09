@@ -5,9 +5,8 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "st" uri = "/WEB-INF/static.tld" %>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:set var="title" value="Pedido Itens"/>
 
 <!DOCTYPE html>
@@ -16,10 +15,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><c:out value="${title}"/></title>
         <jsp:include page="../../include/vue-material.jsp" />
-        <st:css res="page/${basePath}/form.css"/>
+        <st:css res="view/${basePath}/form.css"/>
     </head>
     <body>
-
+        <jsp:include page="../../include/layout.jsp">
+            <jsp:param name="title" value="${title}" />
+        </jsp:include>
         <div id="app">
             <md-layout md-align="center">
                 <md-layout md-flex="66">
@@ -38,27 +39,8 @@
                                 </md-layout>
                                 <md-layout>
                                     <md-input-container>
-                                        <label>Tecido</label>
-                                        <md-select name="filtro">
-                                            <md-option value="alg">Algodão</md-option>
-                                            <md-option value="jeans">Jeans</md-option>
-                                            <md-option value="seda">Seda</md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                </md-layout>
-                            </md-layout>
-
-                            <md-layout :md-gutter="true">
-                                <md-layout>
-                                    <md-input-container>
                                         <label>Quatidade</label>
                                         <md-input type="number"></md-input>
-                                    </md-input-container>
-                                </md-layout>
-                                <md-layout>
-                                    <md-input-container>
-                                        <label>Observações</label>
-                                        <md-input></md-input>
                                     </md-input-container>
                                 </md-layout>
                             </md-layout>
@@ -75,7 +57,6 @@
                             <md-table-header>
                                 <md-table-row>
                                     <md-table-head md-sort-by="roupa">Tipo de Roupa</md-table-head>
-                                    <md-table-head md-sort-by="tecido">Tecido</md-table-head>
                                     <md-table-head md-sort-by="qtde">Quantidade</md-table-head>
                                     <md-table-head md-sort-by="prazo">Prazo de Lavagem</md-table-head>
                                     <md-table-head md-sort-by="preco">Preço</md-table-head>
@@ -85,7 +66,6 @@
                             <md-table-body>
                                 <md-table-row v-for="(row, index) in 2" :key="index">
                                     <md-table-cell>Camiseta</md-table-cell>
-                                    <md-table-cell>Algodão</md-table-cell>
                                     <md-table-cell>5</md-table-cell>
                                     <md-table-cell>01/01/1901</md-table-cell>
                                     <md-table-cell>R$ 1,99</md-table-cell>
@@ -100,7 +80,7 @@
                 </md-layout>
             </md-layout>
         </div>
-        <st:js res="page/${basePath}/form.js"/>
+        <st:js res="view/${basePath}/form.js"/>
     </body>
 </html>
 
