@@ -27,6 +27,28 @@
                     <md-table-card>
                         <form>
                             <md-layout :md-gutter="true">
+                                <md-layout md-flex="20">
+                                    <md-input-container>
+                                        <label>Pedido</label>
+                                        <md-input value="${model.id}" readonly></md-input>
+                                    </md-input-container>  
+                                </md-layout>
+                                <md-layout md-flex="20">
+                                    <md-input-container>
+                                        <label>Endereço</label>
+                                        <md-input value="${model.enderecoEntrega}" readonly></md-input>
+                                    </md-input-container>  
+                                </md-layout> 
+                            </md-layout>
+                            <md-layout :md-gutter="true">
+                                <md-layout md-flex="33">
+                                    <md-input-container>
+                                        <label>Cliente</label>
+                                        <md-input value="${model.cliente.nome}" readonly></md-input>
+                                    </md-input-container>  
+                                </md-layout>
+                            </md-layout>
+                            <md-layout :md-gutter="true">
                                 <md-layout>
                                     <md-input-container>
                                         <label>Tipo de Roupa</label>

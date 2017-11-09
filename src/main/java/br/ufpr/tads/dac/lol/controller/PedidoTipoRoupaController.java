@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufpr.tads.dac.lol.controller;
 
 import br.ufpr.tads.dac.lol.facede.CrudFacede;
@@ -24,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * @author Tom
  */
 @WebServlet(name = "PedidoItemController", urlPatterns = {"/pedido-item/*"})
-public class PedidoTipoRoupaController extends CrudController<PedidoTipoRoupa> {
+public class PedidoTipoRoupaController extends CrudController<Pedido> {
 
     private static Logger logger = LoggerFactory.getLogger(PedidoTipoRoupaController.class);
 
@@ -48,12 +43,12 @@ public class PedidoTipoRoupaController extends CrudController<PedidoTipoRoupa> {
     }
 
     @Override
-    protected PedidoTipoRoupa getModel() {
-       return new PedidoTipoRoupa();
+    protected Pedido getModel() {
+       return new Pedido();
     }
 
     @Override
-    protected CrudFacede<PedidoTipoRoupa> getFacede() {
+    protected CrudFacede<Pedido> getFacede() {
         return new PedidoTipoRoupaFacede();
     }
 
