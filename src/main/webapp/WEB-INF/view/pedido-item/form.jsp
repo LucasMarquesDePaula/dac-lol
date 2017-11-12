@@ -61,7 +61,7 @@
                                 </md-layout>
                                 <md-layout>
                                     <md-input-container>
-                                        <label>Quatidade</label>
+                                        <label>Quantidade</label>
                                         <md-input type="number"></md-input>
                                     </md-input-container>
                                 </md-layout>
@@ -86,11 +86,11 @@
                             </md-table-header>
 
                             <md-table-body>
-                                <md-table-row v-for="(row, index) in 2" :key="index">
-                                    <md-table-cell>Camiseta</md-table-cell>
-                                    <md-table-cell>5</md-table-cell>
-                                    <md-table-cell>01/01/1901</md-table-cell>
-                                    <md-table-cell>R$ 1,99</md-table-cell>
+                                <md-table-row>
+                                    <md-table-cell></md-table-cell>
+                                    <md-table-cell></md-table-cell>
+                                    <md-table-cell></md-table-cell>
+                                    <md-table-cell></md-table-cell>
                                 </md-table-row>
                             </md-table-body>
                         </md-table>
