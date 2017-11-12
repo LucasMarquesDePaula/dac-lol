@@ -48,52 +48,12 @@
                                     </md-input-container>  
                                 </md-layout>
                             </md-layout>
-                            <md-layout :md-gutter="true">
-                                <md-layout>
-                                    <md-input-container>
-                                        <label>Tipo de Roupa</label>
-                                        <md-select>
-                                            <md-option value="camiseta">Camiseta</md-option>
-                                            <md-option value="camiseta">Camiseta</md-option>
-                                            <md-option value="camiseta">Camiseta</md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                </md-layout>
-                                <md-layout>
-                                    <md-input-container>
-                                        <label>Quatidade</label>
-                                        <md-input type="number"></md-input>
-                                    </md-input-container>
-                                </md-layout>
-                            </md-layout>
-                            <md-button class="md-add md-fab">
-                                <md-icon>add</md-icon>
-                            </md-button>
                         </form>
 
                         <md-toolbar>
                             <h1 class="md-title">Roupas adicionadas</h1>
                         </md-toolbar>
 
-                        <md-table md-sort="name" md-sort-type="desc">
-                            <md-table-header>
-                                <md-table-row>
-                                    <md-table-head md-sort-by="roupa">Tipo de Roupa</md-table-head>
-                                    <md-table-head md-sort-by="qtde">Quantidade</md-table-head>
-                                    <md-table-head md-sort-by="prazo">Prazo de Lavagem</md-table-head>
-                                    <md-table-head md-sort-by="preco">Preço</md-table-head>
-                                </md-table-row>
-                            </md-table-header>
-
-                            <md-table-body>
-                                <md-table-row v-for="(row, index) in 2" :key="index">
-                                    <md-table-cell>Camiseta</md-table-cell>
-                                    <md-table-cell>5</md-table-cell>
-                                    <md-table-cell>01/01/1901</md-table-cell>
-                                    <md-table-cell>R$ 1,99</md-table-cell>
-                                </md-table-row>
-                            </md-table-body>
-                        </md-table>
                         <md-card-actions>
                             <md-button class="md-raised md-primary">Confirmar Pedido</md-button>
                             <md-button class="md-raised md-primary">Cancelar Pedido</md-button>

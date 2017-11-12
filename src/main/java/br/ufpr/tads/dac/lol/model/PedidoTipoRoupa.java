@@ -1,70 +1,76 @@
 package br.ufpr.tads.dac.lol.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 
 /**
  * The persistent class for the pedido_tipo_roupa database table.
- * 
+ *
  */
 @Entity
 @Table(name = "pedido_tipo_roupa")
 @NamedQuery(name = "PedidoTipoRoupa.findAll", query = "SELECT p FROM PedidoTipoRoupa p")
 public class PedidoTipoRoupa extends Model<PedidoTipoRoupaPK> implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private PedidoTipoRoupaPK id;
+    private static final long serialVersionUID = 1L;
 
-	private Integer quantidade;
+    @EmbeddedId
+    private PedidoTipoRoupaPK id;
 
-	@Column(name = "valor_unitario")
-	private BigDecimal valorUnitario;
+    private Integer quantidade;
 
-	public PedidoTipoRoupa() {
-	}
+    @Column(name = "valor_unitario")
+    private Float valorUnitario;
 
-	public PedidoTipoRoupaPK getId() {
-		return this.id;
-	}
+    public PedidoTipoRoupa() {
+    }
 
-	public void setId(PedidoTipoRoupaPK id) {
-		this.id = id;
-	}
+    public PedidoTipoRoupaPK getId() {
+        return this.id;
+    }
 
-	public Integer getQuantidade() {
-		return this.quantidade;
-	}
+    public void setId(PedidoTipoRoupaPK id) {
+        this.id = id;
+    }
 
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
+    public Integer getQuantidade() {
+        return this.quantidade;
+    }
 
-	public BigDecimal getValorUnitario() {
-		return this.valorUnitario;
-	}
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
 
-	public void setValorUnitario(BigDecimal valorUnitario) {
-		this.valorUnitario = valorUnitario;
-	}
+    public Float getValorUnitario() {
+        return this.valorUnitario;
+    }
 
-	@Transient
-	public Pedido getPedido() {
-		return this.getId().getPedido();
-	}
+    public void setValorUnitario(Float valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
 
-	public void setPedido(Pedido pedido) {
-		this.getId().setPedido(pedido);
-	}
+    @Transient
+    public Pedido getPedido() {
+        return this.getId().getPedido();
+    }
 
-	@Transient
-	public TipoRoupa getTipoRoupa() {
-		return this.getId().getTipoRoupa();
-	}
+    public void setPedido(Pedido pedido) {
+        this.getId().setPedido(pedido);
+    }
 
-	public void setTipoRoupa(TipoRoupa tipoRoupa) {
-		this.getId().setTipoRoupa(tipoRoupa);
-	}
+    @Transient
+    public TipoRoupa getTipoRoupa() {
+        return this.getId().getTipoRoupa();
+    }
+
+    public void setTipoRoupa(TipoRoupa tipoRoupa) {
+        this.getId().setTipoRoupa(tipoRoupa);
+    }
 
 }

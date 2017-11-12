@@ -93,6 +93,10 @@
                                 <md-icon>keyboard_arrow_right</md-icon>
                             </md-button>
                         </div>
+                        <md-card-actions>
+                                <md-icon>add</md-icon>
+                            </md-button>
+                        </md-card-actions>
                     </md-table-card>
                 </md-layout>
             </md-layout>
