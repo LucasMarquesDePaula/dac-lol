@@ -94,6 +94,7 @@
                             </md-button>
                         </div>
                         <md-card-actions>
+                            <md-button href='${contextPath}/${basePath}/form' class="md-fab">
                                 <md-icon>add</md-icon>
                             </md-button>
                         </md-card-actions>
