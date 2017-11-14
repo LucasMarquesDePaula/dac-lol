@@ -11,21 +11,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lucas
  */
-@WebServlet(name = "ClientesFieisController", urlPatterns = {"/report/top-customers"})
-public class ClientesFieisController extends ReportController {
+@WebServlet(name = "ClientesReportController", urlPatterns = {"/report/clientes"})
+public class ClientesReportController extends ReportController {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doPost(request, response, new HashMap<>());
+        super.doGet(request, response, new HashMap<>());
     }
 
     @Override
     protected String getBasePath() {
-        return "report/top-customers";
+        return "report/clientes";
     }
 
     @Override
-    String getReportName() {
+    protected String getReportTemplateName() {
         return "RelatorioClientes";
     }
 

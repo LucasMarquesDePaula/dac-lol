@@ -16,7 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title><c:out value="${title}" /></title>
         <jsp:include page="../../include/vue-material.jsp"/>
-        <st:css res="view/cliente/form.css" />
+        <st:css res="view/${basePath}/form.css" />
     </head>
     <body>
         <jsp:include page="../../include/layout.jsp">
@@ -33,7 +33,7 @@
                         </md-card>
                     </c:if>
                     <md-card>
-                        <form method="POST" action='${contextPath}/funcionario/${empty model.id ? "create" : "update"}/${model.id}' accept-charset="ISO-8859-1">
+                        <form method="POST" action='${contextPath}/${basePath}/${empty model.id ? "create" : "update"}/${model.id}' accept-charset="ISO-8859-1">
                             <md-card-content>
                                 <md-layout :md-row="true">
                                     <md-layout :md-column="true" :md-flex="25">
@@ -111,6 +111,6 @@
             </md-layout>
         </div>
         <st:js res="vue-the-mask/vue-the-mask.js"/>
-        <st:js res="view/cliente/form.js"/>
+        <st:js res="view/${basePath}/form.js"/>
     </body>
 </html>
