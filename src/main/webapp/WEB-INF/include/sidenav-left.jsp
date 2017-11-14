@@ -80,6 +80,18 @@
                 </md-list>
             </md-list-expand>
         </md-list-item>
+        <md-list-item>
+            <md-icon>work</md-icon>
+            <span>Relatórios</span>
+            <md-list-expand>
+                <md-list>
+                    <md-list-item class="md-inset" href="/lol/relatorio/generate" >
+                        <span>Gerar</span>
+                        <md-icon>generate</md-icon> 
+                    </md-list-item>
+                </md-list>
+            </md-list-expand>
+        </md-list-item>
     </md-list>
 </md-sidenav>
 <st:js res="include/sidenav-left/sidenav-left.js"/>
