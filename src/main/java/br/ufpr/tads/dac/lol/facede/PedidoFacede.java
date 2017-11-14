@@ -8,9 +8,11 @@ import br.ufpr.tads.dac.lol.model.Cliente;
 import br.ufpr.tads.dac.lol.model.Funcionario;
 import br.ufpr.tads.dac.lol.model.Pedido;
 import br.ufpr.tads.dac.lol.model.PedidoTipoRoupa;
+import br.ufpr.tads.dac.lol.model.PedidoTipoRoupaPK;
 import br.ufpr.tads.dac.lol.model.TipoRoupa;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -119,7 +121,7 @@ public class PedidoFacede extends CrudFacede<Pedido> {
     }
 
     // TODO melhorar validações
-    public Pedido confirmarPagamentoPedido(Integer id, Funcionario funcionario, Date dataHora) throws IllegalOperationException, NotFoundException, ValidationException {
+    public Pedido confirmarPagamento(Integer id, Funcionario funcionario, Date dataHora) throws IllegalOperationException, NotFoundException, ValidationException {
         if (id == null) {
             throw new IllegalArgumentException("O Pedido não foi informado.");
         }
@@ -254,17 +256,66 @@ public class PedidoFacede extends CrudFacede<Pedido> {
         }
         
         if (pedido.getCliente().getAtivo() == 0x0) {
-            throw new IllegalOperationException("Clientes inativos não podem adicionar itens aos pedidos");
+            throw new IllegalOperationException("Clientes inativos não podem alterar pedidos");
         }
-        
+
         // Se ja possui ligação com o tipo de roupa atualiza a quatidae e valor
         boolean found = false;
         if (pedido.getPedidoTiposRoupa() != null) {
-            for (PedidoTipoRoupa pedidoTipoRoupa : pedido.getPedidoTiposRoupa()) {
-                if (pedidoTipoRoupa.getTipoRoupa().getId().equals(tipoRoupa.getId())) {
+            Iterator<PedidoTipoRoupa> iterator = pedido.getPedidoTiposRoupa().iterator();
+            while (iterator.hasNext()) {
+                PedidoTipoRoupa pedidoTipoRoupa = iterator.next();
+                if (pedidoTipoRoupa.getTipoRoupa().equals(tipoRoupa)) {
                     pedidoTipoRoupa.setQuantidade(quantidade);
                     pedidoTipoRoupa.setValorUnitario(tipoRoupa.getPrecoLavagem());
                     found = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!found) {
+            PedidoTipoRoupa pedidoTipoRoupa = new PedidoTipoRoupa();
+            pedidoTipoRoupa.setId(new PedidoTipoRoupaPK());
+            pedidoTipoRoupa.setPedido(pedido);
+            pedidoTipoRoupa.setTipoRoupa(tipoRoupa);
+            pedidoTipoRoupa.setQuantidade(quantidade);
+            pedidoTipoRoupa.setValorUnitario(tipoRoupa.getPrecoLavagem());
+            pedido.addPedidoTiposRoupa(pedidoTipoRoupa);
+        }
+        
+        this.save(pedido);
+        
+        return pedido;
+    }
+    
+    public Pedido removerItem(Integer id, TipoRoupa tipoRoupa) throws IllegalOperationException, ValidationException, NotFoundException {
+        
+        if (id == null) {
+            throw new IllegalOperationException("O pedido não foi informado");
+        }
+        
+        if (tipoRoupa == null) {
+            throw new IllegalOperationException("O tipo de roupa não foi informado");
+        }
+        
+        Pedido pedido = this.find(id);
+        
+        if (pedido.getOrcamentoConfirmado() == 0x1) {
+            throw new IllegalOperationException("Pedidos com orçamento confirmado não podem ter itens alterados");
+        }
+        
+        if (pedido.getCliente().getAtivo() == 0x0) {
+            throw new IllegalOperationException("Clientes inativos não podem alterar pedidos");
+        }
+
+        // Se ja possui ligação com o tipo de roupa atualiza a quatidae e valor
+        if (pedido.getPedidoTiposRoupa() != null) {
+            Iterator<PedidoTipoRoupa> iterator = pedido.getPedidoTiposRoupa().iterator();
+            while (iterator.hasNext()) {
+                PedidoTipoRoupa pedidoTipoRoupa = iterator.next();
+                if (pedidoTipoRoupa.getTipoRoupa().equals(tipoRoupa)) {
+                    iterator.remove();
                     break;
                 }
             }

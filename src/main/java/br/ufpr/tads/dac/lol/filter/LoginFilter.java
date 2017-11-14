@@ -27,7 +27,7 @@ public class LoginFilter implements Filter {
         String requestURI = ((HttpServletRequest) request).getRequestURI();
         String loginURI = String.format("%s/login", contextPath);
 
-        boolean loggedIn = session != null && session.getAttribute("accessLevel") != null;
+        boolean loggedIn = session != null && session.getAttribute(Role.class.getName()) != null;
         boolean loginRequest = requestURI.equals(loginURI);
         boolean staticRequest = requestURI.startsWith(String.format("%s/static/", contextPath));
         boolean publicRequest = requestURI.startsWith(String.format("%s/public/", contextPath));

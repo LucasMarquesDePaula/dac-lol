@@ -34,8 +34,6 @@ public abstract class CrudController<T extends Model> extends Controller {
 
     protected abstract CrudFacede<T> getFacede();
 
-    protected abstract String getBasePath();
-
     protected void doList(HttpServletRequest request, T model, CrudFacede<T> facede) {
         int limit = 5;
         int offset = 0;
@@ -71,7 +69,7 @@ public abstract class CrudController<T extends Model> extends Controller {
             BigDecimal bigDecimalDefaultValue = null;;
             BigDecimalConverter bigDecimalConverter = new BigDecimalConverter(bigDecimalDefaultValue);
             beanUtilsBean.getConvertUtils().register(bigDecimalConverter, BigDecimal.class);
-            
+
             model = getModel();
             BeanUtils.populate(model, request.getParameterMap());
         } catch (IllegalAccessException | InvocationTargetException ex) {
@@ -179,11 +177,15 @@ public abstract class CrudController<T extends Model> extends Controller {
             getLogger().debug("", ex);
             request.setAttribute("message", ex.getMessage());
             request.setAttribute("messages", ex.getMessages());
-        } catch (NumberFormatException | NotFoundException ex) {
+            request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
+        } catch (NotCrudActionException ex) {
+            processNotCrudRequest(request, response, ex);
+        } catch (Exception ex) {
             request.setAttribute("message", ex.getMessage());
             getLogger().debug("", ex);
         } finally {
-            request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
+            request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath())))
+                    .forward(request, response);
         }
     }
 
@@ -197,6 +199,10 @@ public abstract class CrudController<T extends Model> extends Controller {
     }
 
     protected void beforeDelete(HttpServletRequest request, HttpServletResponse response, T model) {
+    }
+
+    protected void processNotCrudRequest(HttpServletRequest request, HttpServletResponse response, NotCrudActionException actionException) {
+
     }
 
     static class NotCrudActionException extends ServletException {

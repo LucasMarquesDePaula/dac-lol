@@ -3,7 +3,8 @@ body {
 }
 
 body > div#app  {
-    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 36px;
 }
 .md-card {
     width: 100%;

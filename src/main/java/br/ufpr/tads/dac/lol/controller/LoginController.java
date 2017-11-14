@@ -2,8 +2,9 @@ package br.ufpr.tads.dac.lol.controller;
 
 import br.ufpr.tads.dac.lol.facede.ClienteFacede;
 import br.ufpr.tads.dac.lol.facede.FuncionarioFacede;
-import br.ufpr.tads.dac.lol.filter.AccessLevel;
+import br.ufpr.tads.dac.lol.filter.Role;
 import br.ufpr.tads.dac.lol.model.Admin;
+import br.ufpr.tads.dac.lol.model.Authenticable;
 import br.ufpr.tads.dac.lol.model.Cliente;
 import br.ufpr.tads.dac.lol.model.Funcionario;
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class LoginController extends Controller {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (String.format("%s/login", request.getContextPath()).equals(request.getRequestURI())) {
+        if (String.format("%s/%s", request.getContextPath(), getBasePath()).equals(request.getRequestURI())) {
             doLogin(request, response);
         } else {
             doLogout(request, response);
@@ -36,7 +37,7 @@ public class LoginController extends Controller {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (String.format("%s/login", request.getContextPath()).equals(request.getRequestURI())) {
-            request.getRequestDispatcher(viewPath("login/form.jsp")).forward(request, response);
+            request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
         } else {
             doLogout(request, response);
         }
@@ -61,8 +62,8 @@ public class LoginController extends Controller {
             Admin admin = Admin.getInstance();
             if (admin.getUsername().equals(username)) {
                 if (admin.getPassword().equals(password)) {
-                    request.getSession().setAttribute("accessLevel", AccessLevel.ADMIN);
-                    request.getSession().setAttribute("authenticable", admin);
+                    request.getSession().setAttribute(Role.class.getName(), Role.ADMIN);
+                request.getSession().setAttribute(Authenticable.class.getName(), admin);
                     response.sendRedirect(request.getContextPath());
                     return;
                 }
@@ -76,8 +77,8 @@ public class LoginController extends Controller {
             FuncionarioFacede funcionarioFacede = new FuncionarioFacede();
             List<Funcionario> funcionarioList = funcionarioFacede.list(Example.create(funcionario), null, null, null).getList();
             if (funcionarioList.size() == 1) {
-                request.getSession().setAttribute("accessLevel", AccessLevel.FUNCIONARIO);
-                request.getSession().setAttribute("authenticable", funcionarioList.get(0));
+                request.getSession().setAttribute(Role.class.getName(), Role.FUNCIONARIO);
+                request.getSession().setAttribute(Authenticable.class.getName(), funcionarioList.get(0));
                 response.sendRedirect(request.getContextPath());
                 return;
             }
@@ -99,8 +100,8 @@ public class LoginController extends Controller {
                 cliente.setPassword(password);
                 // TODO: Arrumar senha
                 // if (cliente.getSenha().equals(clienteFound.getSenha())) {
-                request.getSession().setAttribute("accessLevel", AccessLevel.CLIENTE);
-                request.getSession().setAttribute("authenticable", clienteFound);
+                request.getSession().setAttribute(Role.class.getName(), Role.CLIENTE);
+                request.getSession().setAttribute(Authenticable.class.getName(), clienteFound);
                 response.sendRedirect(request.getContextPath());
                 // }
                 return;
@@ -110,7 +111,7 @@ public class LoginController extends Controller {
         }
 
         request.setAttribute("messages", messages);
-        request.getRequestDispatcher(viewPath("login/form.jsp")).forward(request, response);
+        request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
     }
 
     protected void doLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -124,6 +125,11 @@ public class LoginController extends Controller {
     @Override
     public String getServletInfo() {
         return "Login";
+    }
+
+    @Override
+    protected String getBasePath() {
+        return "login";
     }
 
 }

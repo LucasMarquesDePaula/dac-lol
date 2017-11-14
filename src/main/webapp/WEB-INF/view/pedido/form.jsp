@@ -33,13 +33,19 @@
                         </md-card>
                     </c:if>
                     <md-card>
-                        <form method="POST" action='${contextPath}/${basePath}/${empty model.id ? "create" : "update"}/${model.id}' accept-charset="ISO-8859-1">
-                            <md-card-content>
+                        <md-card-content>
+                            <form method="POST" action='${contextPath}/${basePath}/${empty model.id ? "create" : "update"}/${model.id}' accept-charset="ISO-8859-1">
                                 <md-layout :md-gutter="true">
                                     <md-layout md-flex="15">
                                         <md-input-container>
                                             <label>Código</label>
                                             <md-input :readonly="true" name="id" type="number" value="${model.id}"></md-input>
+                                        </md-input-container>
+                                    </md-layout>
+                                    <md-layout md-flex="85">
+                                        <md-input-container>
+                                            <label>Cliente</label>
+                                            <md-input :readonly="true" value="${model.cliente.nome}"></md-input>
                                         </md-input-container>
                                     </md-layout>
                                 </md-layout>
@@ -56,18 +62,31 @@
                                     <span class="md-error"><c:out value="${messages.observacaoCliente}"/></span>
                                 </md-input-container>
 
-                                <md-card-actions>
-                                    <c:if test="${!empty model.id}">
-                                        <md-button href="${contextPath}/${basePath}/cancel/${model.id}" class="md-raised md-primary">
+                                Total: <fmt:formatNumber value="${model.valorTotal}" type="currency"/>
+                                <md-button type="submit" class="md-fab">
+                                    <md-icon>save</md-icon>
+                                </md-button>
+                            </form>
+                            <md-card-actions>
+                                <c:if test="${!empty model.id}">
+                                    <form method="POST" action='${contextPath}/${basePath}/confirm-receivement/${model.id}'>
+                                        <md-button type="submit" class="md-raised md-primary">
+                                            Confirmar Recebimento
+                                        </md-button>
+                                    </form>
+                                    <form method="POST" action='${contextPath}/${basePath}/confirm-order/${model.id}'>
+                                        <md-button type="submit" class="md-raised md-primary">
+                                            Confirmar Orçamento
+                                        </md-button>
+                                    </form>
+                                    <form method="POST" action='${contextPath}/${basePath}/cancel/${model.id}'>
+                                        <md-button type="submit" class="md-raised md-primary">
                                             Cancelar
                                         </md-button>
-                                    </c:if>
-                                    <md-button type="submit" class="md-fab">
-                                        <md-icon>save</md-icon>
-                                    </md-button>
-                                </md-card-actions>
-                            </md-card-content>
-                        </form>
+                                    </form>
+                                </c:if>
+                            </md-card-actions>
+                        </md-card-content>
                     </md-card>
 
                     <c:if test="${!empty model.id}">
@@ -114,16 +133,19 @@
                                 </md-table-header>
 
                                 <md-table-body>
-                                    <c:forEach var="item" items="${queryResult.list}">
+                                    <c:forEach var="item" items="${model.pedidoTiposRoupa}">
                                         <md-table-row>
-                                            <md-table-cell><c:out value="${item.tipoRoupa.descricao}"/></md-table-cell>
+                                            <md-table-cell><c:out value="${item.tipoRoupa.nome}"/></md-table-cell>
                                             <md-table-cell><fmt:formatNumber value="${item.tipoRoupa.prazoLavagem}" type="number"/></md-table-cell>
                                             <md-table-cell><fmt:formatNumber value="${item.quantidade}" type="number" maxFractionDigits="0"/></md-table-cell>                                          
                                             <md-table-cell><fmt:formatNumber value="${item.valorUnitario}" type="currency"/></md-table-cell>
-                                            <md-table-cell><fmt:formatNumber value="${0}" type="currency"/></md-table-cell>
-                                            <md-button class="md-icon-button" href="${contextPath}/${basePath}/remove-item/${item.id}">
-                                                <md-icon>delete</md-icon>
-                                            </md-button>
+                                            <md-table-cell><fmt:formatNumber value="${item.valorUnitario * item.quantidade}" type="currency"/></md-table-cell>
+                                            <form method="POST" action='${contextPath}/${basePath}/remove-item/${model.id}' accept-charset="ISO-8859-1">
+                                                <input type="hidden" name="tipoRoupa" value="${item.tipoRoupa.id}" />
+                                                <md-button class="md-icon-button" type="submit">
+                                                    <md-icon>delete</md-icon>
+                                                </md-button>
+                                            </form>
                                         </md-table-row>
                                     </c:forEach>
                                 </md-table-body>

@@ -2,19 +2,22 @@
 <!DOCTYPE logback>
 <configuration>
 
-	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{15}#%line %msg\n</pattern>
-		</encoder>
-	</appender>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{15}#%line %msg\n</pattern>
+        </encoder>
+    </appender>
 
-	<logger name="br.ufpr.tads.dac.lol">
-		<appender-ref ref="STDOUT" />
-	</logger>
+    <logger name="br.ufpr.tads.dac.lol">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    
+    <logger name="org.hibernate.type" level="ALL" />
+    <logger name="org.hibernate" level="DEBUG" />
 	
-	<root>
-		<level value="error" />
-		<appender-ref ref="STDOUT" />
-	</root>
+    <root>
+        <level value="error" />
+        <appender-ref ref="STDOUT" />
+    </root>
 
 </configuration>

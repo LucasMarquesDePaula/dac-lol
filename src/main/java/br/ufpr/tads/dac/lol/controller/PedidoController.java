@@ -3,7 +3,9 @@ package br.ufpr.tads.dac.lol.controller;
 import br.ufpr.tads.dac.lol.facede.CrudFacede;
 import br.ufpr.tads.dac.lol.facede.PedidoFacede;
 import br.ufpr.tads.dac.lol.facede.TipoRoupaFacede;
+import br.ufpr.tads.dac.lol.model.Authenticable;
 import br.ufpr.tads.dac.lol.model.Cliente;
+import br.ufpr.tads.dac.lol.model.Funcionario;
 import br.ufpr.tads.dac.lol.model.Pedido;
 import br.ufpr.tads.dac.lol.model.TipoRoupa;
 import java.io.IOException;
@@ -14,7 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -46,43 +47,75 @@ public class PedidoController extends CrudController<Pedido> {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            super.doPost(request, response);
-        } catch (NotCrudActionException actionException) {
-            // Se não for ações tipo crud
-
-            try {
-                String action = actionException.getAction();
-                String[] pathParts = actionException.getPathParts();
-                Integer id = Integer.parseInt(pathParts[2]);
-
-                switch (action) {
-                    case "add-item":
-                        Integer quantidade = Integer.parseInt(request.getParameter("quantidade"));
-                        Integer idTipoRoupa = Integer.parseInt(request.getParameter("tipoRoupa"));
-                        TipoRoupa tipoRoupa = new TipoRoupaFacede().find(idTipoRoupa);
-
-                        PedidoFacede facede = new PedidoFacede();
-                        Pedido model = facede.adicionarItem(id, tipoRoupa, quantidade);
-
-                        request.setAttribute("model", model);
-                        request.setAttribute("message", "Item Adicionado com sucesso!");
-                        break;
-                }
-
-            } catch (Exception ex) {
-                request.setAttribute("message", ex.getMessage());
-                getLogger().debug("", ex);
-            } finally {
-                request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
-            }
-
-        }
+        super.doPost(request, response);
     }
 
     @Override
-    protected void beforeProcessRequest(HttpServletRequest request, HttpServletResponse response
-    ) {
+    protected void processNotCrudRequest(HttpServletRequest request, HttpServletResponse response, NotCrudActionException actionException) {
+        try {
+            String action = actionException.getAction();
+            String[] pathParts = actionException.getPathParts();
+            Integer id = Integer.parseInt(pathParts[2]);
+
+            PedidoFacede facede = new PedidoFacede();
+
+            TipoRoupa tipoRoupa = null;
+            Funcionario funcionario = null;
+
+            try {
+                Integer idTipoRoupa = Integer.parseInt(request.getParameter("tipoRoupa"));
+                tipoRoupa = new TipoRoupaFacede().find(idTipoRoupa);
+            } catch (Exception ignored) {
+
+            }
+
+            try {
+                funcionario = (Funcionario) request.getSession().getAttribute(Authenticable.class.getName());
+            } catch (Exception ignored) {
+
+            }
+            switch (action) {
+                case "add-item":
+                    Integer quantidade = Integer.parseInt(request.getParameter("quantidade"));
+                    request.setAttribute("model", facede.adicionarItem(id, tipoRoupa, quantidade));
+                    request.setAttribute("message", "Item Adicionado com sucesso!");
+                    break;
+
+                case "remove-item":
+                    request.setAttribute("model", facede.removerItem(id, tipoRoupa));
+                    request.setAttribute("message", "Item Removido com sucesso!");
+                    break;
+
+                case "confirm-order":
+                    request.setAttribute("model", facede.confirmarOrcamentoPedido(id, new Date()));
+                    request.setAttribute("message", "Orçamento confirmado com sucesso!");
+                    break;
+
+//                case "confirm-receivement":;
+//                    request.setAttribute("model", facede.confirmar(id, new Date()));
+//                    request.setAttribute("message", "Orçamento recebido com sucesso!");
+//                    break;
+
+                case "confirm-payment":
+                    request.setAttribute("model", facede.confirmarPagamento(id, funcionario, new Date()));
+                    request.setAttribute("message", "Orçamento recebido com sucesso!");
+                    break;
+
+                case "cancel":
+                    request.setAttribute("model", facede.cancelarPedido(id, funcionario, new Date()));
+                    request.setAttribute("message", "Pedido Cancelado com sucesso!");
+                    break;
+            }
+
+        } catch (Exception ex) {
+            request.setAttribute("message", ex.getMessage());
+            getLogger().debug("", ex);
+        }
+
+    }
+
+    @Override
+    protected void beforeProcessRequest(HttpServletRequest request, HttpServletResponse response) {
         DateTimeFormatter df = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         try {
             dataInicial = new Date(df.parseMillis(request.getParameter("dataInicial") + " 00:00:00"));
@@ -95,7 +128,7 @@ public class PedidoController extends CrudController<Pedido> {
         }
 
         try {
-            cliente = (Cliente) request.getSession().getAttribute("authenticable");
+            cliente = (Cliente) request.getSession().getAttribute(Authenticable.class.getName());
         } catch (Exception ignored) {
         }
 
@@ -115,7 +148,7 @@ public class PedidoController extends CrudController<Pedido> {
     protected void beforeCreate(HttpServletRequest request, HttpServletResponse response, Pedido model) {
         model.setDataHoraCadastro(new Date());
         model.setCliente(cliente);
-        
+
         model.setOrcamentoConfirmado((byte) 0x0);
         model.setCancelado((byte) 0x0);
         model.setRealizado((byte) 0x0);

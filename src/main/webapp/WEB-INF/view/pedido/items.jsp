@@ -40,14 +40,12 @@
                                     </md-input-container>  
                                 </md-layout> 
                             </md-layout>
-                            <md-layout :md-gutter="true">
-                                <md-layout md-flex="100">
-                                    <md-input-container>
-                                        <label>Cliente</label>
-                                        <md-input value="${model.cliente.nome}" readonly></md-input>
-                                    </md-input-container>  
-                                </md-layout>
-                            </md-layout>
+
+                            <md-input-container>
+                                <label>Cliente</label>
+                                <md-input value="${model.cliente.nome}" readonly></md-input>
+                            </md-input-container>  
+
                         </form>
 
                         <md-toolbar>
