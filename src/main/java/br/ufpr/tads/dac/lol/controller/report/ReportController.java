@@ -39,6 +39,29 @@ public abstract class ReportController extends Controller {
         }
     }
     
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            // Process path
+            String pathInfo = request.getRequestURI();
+            String[] pathParts = pathInfo.split("/");
+            String page = pathParts.length >= 4 ? pathParts[3] : "grid";
+            String id = pathParts.length >= 5 ? pathParts[4].replaceAll("[^0-9]", "") : "";
+
+            request.setAttribute("basePath", getBasePath());
+            switch (page) {
+                case "generate":
+                    request.getRequestDispatcher(viewPath(String.format("%s/generate.jsp", getBasePath()))).forward(request, response);
+                default:
+                    throw new NotCrudActionException(page, pathParts);
+            }
+        } catch (IOException e) {
+            logger.error("", e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+
+    }
+    
     protected final byte[] processReport(Map<String, Object> parameters) {
         final Report report = new Report();
         Dao.getSession().doWork((Connection connection) -> {
@@ -71,6 +94,26 @@ public abstract class ReportController extends Controller {
         
         public void setData(byte[] data) {
             this.data = data;
+        }
+    }
+    
+    static class NotCrudActionException extends ServletException {
+
+        private final String action;
+        private final String[] pathParts;
+
+        NotCrudActionException(String action, String[] pathParts) {
+            super(String.format("Invalid action [%s]", action));
+            this.action = action;
+            this.pathParts = pathParts;
+        }
+
+        public String getAction() {
+            return action;
+        }
+
+        public String[] getPathParts() {
+            return pathParts;
         }
     }
 }

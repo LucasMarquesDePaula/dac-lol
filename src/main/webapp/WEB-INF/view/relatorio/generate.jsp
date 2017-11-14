@@ -15,14 +15,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><c:out value="${title}"/></title>
         <jsp:include page="../../include/vue-material.jsp" />
-        <st:css res="view/${basePath}/form.css"/>
+        <st:css res="view/${basePath}/generate.css"/>
     </head>
     <body>
         <jsp:include page="../../include/layout.jsp">
             <jsp:param name="title" value="${title}" />
         </jsp:include>
         
-        <st:js res="view/${basePath}/form.js"/>
+        <st:js res="view/${basePath}/generate.js"/>
     </body>
 </html>
 
