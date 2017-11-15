@@ -95,7 +95,6 @@ public class PedidoController extends CrudController<Pedido> {
 //                    request.setAttribute("model", facede.confirmar(id, new Date()));
 //                    request.setAttribute("message", "Orçamento recebido com sucesso!");
 //                    break;
-
                 case "confirm-payment":
                     request.setAttribute("model", facede.confirmarPagamento(id, funcionario, new Date()));
                     request.setAttribute("message", "Orçamento recebido com sucesso!");
@@ -104,6 +103,32 @@ public class PedidoController extends CrudController<Pedido> {
                 case "cancel":
                     request.setAttribute("model", facede.cancelarPedido(id, funcionario, new Date()));
                     request.setAttribute("message", "Pedido Cancelado com sucesso!");
+                    break;
+                case "fast-edit":
+                    //Nenhum checkbox selecionado
+                    if (request.getParameter("confirmarPagamento") == null && request.getParameter("confirmarLavagem") == null) {
+                        throw new NotCrudActionException(action, pathParts);
+                    } else {
+                        //Busca Parâmetros
+                        int idEdit = Integer.parseInt(request.getParameter("id"));
+
+                        //Confirmar Pagamento apenas
+                        if (request.getParameter("confirmarPagamento") != null && request.getParameter("confirmarLavagem") == null) {
+                            request.setAttribute("model", facede.confirmarPagamento(idEdit, funcionario, new Date()));
+                            request.setAttribute("message", "Pagamento confirmado com sucesso!");
+                        } else {
+                            //Confirmar Lavagem apenas
+                            if (request.getParameter("confirmarPagamento") == null && request.getParameter("confirmarLavagem") != null) {
+                                request.setAttribute("model", facede.confirmarRealizacaoPedido(idEdit, funcionario, new Date()));
+                                request.setAttribute("message", "Lavagem confirmada com sucesso!");
+                            } else {
+                                //Confirmar Lavagem e Confirmar Pagamento
+                                request.setAttribute("model", facede.confirmarPagamento(idEdit, funcionario, new Date()));
+                                request.setAttribute("model", facede.confirmarRealizacaoPedido(idEdit, funcionario, new Date()));
+                                request.setAttribute("message", "Pagamento e lavagem confirmados com sucesso!");
+                            }
+                        }
+                    }
                     break;
             }
 

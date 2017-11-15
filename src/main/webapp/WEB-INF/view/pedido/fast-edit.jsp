@@ -28,7 +28,7 @@
                         </md-card>
                     </c:if>
                     <md-card>
-                        <form method="POST" action='${contextPath}/${basePath}/${empty model.id ? "create" : "update"}/${model.id}' accept-charset="ISO-8859-1">
+                        <form method="POST" action="${contextPath}/${basePath}/fast-edit/${model.id}" accept-charset="ISO-8859-1">
                             <md-card-content>
 
                                 <md-layout :md-gutter="true">
@@ -43,8 +43,8 @@
 
                                 <md-layout :md-gutter="true">
                                     <md-layout md-flex="100">
-                                        <md-checkbox name="check1" v-model="checkbox" class="md-primary">Confirmar Pagamento</md-checkbox>
-                                        <md-checkbox name="check2" v-model="checkbox" class="md-primary">Confirmar Lavagem</md-checkbox>
+                                        <md-checkbox name="confirmarPagamento" v-model="boolean" class="md-primary">Confirmar Pagamento</md-checkbox>
+                                        <md-checkbox name="confirmarLavagem" v-model="boolean" class="md-primary">Confirmar Lavagem</md-checkbox>
                                     </md-layout>
                                 </md-layout>
 
