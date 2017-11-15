@@ -2,111 +2,112 @@ package br.ufpr.tads.dac.lol.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.List;
-
 
 /**
  * The persistent class for the tipo_roupa database table.
- * 
+ *
  */
 @Entity
-@Table(name="tipo_roupa")
-@NamedQuery(name="TipoRoupa.findAll", query="SELECT t FROM TipoRoupa t")
+@Table(name = "tipo_roupa")
+@NamedQuery(name = "TipoRoupa.findAll", query = "SELECT t FROM TipoRoupa t")
 public class TipoRoupa extends Model<Integer> implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+    private static final long serialVersionUID = 1L;
 
-	private Byte ativo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	private String descricao;
+    private Byte ativo;
 
-	private String nome;
+    private String descricao;
 
-	@Column(name="prazo_lavagem")
-	private Integer prazoLavagem;
+    private String nome;
 
-	@Column(name="preco_lavagem")
-	private BigDecimal precoLavagem;
+    @Column(name = "prazo_lavagem")
+    private Integer prazoLavagem;
 
-	//bi-directional many-to-one association to PedidoTipoRoupa
-	@OneToMany(mappedBy = "id.tipoRoupa")
-	private List<PedidoTipoRoupa> pedidoTiposRoupa;
+    @Column(name = "preco_lavagem")
+    private Float precoLavagem;
 
-	public TipoRoupa() {
-	}
+    //bi-directional many-to-one association to PedidoTipoRoupa
+    @OneToMany(mappedBy = "id.tipoRoupa")
+    private List<PedidoTipoRoupa> pedidoTiposRoupa;
 
-	public Integer getId() {
-		return this.id;
-	}
+    public TipoRoupa() {
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
 
-	public Byte getAtivo() {
-		return this.ativo;
-	}
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setAtivo(Byte ativo) {
-		this.ativo = ativo;
-	}
+    public Byte getAtivo() {
+        return this.ativo;
+    }
 
-	public String getDescricao() {
-		return this.descricao;
-	}
+    public void setAtivo(Byte ativo) {
+        this.ativo = ativo;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public String getDescricao() {
+        return this.descricao;
+    }
 
-	public String getNome() {
-		return this.nome;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getNome() {
+        return this.nome;
+    }
 
-	public Integer getPrazoLavagem() {
-		return this.prazoLavagem;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setPrazoLavagem(Integer prazoLavagem) {
-		this.prazoLavagem = prazoLavagem;
-	}
+    public Integer getPrazoLavagem() {
+        return this.prazoLavagem;
+    }
 
-	public BigDecimal getPrecoLavagem() {
-		return this.precoLavagem;
-	}
+    public void setPrazoLavagem(Integer prazoLavagem) {
+        this.prazoLavagem = prazoLavagem;
+    }
 
-	public void setPrecoLavagem(BigDecimal precoLavagem) {
-		this.precoLavagem = precoLavagem;
-	}
+    public Float getPrecoLavagem() {
+        return this.precoLavagem;
+    }
 
-	public List<PedidoTipoRoupa> getPedidoTiposRoupa() {
-		return this.pedidoTiposRoupa;
-	}
+    public void setPrecoLavagem(Float precoLavagem) {
+        this.precoLavagem = precoLavagem;
+    }
 
-	public void setPedidoTiposRoupa(List<PedidoTipoRoupa> pedidoTiposRoupa) {
-		this.pedidoTiposRoupa = pedidoTiposRoupa;
-	}
+    public List<PedidoTipoRoupa> getPedidoTiposRoupa() {
+        return this.pedidoTiposRoupa;
+    }
 
-	public PedidoTipoRoupa addPedidoTiposRoupa(PedidoTipoRoupa pedidoTiposRoupa) {
-		getPedidoTiposRoupa().add(pedidoTiposRoupa);
-		pedidoTiposRoupa.setTipoRoupa(this);
+    public void setPedidoTiposRoupa(List<PedidoTipoRoupa> pedidoTiposRoupa) {
+        this.pedidoTiposRoupa = pedidoTiposRoupa;
+    }
 
-		return pedidoTiposRoupa;
-	}
+    public PedidoTipoRoupa addPedidoTiposRoupa(PedidoTipoRoupa pedidoTiposRoupa) {
+        getPedidoTiposRoupa().add(pedidoTiposRoupa);
+        pedidoTiposRoupa.setTipoRoupa(this);
 
-	public PedidoTipoRoupa removePedidoTiposRoupa(PedidoTipoRoupa pedidoTiposRoupa) {
-		getPedidoTiposRoupa().remove(pedidoTiposRoupa);
-		pedidoTiposRoupa.setTipoRoupa(null);
+        return pedidoTiposRoupa;
+    }
 
-		return pedidoTiposRoupa;
-	}
+    public PedidoTipoRoupa removePedidoTiposRoupa(PedidoTipoRoupa pedidoTiposRoupa) {
+        getPedidoTiposRoupa().remove(pedidoTiposRoupa);
+        pedidoTiposRoupa.setTipoRoupa(null);
+
+        return pedidoTiposRoupa;
+    }
 
 }

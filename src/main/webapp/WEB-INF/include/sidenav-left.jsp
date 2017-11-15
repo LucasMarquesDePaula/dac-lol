@@ -3,7 +3,7 @@
     Created on : 23/09/2017, 21:22:08
     Author     : Lucas
 --%>
-<%@ taglib prefix = "st" uri = "/WEB-INF/static.tld" %>
+<%@ taglib prefix="st" uri="/WEB-INF/static.tld" %>
 
 <md-sidenav id="sidenav-left" ref="self" class="md-left" :md-swipeable="true">
     <md-toolbar class="md-large">
@@ -79,6 +79,10 @@
                     </md-list-item>
                 </md-list>
             </md-list-expand>
+        </md-list-item>
+        <md-list-item href="/lol/report" >
+            <md-icon>work</md-icon>
+            <span>Relatórios</span>
         </md-list-item>
     </md-list>
 </md-sidenav>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
+<!-- 2017-11-12T14:36:26 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioPedidos" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9491f02f-79a8-4673-aa20-bac96193fc33">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Tom"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#DEDEDE">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#DEDEDE">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<queryString>
+		<![CDATA[select * from pedido]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="cliente_id" class="java.lang.Integer"/>
+	<field name="data_hora_cadastro" class="java.sql.Timestamp"/>
+	<field name="endereco_entrega" class="java.lang.String"/>
+	<field name="observacao_cliente" class="java.lang.String"/>
+	<field name="observacao_interna" class="java.lang.String"/>
+	<field name="data_hora_prazo" class="java.sql.Timestamp"/>
+	<field name="realizado" class="java.lang.Boolean"/>
+	<field name="data_hora_realizacao" class="java.sql.Timestamp"/>
+	<field name="funcionario_realizacao_id" class="java.lang.Integer"/>
+	<field name="cancelado" class="java.lang.Boolean"/>
+	<field name="data_hora_cancelamento" class="java.sql.Timestamp"/>
+	<field name="orcamento_confirmado" class="java.lang.Boolean"/>
+	<field name="data_hora_confirmacao_orcamento" class="java.sql.Timestamp"/>
+	<field name="pago" class="java.lang.Boolean"/>
+	<field name="data_hora_pagamento" class="java.sql.Timestamp"/>
+	<field name="funcionario_pagamento_id" class="java.lang.Integer"/>
+	<field name="recebido" class="java.lang.Boolean"/>
+	<field name="data_hora_recebimento" class="java.sql.Timestamp"/>
+	<field name="entregue" class="java.lang.Boolean"/>
+	<field name="entrega_frustrada" class="java.lang.Boolean"/>
+	<field name="entrega_frustrada_justificativa" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="306" y="49" width="190" height="30" uuid="7fc16c97-55e5-4acd-a98b-a7a14e854696"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Relatório de Pedidos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="42" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="30" width="50" height="30" uuid="13bc809b-75ae-4323-b7b3-176767f3ae91"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="30" width="50" height="30" uuid="d686308c-d897-4214-ab92-44be9ecca1ac"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="30" width="100" height="30" uuid="80e8a858-b7e2-4a76-9f57-9eba9d67a583"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data/Hora Cadastro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="30" width="100" height="30" uuid="b088f7f5-e32c-4137-8eec-c5f9065e47ad"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço Entrega]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="30" width="118" height="30" uuid="352b86c2-c402-49e6-ac28-e1c9f834e1c1"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observação Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="30" width="50" height="30" uuid="1a904126-c4a1-4c3d-b68d-f988e0a1fa3f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Realizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="30" width="59" height="30" uuid="03d06545-d843-4dea-afb1-cb781ae2b042"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cancelado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="610" y="30" width="50" height="30" uuid="9d6b3057-4e3a-4e29-9b69-541af44b2b73"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="659" y="30" width="49" height="30" uuid="ad8332d7-d4cb-48a5-926b-60fd9bab9f03"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recebido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="708" y="29" width="52" height="30" uuid="1040887e-7e4c-4a8f-b65d-62188bcd9434"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entregue]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="550" y="30" width="60" height="30" uuid="9c8c0a45-dae0-4732-b3c9-e68ff524b665"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Orçamento Confirmado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="20" y="10" width="50" height="30" uuid="c878a574-1d7c-4699-97f7-b1ce41278b78"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="10" width="50" height="30" uuid="cb52364b-97fc-4a7f-b5de-8001ff71311e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cliente_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="10" width="100" height="30" uuid="f3a22595-4267-49c5-99b0-9f68813bcf84"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{data_hora_cadastro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="10" width="100" height="30" uuid="65570511-6996-4f50-b83c-734d2b45b8bf"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{endereco_entrega}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="10" width="119" height="30" uuid="ab785c08-cff1-4f9a-9bde-d0cb8c79f4f3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{observacao_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="10" width="50" height="30" uuid="cae61bcf-769a-4ea9-b8f7-8d8a60fa7292"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{realizado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="10" width="59" height="30" uuid="f7a63a1f-f8e3-40ca-86fe-6224c9ac8442"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cancelado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="610" y="10" width="51" height="30" uuid="fd6c2c3c-3715-4655-b9fc-df649949e74c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="660" y="10" width="48" height="30" uuid="675a6b78-5aba-4c63-b7ee-57fc76ccfe18"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{recebido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="710" y="10" width="52" height="30" uuid="9215e31e-df3c-4b99-b580-228ca4e6162e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{entregue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="549" y="10" width="60" height="30" uuid="23f6e340-55d3-407f-86b2-789d821ff8eb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{orcamento_confirmado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

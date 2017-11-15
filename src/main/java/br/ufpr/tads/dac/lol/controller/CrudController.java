@@ -7,6 +7,7 @@ import br.ufpr.tads.dac.lol.facede.ValidationException;
 import br.ufpr.tads.dac.lol.model.Model;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.Converter;
+import org.apache.commons.beanutils.converters.BigDecimalConverter;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
@@ -32,8 +33,6 @@ public abstract class CrudController<T extends Model> extends Controller {
     protected abstract T getModel();
 
     protected abstract CrudFacede<T> getFacede();
-
-    protected abstract String getBasePath();
 
     protected void doList(HttpServletRequest request, T model, CrudFacede<T> facede) {
         int limit = 5;
@@ -60,11 +59,16 @@ public abstract class CrudController<T extends Model> extends Controller {
         }
 
         try {
-            Date defaultValue = null;
-            DateConverter converter = new DateConverter(defaultValue);
-            converter.setPattern("yyyy-MM-dd");
             BeanUtilsBean beanUtilsBean = BeanUtilsBean.getInstance();
-            beanUtilsBean.getConvertUtils().register(converter, java.util.Date.class);
+
+            Date dateDefaultValue = null;
+            DateConverter dateConverter = new DateConverter(dateDefaultValue);
+            dateConverter.setPattern("yyyy-MM-dd");
+            beanUtilsBean.getConvertUtils().register(dateConverter, java.util.Date.class);
+
+            BigDecimal bigDecimalDefaultValue = null;;
+            BigDecimalConverter bigDecimalConverter = new BigDecimalConverter(bigDecimalDefaultValue);
+            beanUtilsBean.getConvertUtils().register(bigDecimalConverter, BigDecimal.class);
 
             model = getModel();
             BeanUtils.populate(model, request.getParameterMap());
@@ -80,6 +84,8 @@ public abstract class CrudController<T extends Model> extends Controller {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            beforeProcessRequest(request, response);
+
             T model = null;
             CrudFacede<T> facede = getFacede();
 
@@ -110,12 +116,10 @@ public abstract class CrudController<T extends Model> extends Controller {
                     request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
                 case "view":
                     request.getRequestDispatcher(viewPath(String.format("%s/view.jsp", getBasePath()))).forward(request, response);
-                case "edit":
-                    request.getRequestDispatcher(viewPath(String.format("%s/edit.jsp", getBasePath()))).forward(request, response);
                 default:
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                    throw new NotCrudActionException(page, pathParts);
             }
-        } catch (IOException | ServletException e) {
+        } catch (IOException e) {
             getLogger().error("", e);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
@@ -125,6 +129,8 @@ public abstract class CrudController<T extends Model> extends Controller {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            beforeProcessRequest(request, response);
+
             T model = getModel();
             CrudFacede<T> facede = getFacede();
 
@@ -154,11 +160,13 @@ public abstract class CrudController<T extends Model> extends Controller {
                     request.setAttribute("message", "Cadastrado com sucesso!");
                     break;
                 case "update":
+                    beforeUpdate(request, response, model);
                     facede.save(model);
                     request.setAttribute("message", "Alterado com sucesso!");
                     break;
                 case "delete":
                     model = facede.find(Integer.parseInt(pathParts[2]));
+                    beforeDelete(request, response, model);
                     facede.delete(model);
                     request.setAttribute("message", "Deletado com sucesso!");
                     break;
@@ -169,15 +177,32 @@ public abstract class CrudController<T extends Model> extends Controller {
             getLogger().debug("", ex);
             request.setAttribute("message", ex.getMessage());
             request.setAttribute("messages", ex.getMessages());
+            request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
+        } catch (NotCrudActionException ex) {
+            processNotCrudRequest(request, response, ex);
         } catch (Exception ex) {
             request.setAttribute("message", ex.getMessage());
             getLogger().debug("", ex);
         } finally {
-            request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
+            request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath())))
+                    .forward(request, response);
         }
     }
 
+    protected void beforeProcessRequest(HttpServletRequest request, HttpServletResponse response) {
+    }
+
     protected void beforeCreate(HttpServletRequest request, HttpServletResponse response, T model) {
+    }
+
+    protected void beforeUpdate(HttpServletRequest request, HttpServletResponse response, T model) {
+    }
+
+    protected void beforeDelete(HttpServletRequest request, HttpServletResponse response, T model) {
+    }
+
+    protected void processNotCrudRequest(HttpServletRequest request, HttpServletResponse response, NotCrudActionException actionException) {
+
     }
 
     static class NotCrudActionException extends ServletException {

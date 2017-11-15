@@ -13,4 +13,6 @@ public abstract class Controller extends HttpServlet {
     protected static String viewPath(String view) {
         return String.format("/%s/%s", BASE_DIR, view).replaceAll("[/]{2,}", "/");
     }
+
+    protected abstract String getBasePath();
 }

@@ -1,63 +1,66 @@
 package br.ufpr.tads.dac.lol.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.*;
 
 /**
  * The primary key class for the pedido_tipo_roupa database table.
- * 
+ *
  */
 @Embeddable
 public class PedidoTipoRoupaPK implements Serializable {
-	// default serial version id, required for serializable classes.
-	private static final long serialVersionUID = 1L;
+    // default serial version id, required for serializable classes.
 
-	@ManyToOne
-	@JoinColumn(name = "pedido_id")
-	private Pedido pedido;
+    private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-	@JoinColumn(name = "tipoRoupa_id")
-	private TipoRoupa tipoRoupa;
-	
-	public PedidoTipoRoupaPK() {
-	}
+    @ManyToOne
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedido;
 
-	
-	public Pedido getPedido() {
-		return this.pedido;
-	}
+    @ManyToOne
+    @JoinColumn(name = "tipo_roupa_id")
+    private TipoRoupa tipoRoupa;
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
+    public PedidoTipoRoupaPK() {
+    }
 
-	public TipoRoupa getTipoRoupa() {
-		return this.tipoRoupa;
-	}
+    public Pedido getPedido() {
+        return this.pedido;
+    }
 
-	public void setTipoRoupa(TipoRoupa tipoRoupa) {
-		this.tipoRoupa = tipoRoupa;
-	}
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
 
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof PedidoTipoRoupaPK)) {
-			return false;
-		}
-		PedidoTipoRoupaPK castOther = (PedidoTipoRoupaPK) other;
-		return (this.getPedido().getId() == castOther.getPedido().getId())
-				&& (this.getTipoRoupa().getId() == castOther.getTipoRoupa().getId());
-	}
+    public TipoRoupa getTipoRoupa() {
+        return this.tipoRoupa;
+    }
 
-	public int hashCode() {
-		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + this.getPedido().getId();
-		hash = hash * prime + this.getTipoRoupa().getId();
+    public void setTipoRoupa(TipoRoupa tipoRoupa) {
+        this.tipoRoupa = tipoRoupa;
+    }
 
-		return hash;
-	}
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof PedidoTipoRoupaPK)) {
+            return false;
+        }
+        PedidoTipoRoupaPK castOther = (PedidoTipoRoupaPK) other;
+        return (Objects.equals(this.getPedido().getId(), castOther.getPedido().getId()))
+                && (Objects.equals(this.getTipoRoupa().getId(), castOther.getTipoRoupa().getId()));
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hash = 17;
+        hash = hash * prime + this.getPedido().getId();
+        hash = hash * prime + this.getTipoRoupa().getId();
+
+        return hash;
+    }
 }
