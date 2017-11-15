@@ -89,8 +89,14 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>6.2.0</version>
+            <version>6.4.3</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
+<!--        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.4.12</version>
+        </dependency>-->
 
     </dependencies>
     <build>
@@ -122,5 +128,9 @@
             <id>JBoss repository</id>
             <url>http://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
+<!--        <repository>
+          <id>Jasper Reports</id>
+          <url>http://jasperreports.sourceforge.net/maven2</url>
+        </repository>-->
     </repositories>
 </project>

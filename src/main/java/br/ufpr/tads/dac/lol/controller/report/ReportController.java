@@ -2,20 +2,22 @@ package br.ufpr.tads.dac.lol.controller.report;
 
 import br.ufpr.tads.dac.lol.controller.Controller;
 import br.ufpr.tads.dac.lol.dao.Dao;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.apache.commons.io.IOUtils;
+import org.hibernate.jdbc.Work;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,8 +47,8 @@ public class ReportController extends Controller {
             response.addHeader("Content-Disposition", String.format("inline; filename=%s.pdf", getReportTemplateName()));
             response.setContentLength(report.length);
 
-            in = new BufferedInputStream(new ByteArrayInputStream(report));
-            out = new BufferedOutputStream(response.getOutputStream());
+            in = new ByteArrayInputStream(report);
+            out = response.getOutputStream();
 
             IOUtils.copy(in, out);
 
@@ -67,22 +69,29 @@ public class ReportController extends Controller {
 
     protected final byte[] processReport(Map<String, Object> parameters) {
         final Report report = new Report();
-        Dao.getSession().doWork((Connection connection) -> {
-            byte[] data = null;
-            try {
-                data = JasperRunManager.runReportToPdf(getTemplate(), parameters, connection);
-            } catch (Exception ex) {
-                logger.error("", ex);
+        Dao.getSession().doWork(new Work() {
+            @Override
+            public void execute(Connection connection) throws SQLException {
+                byte[] data = null;
+                try {
+//                    JasperReport jasperReport = JasperCompileManager.compileReport(getTemplate());
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(getTemplate(), null, connection);
+                    data = JasperExportManager.exportReportToPdf(jasperPrint);
+                } catch (Exception ex) {
+                    logger.error("", ex);
+                }
+                report.setData(data);
             }
-            report.setData(data);
         });
         return report.getData();
     }
 
-    private InputStream getTemplate() {
+    private InputStream getTemplate() throws IOException {
         return ReportController.class
                 .getClassLoader()
                 .getResourceAsStream(String.format("report/%s.jasper", getReportTemplateName()));
+//        File file = new File(String.format("d:/report/%s.jasper", getReportTemplateName()));
+//        return new FileInputStream(file);
     }
 
     protected String getReportTemplateName() {

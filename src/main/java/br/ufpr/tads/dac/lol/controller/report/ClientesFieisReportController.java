@@ -26,7 +26,7 @@ public class ClientesFieisReportController extends ReportController {
 
     @Override
     protected String getReportTemplateName() {
-        return "RelatorioClientes";
+        return "RelatorioClientesFieis";
     }
 
 }
