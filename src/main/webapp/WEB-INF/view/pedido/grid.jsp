@@ -37,15 +37,24 @@
                                     <md-layout v-if="tipoFiltro === 'ppp'" md-flex="20">
                                         <md-input-container>
                                             <label>Data Inicial</label>
-                                            <md-input type="date" name="dataInicial" value="${param.email}"></md-input>
+                                            <md-input type="date" name="dataInicial" value=""></md-input>
                                         </md-input-container>
                                     </md-layout>
                                     <md-layout v-if="tipoFiltro === 'ppp'" md-flex="20">
                                         <md-input-container>
                                             <label>Data Final</label>
-                                            <md-input type="date" name="dataFinal" value="${param.cpf}"></md-input>
+                                            <md-input type="date" name="dataFinal"></md-input>
                                         </md-input-container>
                                     </md-layout>
+
+                                    <jsp:useBean id="now" class="java.util.Date" />
+                                    <fmt:formatDate var="actualDate" value="${now}" pattern="dd/MM/yyyy" />
+                                    <md-layout v-if="tipoFiltro === 'pda'" md-flex="30">
+                                        <md-input-container>
+                                            <label>Data Atual</label>
+                                            <md-input type="date" name="dataAtual" value=""></md-input>
+                                        </md-input-container>
+                                    </md-layout>    
                                     <md-layout md-flex="10">
                                         <md-toolbar>
                                             <md-button type="submit" class="md-icon-button">
