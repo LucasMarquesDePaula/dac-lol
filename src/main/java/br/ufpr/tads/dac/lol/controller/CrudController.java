@@ -3,10 +3,7 @@ package br.ufpr.tads.dac.lol.controller;
 import br.ufpr.tads.dac.lol.facede.CrudFacede;
 import br.ufpr.tads.dac.lol.facede.IllegalOperationException;
 import br.ufpr.tads.dac.lol.facede.NotFoundException;
-import br.ufpr.tads.dac.lol.facede.PedidoFacede;
 import br.ufpr.tads.dac.lol.facede.ValidationException;
-import br.ufpr.tads.dac.lol.model.Authenticable;
-import br.ufpr.tads.dac.lol.model.Funcionario;
 import br.ufpr.tads.dac.lol.model.Model;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -119,8 +116,6 @@ public abstract class CrudController<T extends Model> extends Controller {
                     request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
                 case "view":
                     request.getRequestDispatcher(viewPath(String.format("%s/view.jsp", getBasePath()))).forward(request, response);
-                case "fast-edit":
-                    request.getRequestDispatcher(viewPath(String.format("%s/fast-edit.jsp", getBasePath()))).forward(request, response);
                 default:
                     throw new NotCrudActionException(page, pathParts);
             }

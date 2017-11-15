@@ -41,7 +41,12 @@ public class PedidoController extends CrudController<Pedido> {
             super.doGet(request, response);
         } catch (NotCrudActionException actionException) {
             // Se não for ações tipo crud
-            String action = actionException.getAction();
+            String page = actionException.getAction();
+            switch (page) {
+                case "fast-edit":
+                    request.getRequestDispatcher(viewPath(String.format("%s/fast-edit.jsp", getBasePath()))).forward(request, response);
+                    break;
+            }
         }
     }
 
@@ -104,31 +109,32 @@ public class PedidoController extends CrudController<Pedido> {
                     request.setAttribute("model", facede.cancelarPedido(id, funcionario, new Date()));
                     request.setAttribute("message", "Pedido Cancelado com sucesso!");
                     break;
-                case "fast-edit":
-                    //Nenhum checkbox selecionado
-                    if (request.getParameter("confirmarPagamento") == null && request.getParameter("confirmarLavagem") == null) {
-                        throw new NotCrudActionException(action, pathParts);
-                    } else {
-                        //Busca Parâmetros
-                        int idEdit = Integer.parseInt(request.getParameter("id"));
 
-                        //Confirmar Pagamento apenas
-                        if (request.getParameter("confirmarPagamento") != null && request.getParameter("confirmarLavagem") == null) {
-                            request.setAttribute("model", facede.confirmarPagamento(idEdit, funcionario, new Date()));
-                            request.setAttribute("message", "Pagamento confirmado com sucesso!");
-                        } else {
-                            //Confirmar Lavagem apenas
-                            if (request.getParameter("confirmarPagamento") == null && request.getParameter("confirmarLavagem") != null) {
-                                request.setAttribute("model", facede.confirmarRealizacaoPedido(idEdit, funcionario, new Date()));
-                                request.setAttribute("message", "Lavagem confirmada com sucesso!");
-                            } else {
-                                //Confirmar Lavagem e Confirmar Pagamento
-                                request.setAttribute("model", facede.confirmarPagamento(idEdit, funcionario, new Date()));
-                                request.setAttribute("model", facede.confirmarRealizacaoPedido(idEdit, funcionario, new Date()));
-                                request.setAttribute("message", "Pagamento e lavagem confirmados com sucesso!");
-                            }
-                        }
+                case "fast-edit":
+                    // Nenhum checkbox selecionado
+                    if (request.getParameter("confirmarPagamento") == null && request.getParameter("confirmarLavagem") == null) {
+                        throw actionException;
                     }
+
+                    // Confirmar Pagamento apenas
+                    if (request.getParameter("confirmarLavagem") == null) {
+                        request.setAttribute("model", facede.confirmarPagamento(id, funcionario, new Date()));
+                        request.setAttribute("message", "Pagamento confirmado com sucesso!");
+                        return;
+                    }
+
+                    // Confirmar Lavagem apenas
+                    if (request.getParameter("confirmarPagamento") == null) {
+                        request.setAttribute("model", facede.confirmarRealizacaoPedido(id, funcionario, new Date()));
+                        request.setAttribute("message", "Lavagem confirmada com sucesso!");
+                        return;
+                    }
+
+                    // Confirmar Lavagem e Confirmar Pagamento
+                    request.setAttribute("model", facede.confirmarPagamento(id, funcionario, new Date()));
+                    request.setAttribute("model", facede.confirmarRealizacaoPedido(id, funcionario, new Date()));
+                    request.setAttribute("message", "Pagamento e lavagem confirmados com sucesso!");
+
                     break;
             }
 
@@ -149,11 +155,13 @@ public class PedidoController extends CrudController<Pedido> {
 
         try {
             dataFinal = new Date(df.parseMillis(request.getParameter("dataFinal") + " 23:59:59"));
+
         } catch (Exception ignored) {
         }
 
         try {
-            cliente = (Cliente) request.getSession().getAttribute(Authenticable.class.getName());
+            cliente = (Cliente) request.getSession().getAttribute(Authenticable.class
+                    .getName());
         } catch (Exception ignored) {
         }
 
