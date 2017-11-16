@@ -127,6 +127,7 @@ public class PedidoController extends CrudController<Pedido> {
                     if (request.getParameter("confirmarPagamento") == null) {
                         request.setAttribute("model", facede.confirmarRealizacaoPedido(id, funcionario, new Date()));
                         request.setAttribute("message", "Lavagem confirmada com sucesso!");
+                        request.setAttribute("paginaAtual", "fast-edit");
                         return;
                     }
 

@@ -180,6 +180,12 @@ public abstract class CrudController<T extends Model> extends Controller {
             request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
         } catch (NotCrudActionException ex) {
             processNotCrudRequest(request, response, ex);
+            if (request.getParameter("paginaAtual") != null) {
+                if (request.getParameter("paginaAtual").equals("fast-edit")) {
+                    request.getRequestDispatcher(viewPath(String.format("%s/fast-edit.jsp", getBasePath())))
+                            .forward(request, response);
+                }
+            }
         } catch (Exception ex) {
             request.setAttribute("message", ex.getMessage());
             getLogger().debug("", ex);

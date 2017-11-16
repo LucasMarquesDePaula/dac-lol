@@ -34,14 +34,14 @@
                     </c:if>
                     <md-card>
                         <md-card-content>
+                            <!-- Clientes -->
+                            <form action='${contextPath}/${basePath}/clientes' target="_blank">
+                                <md-button type="submit" class="md-raised">Clientes</md-button>
+                            </form>
+
                             <!-- Clientes Fieis -->
                             <form action='${contextPath}/${basePath}/clientes-fieis' target="_blank">
                                 <md-button type="submit" class="md-raised">Clientes Fiéis</md-button>
-                            </form>
-
-                            <!-- Relatório 2 -->
-                            <form action='${contextPath}/${basePath}/relatorio2' target="_blank">
-                                <md-button type="submit" class="md-raised">Relatório 2</md-button>
                             </form>
 
                             <!-- Relatório 3 -->

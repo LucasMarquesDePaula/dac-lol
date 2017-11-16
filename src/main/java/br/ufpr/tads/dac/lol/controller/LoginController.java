@@ -63,26 +63,33 @@ public class LoginController extends Controller {
             if (admin.getUsername().equals(username)) {
                 if (admin.getPassword().equals(password)) {
                     request.getSession().setAttribute(Role.class.getName(), Role.ADMIN);
-                request.getSession().setAttribute(Authenticable.class.getName(), admin);
+                    request.getSession().setAttribute(Authenticable.class.getName(), admin);
                     response.sendRedirect(request.getContextPath());
                     return;
                 }
             }
 
             // Funcionario
-            Funcionario funcionario = new Funcionario();
-            funcionario.setUsername(username);
-            funcionario.setPassword(password);
+            Funcionario funcionario = Funcionario.getInstance();
+            //Funcionario funcionario = new Funcionario();
+            //funcionario.setUsername(username);
+            //funcionario.setPassword(password);
 
-            FuncionarioFacede funcionarioFacede = new FuncionarioFacede();
-            List<Funcionario> funcionarioList = funcionarioFacede.list(Example.create(funcionario), null, null, null).getList();
-            if (funcionarioList.size() == 1) {
-                request.getSession().setAttribute(Role.class.getName(), Role.FUNCIONARIO);
-                request.getSession().setAttribute(Authenticable.class.getName(), funcionarioList.get(0));
-                response.sendRedirect(request.getContextPath());
-                return;
+            //FuncionarioFacede funcionarioFacede = new FuncionarioFacede();
+            //List<Funcionario> funcionarioList = funcionarioFacede.list(Example.create(funcionario), null, null, null).getList();
+            //if (funcionarioList.size() == 1) {
+            
+            if (funcionario.getUsername().equals(username)) {
+                if (funcionario.getSenha().equals(password)) {
+                    request.getSession().setAttribute(Role.class.getName(), Role.FUNCIONARIO);
+                    //request.getSession().setAttribute(Authenticable.class.getName(), funcionarioList.get(0));
+                    request.getSession().setAttribute(Authenticable.class.getName(), funcionario);
+                    response.sendRedirect(request.getContextPath());
+                    return;
+                }
             }
 
+            //}
             // Cliente
             Cliente cliente = new Cliente();
             cliente.setUsername(username);
