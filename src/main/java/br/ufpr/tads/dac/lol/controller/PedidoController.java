@@ -8,6 +8,7 @@ import br.ufpr.tads.dac.lol.model.Cliente;
 import br.ufpr.tads.dac.lol.model.Funcionario;
 import br.ufpr.tads.dac.lol.model.Pedido;
 import br.ufpr.tads.dac.lol.model.TipoRoupa;
+import br.ufpr.tads.dac.lol.ws.Message;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +16,9 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.format.DateTimeFormat;
@@ -66,6 +70,7 @@ public class PedidoController extends CrudController<Pedido> {
 
             TipoRoupa tipoRoupa = null;
             Funcionario funcionario = null;
+            Pedido pedido = null;
 
             try {
                 Integer idTipoRoupa = Integer.parseInt(request.getParameter("tipoRoupa"));
@@ -136,6 +141,20 @@ public class PedidoController extends CrudController<Pedido> {
                     request.setAttribute("model", facede.confirmarRealizacaoPedido(id, funcionario, new Date()));
                     request.setAttribute("message", "Pagamento e lavagem confirmados com sucesso!");
 
+                    break;
+                    
+                case "post-delivery":
+                    request.setAttribute("model", facede.cancelarPedido(id, funcionario, new Date()));
+                    pedido = facede.find(id);
+                    Client client = ClientBuilder.newClient();
+                    Message message = client
+                            .target("http://localhost:8080//webresources/ws")
+                            .request(MediaType.APPLICATION_JSON).get(Message.class);
+                    
+                    pedido.setEntregaId(Integer.parseInt(message.getParameters().get("entregaId")));
+                    
+                    facede.save(pedido);
+                    request.setAttribute("message", "Entrega criada com sucesso!");
                     break;
             }
 
