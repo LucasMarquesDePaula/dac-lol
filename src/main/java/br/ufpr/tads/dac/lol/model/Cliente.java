@@ -28,8 +28,6 @@ public class Cliente extends Model<Integer> implements Authenticable, Serializab
 
     private String endereco;
 
-    private String foto;
-
     private String nome;
 
     private String senha;
@@ -85,14 +83,6 @@ public class Cliente extends Model<Integer> implements Authenticable, Serializab
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
-    }
-
-    public String getFoto() {
-        return this.foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
     }
 
     public String getNome() {

@@ -19,7 +19,7 @@ public class ApplicationConfig extends Application {
     }
 
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(WebService.class);
+        resources.add(br.ufpr.tads.dac.lol.ws.WebService.class);
     }
     
 }

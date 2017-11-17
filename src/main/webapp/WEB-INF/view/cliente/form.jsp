@@ -32,58 +32,48 @@
                     <md-card>
                         <form method="POST" action='${contextPath}/${basePath}/${empty model.id ? "create" : "update"}/${model.id}' accept-charset="ISO-8859-1">
                             <md-card-content>
-                                <md-layout>
-                                    <md-layout :md-column="true" md-flex="20">
-                                        <div class="avatar-container">
-                                            <div class="avatar-overlay" @click="fotoClicked()"><md-icon class="md-size-2x">edit</md-icon></div>
-                                            <div class="avatar-image" :style="{ 'background-image': 'url(' + foto + ')' }"></div>
-                                        </div>
+                                <md-layout :md-gutter="true">
+                                    <md-layout md-flex="15">
+                                        <md-input-container>
+                                            <label>Código</label>
+                                            <md-input :readonly="true" name="id" type="number" value="${model.id}"></md-input>
+                                        </md-input-container>
                                     </md-layout>
-                                    <md-layout :md-column="true" md-flex="80">
-                                        <md-layout :md-gutter="true">
-                                            <md-layout md-flex="15">
-                                                <md-input-container>
-                                                    <label>Código</label>
-                                                    <md-input :readonly="true" name="id" type="number" value="${model.id}"></md-input>
-                                                </md-input-container>
-                                            </md-layout>
-                                            <md-layout md-flex="85">
-                                                <md-input-container class="${empty messages.nome ? '' : 'md-input-invalid'}">
-                                                    <label>Nome</label>
-                                                    <md-input name="nome" :required="true" value="${model.nome}"></md-input>
-                                                    <span class="md-error"><c:out value="${messages.nome}"/></span>
-                                                </md-input-container>
-                                            </md-layout>
-                                        </md-layout>
-                                        <md-layout :md-gutter="true">
-                                            <md-layout>
-                                                <md-input-container class="${empty messages.cpf ? '' : 'md-input-invalid'}">
-                                                    <md-icon>fingerprint</md-icon>
-                                                    <label>CPF</label>
-                                                    <md-input name="cpf" :required="true" value="${model.cpf}" v-mask="'###.###.###-##'"></md-input>
-                                                    <span class="md-error"><c:out value="${messages.cpf}"/></span>
-                                                </md-input-container>
-                                            </md-layout>
-                                            <md-layout>
-                                                <md-input-container class="${empty messages.sexo ? '' : 'md-input-invalid'}">
-                                                    <label>Sexo</label>
-                                                    <md-select name="sexo" :required="true" value="${model.sexo}">
-                                                        <md-option value="F">Feminino</md-option>
-                                                        <md-option value="M">Masculino</md-option>
-                                                        <md-option value="O">Não declarar</md-option>
-                                                    </md-select>
-                                                    <span class="md-error"><c:out value="${messages.sexo}"/></span>
-                                                </md-input-container>
-                                            </md-layout>
-                                            <md-layout>
-                                                <md-input-container class="${empty messages.telefone ? '' : 'md-input-invalid'}">
-                                                    <md-icon>phone</md-icon>
-                                                    <label>Telefone</label>
-                                                    <md-input name="telefone" :required="true" value="${model.telefone}" v-mask="['(##) ####-####', '(##) #####-####']"></md-input>
-                                                    <span class="md-error"><c:out value="${messages.telefone}"/></span>
-                                                </md-input-container>  
-                                            </md-layout>
-                                        </md-layout>
+                                    <md-layout md-flex="85">
+                                        <md-input-container class="${empty messages.nome ? '' : 'md-input-invalid'}">
+                                            <label>Nome</label>
+                                            <md-input name="nome" :required="true" value="${model.nome}"></md-input>
+                                            <span class="md-error"><c:out value="${messages.nome}"/></span>
+                                        </md-input-container>
+                                    </md-layout>
+                                </md-layout>
+                                <md-layout :md-gutter="true">
+                                    <md-layout>
+                                        <md-input-container class="${empty messages.cpf ? '' : 'md-input-invalid'}">
+                                            <md-icon>fingerprint</md-icon>
+                                            <label>CPF</label>
+                                            <md-input name="cpf" :required="true" value="${model.cpf}" v-mask="'###.###.###-##'"></md-input>
+                                            <span class="md-error"><c:out value="${messages.cpf}"/></span>
+                                        </md-input-container>
+                                    </md-layout>
+                                    <md-layout>
+                                        <md-input-container class="${empty messages.sexo ? '' : 'md-input-invalid'}">
+                                            <label>Sexo</label>
+                                            <md-select name="sexo" :required="true" value="${model.sexo}">
+                                                <md-option value="F">Feminino</md-option>
+                                                <md-option value="M">Masculino</md-option>
+                                                <md-option value="O">Não declarar</md-option>
+                                            </md-select>
+                                            <span class="md-error"><c:out value="${messages.sexo}"/></span>
+                                        </md-input-container>
+                                    </md-layout>
+                                    <md-layout>
+                                        <md-input-container class="${empty messages.telefone ? '' : 'md-input-invalid'}">
+                                            <md-icon>phone</md-icon>
+                                            <label>Telefone</label>
+                                            <md-input name="telefone" :required="true" value="${model.telefone}" v-mask="['(##) ####-####', '(##) #####-####']"></md-input>
+                                            <span class="md-error"><c:out value="${messages.telefone}"/></span>
+                                        </md-input-container>  
                                     </md-layout>
                                 </md-layout>
                                 <md-layout :md-gutter="true">
@@ -103,27 +93,31 @@
                                         </md-input-container>
                                     </md-layout>
                                 </md-layout>
+
                                 <md-layout :md-gutter="true">
                                     <md-layout>
-                                        <md-input-container md-has-password class="${empty messages.senha ? '' : 'md-input-invalid'}">
-                                            <md-icon>lock</md-icon>
-                                            <label>Senha</label>
-                                            <md-input name="senha"></md-input>
-                                            <span class="md-error"><c:out value="${messages.senha}"/></span>
-                                        </md-input-container>
+                                        <c:if test="${empty model.id}">
+                                            <md-input-container md-has-password class="${empty messages.senha ? '' : 'md-input-invalid'}">
+                                                <md-icon>lock</md-icon>
+                                                <label>Senha</label>
+                                                <md-input name="senha"></md-input>
+                                                <span class="md-error"><c:out value="${messages.senha}"/></span>
+                                            </md-input-container>
+                                        </c:if>
+                                        <c:if test="${!empty model.id}">
+                                            <md-input-container md-has-password class="${empty messages.senha ? '' : 'md-input-invalid'}">
+                                                <md-icon>lock</md-icon>
+                                                <label>Senha</label>
+                                                <md-input name="password"></md-input>
+                                                <span class="md-error"><c:out value="${messages.senha}"/></span>
+                                            </md-input-container>
+                                        </c:if>
                                     </md-layout>
                                     <md-layout>
-                                        <md-input-container md-has-password class="${empty messages.confirmarSenha ? '' : 'md-input-invalid'}">
-                                            <md-icon>lock</md-icon>
-                                            <label>Confirmar Senha</label>
-                                            <md-input name="confirmarSenha"></md-input>
-                                            <span class="md-error"><c:out value="${messages.confirmarSenha}"/></span>
-                                        </md-input-container>
                                     </md-layout>
                                 </md-layout>
                                 <div class="hidden">
                                     <input name="ativo" type="hidden" value="1"/>/
-                                    <input name="foto" type="hidden" value="${model.foto}"/>
                                 </div>
                                 <md-card-actions>
                                     <md-button type="submit" class="md-fab md-fab-bottom-right">
