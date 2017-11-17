@@ -3,7 +3,7 @@
 <%@ taglib prefix = "st" uri = "/WEB-INF/static.tld" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="title" value="Funcionarios"/>
+<c:set var="title" value="Funcionários"/>
 
 <!DOCTYPE html>
 <html>
