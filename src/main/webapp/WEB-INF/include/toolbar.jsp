@@ -22,7 +22,7 @@
             </md-button>
             <md-menu-content>
                 <md-menu-item>${authenticable.username}</md-menu-item>
-                <md-menu-item @click="logout()"><a href="#">Logout</a></md-menu-item>
+                <md-menu-item @click="logout('${basePath}')"><a href="#">Logout</a></md-menu-item>
             </md-menu-content>
         </md-menu>
     </md-toolbar>

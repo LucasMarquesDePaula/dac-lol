@@ -2,11 +2,11 @@
     var toolbar = new Vue({
         el: "#toolbar",
         methods: {
-            toggleSidenavLeft: function () {
+            toggleSidenavLeft() {
                 this.$$bus.$emit("Toolbar.toggleSidenavLeft");
             },
-            logout: function () {
-                window.location = "logout";
+            logout(basePath) {
+                window.location = `/${basePath}/logout`;
             }
         }
     });
