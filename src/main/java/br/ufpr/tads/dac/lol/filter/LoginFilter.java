@@ -31,8 +31,9 @@ public class LoginFilter implements Filter {
         boolean loginRequest = requestURI.equals(loginURI);
         boolean staticRequest = requestURI.startsWith(String.format("%s/static/", contextPath));
         boolean publicRequest = requestURI.startsWith(String.format("%s/public/", contextPath));
-
-        if (loggedIn || loginRequest || staticRequest || publicRequest) {
+        boolean wsRequest = requestURI.startsWith(String.format("%s/webresources/ws/", contextPath));
+        
+        if (loggedIn || loginRequest || staticRequest || publicRequest || wsRequest) {
             chain.doFilter(request, response);
             return;
         }

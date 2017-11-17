@@ -49,6 +49,9 @@ public class Pedido extends Model<Integer> implements Serializable {
     @Column(name = "data_hora_recebimento")
     private Date dataHoraRecebimento;
 
+    @Column(name = "entrega_id")
+    private Integer entregaId;
+    
     @Column(name = "endereco_entrega")
     private String enderecoEntrega;
 
@@ -169,6 +172,14 @@ public class Pedido extends Model<Integer> implements Serializable {
 
     public void setDataHoraRecebimento(Date dataHoraRecebimento) {
         this.dataHoraRecebimento = dataHoraRecebimento;
+    }
+
+    public Integer getEntregaId() {
+        return this.entregaId;
+    }
+
+    public void setEntregaId(Integer entregaId) {
+        this.entregaId = entregaId;
     }
 
     public String getEnderecoEntrega() {

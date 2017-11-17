@@ -108,6 +108,6 @@
                 </md-layout>
             </md-layout>
         </div>
-        <st:js res="view/cliente/grid.js"/>
+        <st:js res="view/${basePath}/grid.js"/>
     </body>
 </html>
