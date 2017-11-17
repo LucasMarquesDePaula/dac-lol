@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
@@ -71,6 +72,8 @@ public class PedidoController extends CrudController<Pedido> {
             TipoRoupa tipoRoupa = null;
             Funcionario funcionario = null;
             Pedido pedido = null;
+            Client client = null;
+            Message message = null;
 
             try {
                 Integer idTipoRoupa = Integer.parseInt(request.getParameter("tipoRoupa"));
@@ -97,7 +100,12 @@ public class PedidoController extends CrudController<Pedido> {
                     break;
 
                 case "confirm-order":
-                    request.setAttribute("model", facede.confirmarOrcamentoPedido(id, new Date()));
+                    request.setAttribute("model", facede.confirmarOrcamento(id, new Date()));
+                    request.setAttribute("message", "Orçamento confirmado com sucesso!");
+                    break;
+
+                case "done":
+                    request.setAttribute("model", facede.confirmarRealizacao(id, funcionario, new Date()));
                     request.setAttribute("message", "Orçamento confirmado com sucesso!");
                     break;
 
@@ -130,7 +138,7 @@ public class PedidoController extends CrudController<Pedido> {
 
                     // Confirmar Lavagem apenas
                     if (request.getParameter("confirmarPagamento") == null) {
-                        request.setAttribute("model", facede.confirmarRealizacaoPedido(id, funcionario, new Date()));
+                        request.setAttribute("model", facede.confirmarRealizacao(id, funcionario, new Date()));
                         request.setAttribute("message", "Lavagem confirmada com sucesso!");
                         request.setAttribute("paginaAtual", "fast-edit");
                         return;
@@ -138,21 +146,29 @@ public class PedidoController extends CrudController<Pedido> {
 
                     // Confirmar Lavagem e Confirmar Pagamento
                     request.setAttribute("model", facede.confirmarPagamento(id, funcionario, new Date()));
-                    request.setAttribute("model", facede.confirmarRealizacaoPedido(id, funcionario, new Date()));
+                    request.setAttribute("model", facede.confirmarRealizacao(id, funcionario, new Date()));
                     request.setAttribute("message", "Pagamento e lavagem confirmados com sucesso!");
 
                     break;
-                    
+
                 case "post-delivery":
-                    request.setAttribute("model", facede.cancelarPedido(id, funcionario, new Date()));
+//                    request.setAttribute("model", facede.cancelarPedido(id, funcionario, new Date()));;
                     pedido = facede.find(id);
-                    Client client = ClientBuilder.newClient();
-                    Message message = client
-                            .target("http://localhost:8080//webresources/ws")
-                            .request(MediaType.APPLICATION_JSON).get(Message.class);
-                    
-                    pedido.setEntregaId(Integer.parseInt(message.getParameters().get("entregaId")));
-                    
+                    client = ClientBuilder.newClient();
+
+                    message = new Message(
+                            "nomeCliente", pedido.getCliente().getNome(),
+                            "endereco", pedido.getEnderecoEntrega(),
+                            "observacao", pedido.getObservacaoCliente(),
+                            "pedidoId", pedido.getId().toString()
+                    );
+
+                    message = client.target("http://localhost:8080/ds/webresources/ws")
+                            .request(MediaType.APPLICATION_JSON)
+                            .post(Entity.entity(message, MediaType.APPLICATION_JSON), Message.class);
+
+                    pedido.setEntregaId(Integer.parseInt(message.getParameter("entregaId")));
+
                     facede.save(pedido);
                     request.setAttribute("message", "Entrega criada com sucesso!");
                     break;

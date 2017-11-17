@@ -57,7 +57,7 @@ public class PedidoFacede extends CrudFacede<Pedido> {
     }
 
     // TODO melhorar validações
-    public Pedido confirmarOrcamentoPedido(Integer id, Date dataHora) throws IllegalOperationException, NotFoundException, ValidationException {
+    public Pedido confirmarOrcamento(Integer id, Date dataHora) throws IllegalOperationException, NotFoundException, ValidationException {
         
         if (id == null) {
             throw new IllegalArgumentException("O Pedido não foi informado.");
@@ -86,7 +86,7 @@ public class PedidoFacede extends CrudFacede<Pedido> {
     }
 
     // TODO melhorar validações
-    public Pedido confirmarRealizacaoPedido(Integer id, Funcionario funcionario, Date dataHora) throws IllegalOperationException, NotFoundException, ValidationException {
+    public Pedido confirmarRealizacao(Integer id, Funcionario funcionario, Date dataHora) throws IllegalOperationException, NotFoundException, ValidationException {
         if (id == null) {
             throw new IllegalArgumentException("O Pedido não foi informado.");
         }

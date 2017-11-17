@@ -43,13 +43,6 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
     @OneToMany(mappedBy = "funcionarioPagamento")
     private List<Pedido> pedidosPagamentos;
 
-    public static Funcionario getInstance() {
-        if (Funcionario.instance == null) {
-            Funcionario.instance = new Funcionario("1", "1");
-        }
-        return Funcionario.instance;
-    }
-
     private Funcionario(String email, String senha) {
         this.email = email;
         this.senha = senha;
