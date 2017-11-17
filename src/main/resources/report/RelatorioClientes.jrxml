@@ -1,26 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
-<!-- 2017-11-12T10:52:15 -->
+<!-- 2017-11-15T16:00:21 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioClientes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="68c69d5c-7dc9-4de7-b256-0f875db4e730">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Tom"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL - dac-lol"/>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[SELECT ID, NOME, CPF, ENDERECO FROM CLIENTE]]>
 	</queryString>
+	<field name="ID" class="java.lang.Integer"/>
+	<field name="NOME" class="java.lang.String"/>
+	<field name="CPF" class="java.lang.String"/>
+	<field name="ENDERECO" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="51" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="50" uuid="d71bc8b5-2b7f-42cb-b2a4-3b1461d972e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Relatório de Clientes]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
+				<reportElement x="430" y="1" width="125" height="19" uuid="aa3ec780-0d98-45ac-9b6b-ef93ab8af564"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
 	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="130" height="30" uuid="c355bbde-a810-4cfe-a4c5-f35190792e5e"/>
+				<text><![CDATA[NOME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="1" width="100" height="30" uuid="d71692b9-6321-4642-9068-f8ba17211068"/>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="0" width="150" height="30" uuid="a28c01de-5d19-4558-befe-b6fd0d7c5652"/>
+				<text><![CDATA[ENDERECO]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="130" height="30" uuid="ba469e06-ad8c-4e69-9a6e-aa6bca7db61c"/>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="100" height="30" uuid="6669dcd3-366c-4ade-a2c6-5e188229436f"/>
+				<textFieldExpression><![CDATA[$F{CPF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="150" height="30" uuid="84741609-c726-465c-a004-6ae551ff3a96"/>
+				<textFieldExpression><![CDATA[$F{ENDERECO}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>

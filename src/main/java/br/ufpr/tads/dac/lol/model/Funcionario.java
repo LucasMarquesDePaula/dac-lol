@@ -15,6 +15,8 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
 
     private static final long serialVersionUID = 1L;
 
+    private static Funcionario instance;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -40,6 +42,18 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
     //bi-directional many-to-one association to Pedido
     @OneToMany(mappedBy = "funcionarioPagamento")
     private List<Pedido> pedidosPagamentos;
+
+    public static Funcionario getInstance() {
+        if (Funcionario.instance == null) {
+            Funcionario.instance = new Funcionario("1", "1");
+        }
+        return Funcionario.instance;
+    }
+
+    private Funcionario(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
 
     public Funcionario() {
     }
@@ -168,6 +182,6 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
 
     @Override
     public String toString() {
-        return getNome() + " (" + getId() + ")"; 
+        return getNome() + " (" + getId() + ")";
     }
 }
