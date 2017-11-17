@@ -18,9 +18,7 @@
         <st:css res="view/index/index.css" />
     </head>
     <body>
-        <jsp:include page="../../include/layout.jsp">
-            <jsp:param name="title" value="${title}" />
-        </jsp:include>
+        <%@ include file="../../include/layout.jsp" %>
         <div id="app"></div>
         <st:js res="view/index/index.js" />
     </body>

@@ -19,9 +19,7 @@
         <st:css res="view/${basePath}/form.css" />
     </head>
     <body>
-        <jsp:include page="../../include/layout.jsp">
-            <jsp:param name="title" value="${title}" />
-        </jsp:include>
+        <%@ include file="../../include/layout.jsp" %>
         <div id="app">
             <md-layout md-align="center">
                 <md-layout md-flex="66">
