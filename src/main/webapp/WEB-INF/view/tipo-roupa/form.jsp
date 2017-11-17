@@ -19,9 +19,7 @@
         <st:css res="view/${basePath}/form.css" />
     </head>
     <body>
-        <jsp:include page="../../include/layout.jsp">
-            <jsp:param name="title" value="${title}" />
-        </jsp:include>
+        <%@ include file="../../include/layout.jsp" %>
         <div id="app">
             <md-layout md-align="center">
                 <md-layout md-flex="66">
@@ -54,33 +52,35 @@
                                     <md-layout>
                                         <md-input-container class="${empty messages.descricao ? '' : 'md-input-invalid'}">
                                             <label>Descrição</label>
-                                            <md-input name="nome" :required="true" value="${model.descricao}"></md-input>
+                                            <md-input name="descricao" :required="true" value="${model.descricao}"></md-input>
                                             <span class="md-error"><c:out value="${messages.descricao}"/></span>
                                         </md-input-container>
                                     </md-layout>
                                 </md-layout>
                                 <md-layout :md-gutter="true">
                                     <md-layout>
-                                        <md-input-container md-has-password class="${empty messages.prazoLavagem ? '' : 'md-input-invalid'}">
+                                        <md-input-container class="${empty messages.prazoLavagem ? '' : 'md-input-invalid'}">
                                             <md-icon>av time</md-icon>
                                             <label>Prazo Lavagem</label>
-                                            <md-input v-model.lazy="prazoLavagem" v-money="{}" value="<fmt:formatNumber value="${messages.precoLavagem}"/>"></md-input>
+                                            <md-input v-model.lazy="prazoLavagemMask" v-money="{ decimal: ',', thousands: '.', precision: 0 }"></md-input>
                                             <span class="md-error"><c:out value="${messages.prazoLavagem}"/></span>
                                         </md-input-container>
                                     </md-layout>
                                     <md-layout>
-                                        <md-input-container md-has-password class="${empty messages.precoLavagem ? '' : 'md-input-invalid'}">
+                                        <md-input-container class="${empty messages.precoLavagem ? '' : 'md-input-invalid'}">
                                             <md-icon>attach money</md-icon>
                                             <label>Preço Lavagem</label>
-                                            <md-input v-model.lazy="precoLavagem" v-money="{}" value="<fmt:formatNumber value="${messages.precoLavagem}"/>"></md-input>
+                                            <md-input v-model.lazy="precoLavagemMask" v-money="{ decimal: ',', thousands: '.', prefix: 'R$ ' }"></md-input>
                                             <span class="md-error"><c:out value="${messages.precoLavagem}"/></span>
                                         </md-input-container>
                                     </md-layout>
                                 </md-layout>
 
                                 <div class="hidden">
-                                    <input name="prazoLavagem" type="hidden"/>
-                                    <input name="precoLavagem" type="hidden"/>
+                                    <input id="prazoLavagem" value="<fmt:formatNumber value="${model.prazoLavagem}"/>" />
+                                    <input id="precoLavagem" value="<fmt:formatNumber value="${model.precoLavagem}" type="currency"/>" />
+                                    <input name="prazoLavagem" :value="prazoLavagem" type="hidden"/>
+                                    <input name="precoLavagem" :value="precoLavagem" type="hidden"/>
                                     <input name="ativo" type="hidden" value="1"/>
                                 </div>
 

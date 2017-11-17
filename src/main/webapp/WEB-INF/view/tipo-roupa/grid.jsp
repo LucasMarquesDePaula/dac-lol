@@ -23,28 +23,22 @@
                     <md-table-card>
                         <form>
                             <md-layout :md-gutter="true">
-                                <md-layout md-flex="10">
+                                <md-layout md-flex="15">
                                     <md-input-container>
                                         <label>Código</label>
                                         <md-input name="id" value="${param.id}"></md-input>
                                     </md-input-container>
                                 </md-layout>
-                                <md-layout md-flex="30">
+                                <md-layout md-flex="35">
                                     <md-input-container>
                                         <label>Nome</label>
                                         <md-input name="nome" value="${param.nome}"></md-input>
                                     </md-input-container>
                                 </md-layout>
-                                <md-layout md-flex="20">
+                                <md-layout md-flex="40">
                                     <md-input-container>
-                                        <label>Data Nascimento</label>
-                                        <md-input name="dataNascimento" type="date" value="<fmt:formatDate value="${param.dataNascimento}" pattern="yyyy-MM-dd"/>"></md-input>
-                                    </md-input-container>
-                                </md-layout>
-                                <md-layout md-flex="20">
-                                    <md-input-container>
-                                        <label>E-mail</label>
-                                        <md-input name="email" value="${param.email}"></md-input>
+                                        <label>Descrição</label>
+                                        <md-input name="descricao" value="${param.descricao}"></md-input>
                                     </md-input-container>
                                 </md-layout>
                                 <md-layout md-flex="10">
