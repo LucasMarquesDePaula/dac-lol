@@ -34,12 +34,14 @@
                         <form method="POST" action='${contextPath}/${basePath}/${empty model.id ? "create" : "update"}/${model.id}' accept-charset="ISO-8859-1">
                             <md-card-content>
                                 <md-layout :md-gutter="true">
-                                    <md-layout md-flex="30">
-                                        <md-input-container>
-                                            <label>Código</label>
-                                            <md-input :readonly="true" name="id" type="number" value="${model.id}"></md-input>
-                                        </md-input-container>
-                                    </md-layout>
+                                    <c:if test="${!empty model.id}">
+                                        <md-layout md-flex="10">
+                                            <md-input-container>
+                                                <label>Código</label>
+                                                <md-input :readonly="true" name="id" type="number" value="${model.id}"></md-input>
+                                            </md-input-container>
+                                        </md-layout>
+                                    </c:if>
                                     <md-layout>
                                         <md-input-container class="${empty messages.nome ? '' : 'md-input-invalid'}">
                                             <label>Nome</label>
@@ -70,14 +72,19 @@
                                         <md-input-container md-has-password class="${empty messages.senha ? '' : 'md-input-invalid'}">
                                             <md-icon>lock</md-icon>
                                             <label>Senha</label>
-                                            <md-input name="senha" value="${messages.senha}"></md-input>
+                                            <md-input name="senha" value="${model.senha}"></md-input>
                                             <span class="md-error"><c:out value="${messages.senha}"/></span>
                                         </md-input-container>
+                                    </md-layout>
+                                    <md-layout>
                                     </md-layout>
                                 </md-layout>
 
                                 <div class="hidden">
                                     <input name="ativo" type="hidden" value="1"/>
+                                    <c:if test="${empty model.id}">
+                                        <input name="id" type="hidden" value=""/>
+                                    </c:if>
                                 </div>
 
                                 <md-card-actions>

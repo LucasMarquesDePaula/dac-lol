@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.converters.BigDecimalConverter;
+import org.apache.commons.beanutils.converters.ByteConverter;
 import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.slf4j.Logger;
@@ -58,24 +60,6 @@ public abstract class CrudController<T extends Model> extends Controller {
             sort.put(sortField, sortDirection == null ? "asc" : sortDirection);
         }
 
-        try {
-            BeanUtilsBean beanUtilsBean = BeanUtilsBean.getInstance();
-
-            Date dateDefaultValue = null;
-            DateConverter dateConverter = new DateConverter(dateDefaultValue);
-            dateConverter.setPattern("yyyy-MM-dd");
-            beanUtilsBean.getConvertUtils().register(dateConverter, java.util.Date.class);
-
-            BigDecimal bigDecimalDefaultValue = null;;
-            BigDecimalConverter bigDecimalConverter = new BigDecimalConverter(bigDecimalDefaultValue);
-            beanUtilsBean.getConvertUtils().register(bigDecimalConverter, BigDecimal.class);
-
-            model = getModel();
-            BeanUtils.populate(model, request.getParameterMap());
-        } catch (IllegalAccessException | InvocationTargetException ex) {
-            getLogger().error("", ex);
-        }
-
         request.setAttribute("limit", limit);
         request.setAttribute("offset", offset);
         request.setAttribute("queryResult", facede.list(Example.create(model).enableLike(MatchMode.ANYWHERE), limit, offset, sort));
@@ -86,8 +70,9 @@ public abstract class CrudController<T extends Model> extends Controller {
         try {
             beforeProcessRequest(request, response);
 
-            T model = null;
             CrudFacede<T> facede = getFacede();
+
+            T model = requestToBean(request);
 
             // Process path
             String pathInfo = request.getRequestURI();
@@ -128,24 +113,12 @@ public abstract class CrudController<T extends Model> extends Controller {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        T model = null;
         try {
             beforeProcessRequest(request, response);
 
-            T model = getModel();
             CrudFacede<T> facede = getFacede();
-
-            try {
-                Date defaultValue = null;
-                DateConverter converter = new DateConverter(defaultValue);
-                converter.setPattern("yyyy-MM-dd");
-                BeanUtilsBean beanUtilsBean = BeanUtilsBean.getInstance();
-                beanUtilsBean.getConvertUtils().register(converter, java.util.Date.class);
-
-                BeanUtils.populate(model, request.getParameterMap());
-                request.setAttribute("model", model);
-            } catch (IllegalAccessException | InvocationTargetException ex) {
-                getLogger().error("", ex);
-            }
+            model = requestToBean(request);
 
             // Process path
             String pathInfo = request.getPathInfo();
@@ -181,18 +154,19 @@ public abstract class CrudController<T extends Model> extends Controller {
 //            request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);;
         } catch (NotCrudActionException ex) {
             processNotCrudRequest(request, response, ex);
-//            if (request.getParameter("paginaAtual") != null) {
-//                if (request.getParameter("paginaAtual").equals("fast-edit")) {
-//                    request.getRequestDispatcher(viewPath(String.format("%s/fast-edit.jsp", getBasePath())))
-//                            .forward(request, response);
-//                }
-//            };
         } catch (Exception ex) {
             request.setAttribute("message", ex.getMessage());
             getLogger().debug("", ex);
         } finally {
-            request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath())))
-                    .forward(request, response);
+            request.setAttribute("model", model);
+            try {
+                String redirectTo = request.getParameter("redirectTo").trim();
+                request.getRequestDispatcher(viewPath(String.format("%s/%s.jsp", getBasePath(), redirectTo)))
+                        .forward(request, response);
+            } catch (Exception ex) {
+                request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath())))
+                        .forward(request, response);
+            }
         }
     }
 
@@ -209,6 +183,43 @@ public abstract class CrudController<T extends Model> extends Controller {
     }
 
     protected void processNotCrudRequest(HttpServletRequest request, HttpServletResponse response, NotCrudActionException actionException) {
+
+    }
+
+    protected T requestToBean(HttpServletRequest request) {
+        T model = getModel();
+        try {
+            BeanUtilsBean beanUtilsBean = BeanUtilsBean.getInstance();
+
+            Date dateDefaultValue = null;
+            DateConverter dateConverter = new DateConverter(dateDefaultValue);
+            dateConverter.setPattern("yyyy-MM-dd");
+            beanUtilsBean.getConvertUtils().register(dateConverter, java.util.Date.class);
+
+            BigDecimal bigDecimalDefaultValue = null;;
+            BigDecimalConverter bigDecimalConverter = new BigDecimalConverter(bigDecimalDefaultValue);
+            beanUtilsBean
+                    .getConvertUtils()
+                    .register(bigDecimalConverter, BigDecimal.class);
+
+            Integer integerDefaultValue = null;
+            IntegerConverter integerConverter = new IntegerConverter(null);
+            beanUtilsBean
+                    .getConvertUtils()
+                    .register(integerConverter, Integer.class);
+
+            Byte byteDefaultValue = null;
+            ByteConverter byteConverter = new ByteConverter(null);
+            beanUtilsBean
+                    .getConvertUtils()
+                    .register(byteConverter, Byte.class);
+
+            BeanUtils.populate(model, request.getParameterMap());
+        } catch (IllegalAccessException | InvocationTargetException ex) {
+            getLogger().error("", ex);
+        }
+
+        return model;
 
     }
 

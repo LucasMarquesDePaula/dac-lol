@@ -1,5 +1,8 @@
 package br.ufpr.tads.dac.lol.facede;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author Lucas
@@ -79,7 +82,15 @@ public class ValidationUtil {
      * @return true if email is valid
      */
     public static boolean checkEmail(String email) {
-        // TODO
-        return checkText(email);
+        boolean isEmailIdValid = false;
+        if (email != null && email.length() > 0) {
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(email);
+            if (matcher.matches()) {
+                isEmailIdValid = true;
+            }
+        }
+        return isEmailIdValid;
     }
 }

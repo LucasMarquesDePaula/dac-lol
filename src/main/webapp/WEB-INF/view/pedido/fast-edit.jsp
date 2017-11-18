@@ -26,7 +26,7 @@
                         </md-card>
                     </c:if>
                     <md-card>
-                        <form method="POST" :action="'${contextPath}/${basePath}/fast-edit/' + id">
+                        <form method="POST" :action="'${contextPath}/${basePath}/fast-edit/' + id + '?redirectTo=fast-edit'">
                             <md-card-content>
                                  <md-input-container class="${empty messages.id ? '' : 'md-input-invalid'}">
                                      <label>Número do Pedido</label>
