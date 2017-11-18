@@ -155,6 +155,7 @@ public abstract class CrudController<T extends Model> extends Controller {
             request.setAttribute("basePath", getBasePath());
             switch (action) {
                 case "create":
+                    model.setId(null);
                     beforeCreate(request, response, model);
                     facede.save(model);
                     request.setAttribute("message", "Cadastrado com sucesso!");
@@ -177,15 +178,15 @@ public abstract class CrudController<T extends Model> extends Controller {
             getLogger().debug("", ex);
             request.setAttribute("message", ex.getMessage());
             request.setAttribute("messages", ex.getMessages());
-            request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);
+//            request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath()))).forward(request, response);;
         } catch (NotCrudActionException ex) {
             processNotCrudRequest(request, response, ex);
-            if (request.getParameter("paginaAtual") != null) {
-                if (request.getParameter("paginaAtual").equals("fast-edit")) {
-                    request.getRequestDispatcher(viewPath(String.format("%s/fast-edit.jsp", getBasePath())))
-                            .forward(request, response);
-                }
-            }
+//            if (request.getParameter("paginaAtual") != null) {
+//                if (request.getParameter("paginaAtual").equals("fast-edit")) {
+//                    request.getRequestDispatcher(viewPath(String.format("%s/fast-edit.jsp", getBasePath())))
+//                            .forward(request, response);
+//                }
+//            };
         } catch (Exception ex) {
             request.setAttribute("message", ex.getMessage());
             getLogger().debug("", ex);

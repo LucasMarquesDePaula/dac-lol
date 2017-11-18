@@ -62,8 +62,8 @@ public class LoginController extends Controller {
             Admin admin = Admin.getInstance();
             if (admin.getUsername().equals(username)) {
                 if (admin.getPassword().equals(password)) {
-                    request.getSession().setAttribute(Role.class.getName(), Role.ADMIN);
-                    request.getSession().setAttribute(Authenticable.class.getName(), admin);
+                    request.getSession().setAttribute(Role.class.getSimpleName(), Role.ADMIN);
+                    request.getSession().setAttribute(Authenticable.class.getSimpleName(), admin);
                     response.sendRedirect(request.getContextPath());
                     return;
                 }
@@ -83,8 +83,8 @@ public class LoginController extends Controller {
                 funcionario.setId(funcionarioFound.getId());
                 funcionario.setPassword(password);
                 if (funcionario.getPassword().equals(password)) {
-                    request.getSession().setAttribute(Role.class.getName(), Role.FUNCIONARIO);
-                    request.getSession().setAttribute(Authenticable.class.getName(), funcionario);
+                    request.getSession().setAttribute(Role.class.getSimpleName(), Role.FUNCIONARIO);
+                    request.getSession().setAttribute(Authenticable.class.getSimpleName(), funcionario);
                     response.sendRedirect(request.getContextPath());
                     return;
                 }
@@ -107,8 +107,8 @@ public class LoginController extends Controller {
                 cliente.setPassword(password);
                 // TODO: Arrumar senha
                 // if (cliente.getSenha().equals(clienteFound.getSenha())) {
-                request.getSession().setAttribute(Role.class.getName(), Role.CLIENTE);
-                request.getSession().setAttribute(Authenticable.class.getName(), clienteFound);
+                request.getSession().setAttribute(Role.class.getSimpleName(), Role.CLIENTE);
+                request.getSession().setAttribute(Authenticable.class.getSimpleName(), clienteFound);
                 response.sendRedirect(request.getContextPath());
                 // }
                 return;

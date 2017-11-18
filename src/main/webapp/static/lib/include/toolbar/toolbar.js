@@ -5,8 +5,12 @@
             toggleSidenavLeft() {
                 this.$$bus.$emit("Toolbar.toggleSidenavLeft");
             },
-            logout(basePath) {
-                window.location = `/${basePath}/logout`;
+            logout() {
+                window.location = [
+                    window.location.origin,
+                    location.pathname.split("/")[1],
+                    "logout"
+                ].join("/");
             }
         }
     });

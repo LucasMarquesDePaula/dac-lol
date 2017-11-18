@@ -1,6 +1,7 @@
 package br.ufpr.tads.dac.lol.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -287,6 +288,9 @@ public class Pedido extends Model<Integer> implements Serializable {
     }
 
     public List<PedidoTipoRoupa> getPedidoTiposRoupa() {
+        if(this.pedidoTiposRoupa == null) {
+            setPedidoTiposRoupa(new ArrayList<>());
+        }
         return this.pedidoTiposRoupa;
     }
 

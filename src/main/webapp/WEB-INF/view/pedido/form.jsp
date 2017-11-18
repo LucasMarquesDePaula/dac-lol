@@ -37,7 +37,7 @@
                                     <md-layout md-flex="15">
                                         <md-input-container>
                                             <label>Código</label>
-                                            <md-input :readonly="true" name="id" type="number" value="${model.id}"></md-input>
+                                            <md-input :readonly="true" value="${model.id}"></md-input>
                                         </md-input-container>
                                     </md-layout>
                                     <md-layout md-flex="85">
@@ -60,11 +60,13 @@
                                     <span class="md-error"><c:out value="${messages.observacaoCliente}"/></span>
                                 </md-input-container>
 
-                                <md-card-actions>
-                                    <md-button type="submit" class="md-fab">
-                                        <md-icon>save</md-icon>
-                                    </md-button>
-                                </md-card-actions>
+                                <c:if test="${empty model.id}">
+                                    <md-card-actions>
+                                        <md-button type="submit" class="md-fab">
+                                            <md-icon>save</md-icon>
+                                        </md-button>
+                                    </md-card-actions>
+                                </c:if>
                             </form>
                         </md-card-content>
                         <%@ include file="./form-actions.jsp" %>

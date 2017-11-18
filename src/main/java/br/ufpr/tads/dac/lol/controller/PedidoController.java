@@ -83,7 +83,7 @@ public class PedidoController extends CrudController<Pedido> {
             }
 
             try {
-                funcionario = (Funcionario) request.getSession().getAttribute(Authenticable.class.getName());
+                funcionario = (Funcionario) request.getSession().getAttribute(Authenticable.class.getSimpleName());
             } catch (Exception ignored) {
 
             }
@@ -134,7 +134,7 @@ public class PedidoController extends CrudController<Pedido> {
                         request.setAttribute("model", facede.confirmarPagamento(id, funcionario, new Date()));
                         request.setAttribute("message", "Pagamento confirmado com sucesso!");
                         return;
-                    }    
+                    }
 
                     // Confirmar Lavagem apenas
                     if (request.getParameter("confirmarPagamento") == null) {
@@ -191,13 +191,11 @@ public class PedidoController extends CrudController<Pedido> {
 
         try {
             dataFinal = new Date(df.parseMillis(request.getParameter("dataFinal") + " 23:59:59"));
-
         } catch (Exception ignored) {
         }
 
         try {
-            cliente = (Cliente) request.getSession().getAttribute(Authenticable.class
-                    .getName());
+            cliente = (Cliente) request.getSession().getAttribute(Authenticable.class.getSimpleName());
         } catch (Exception ignored) {
         }
 
@@ -227,6 +225,10 @@ public class PedidoController extends CrudController<Pedido> {
         model.setPago((byte) 0x0);
     }
 
+//    @Override;
+//    protected void beforeUpdate(HttpServletRequest request, HttpServletResponse response, Pedido model) {
+//        model.setCliente(cliente);
+//    }
     @Override
     protected Logger getLogger() {
         return logger;

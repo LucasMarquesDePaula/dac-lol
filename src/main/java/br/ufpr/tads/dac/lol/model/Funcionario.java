@@ -15,8 +15,6 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
 
     private static final long serialVersionUID = 1L;
 
-    private static Funcionario instance;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -28,8 +26,6 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
     private Date dataNascimento;
 
     private String email;
-
-    private String foto;
 
     private String nome;
 
@@ -83,14 +79,6 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getFoto() {
-        return this.foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
     }
 
     public String getNome() {
@@ -170,7 +158,7 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
 
     @Override
     public void setPassword(String password) {
-        this.setSenha(Authenticable.Util.generateHash(String.format("#%d~!~%s", this.getId(), password)));
+        this.setSenha(Authenticable.Util.generateHash(String.format("#%d~!~%s#", this.getId(), password)));
     }
 
     @Override

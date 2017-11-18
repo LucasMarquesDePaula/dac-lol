@@ -68,11 +68,6 @@
                             <md-table-body>
                                 <c:forEach var="item" items="${queryResult.list}">
                                     <md-table-row>
-                                        <md-table-cell>
-                                            <md-avatar>
-                                                <img src="${item.foto}" alt="Foto">
-                                            </md-avatar>
-                                        </md-table-cell>
                                         <md-table-cell><c:out value="${item.id}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.nome}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.cpf}"/></md-table-cell>

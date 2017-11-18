@@ -45,14 +45,14 @@
                                         </md-input-container>
                                     </md-layout>
 
-                                    <jsp:useBean id="now" class="java.util.Date" />
-                                    <fmt:formatDate var="actualDate" value="${now}" pattern="dd/MM/yyyy" />
                                     <md-layout v-if="tipoFiltro === 'pda'" md-flex="30">
-                                        <md-input-container>
-                                            <label>Data Atual</label>
-                                            <md-input type="date" name="dataAtual" value=""></md-input>
-                                        </md-input-container>
+                                        <div class="hidden">
+                                            <jsp:useBean id="now" class="java.util.Date" />
+                                            <input name="dataInicial" value="<fmt:formatDate value="${now}" pattern="dd/MM/yyyy" />" />
+                                            <input name="dataFinal" value="<fmt:formatDate value="${now}" pattern="dd/MM/yyyy" />" />
+                                        </div>
                                     </md-layout>    
+
                                     <md-layout md-flex="10">
                                         <md-toolbar>
                                             <md-button type="submit" class="md-icon-button">

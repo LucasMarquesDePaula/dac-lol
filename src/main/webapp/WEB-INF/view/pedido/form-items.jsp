@@ -72,7 +72,7 @@
             </md-table-body>
         </md-table>
         <md-card-actions>
-            <c:if test="${model.cancelado == 0 && model.orcamentoConfirmado == 1}">
+            <c:if test="${model.cancelado == 0 && model.orcamentoConfirmado == 0}">
                 <form method="POST" action='${contextPath}/${basePath}/confirm-order/${model.id}'>
                     <md-button type="submit" class="md-raised md-primary">
                         Confirmar Orçamento
