@@ -19,21 +19,16 @@ public class ClienteFacede extends CrudFacede<Cliente> {
     protected void beforeSave(Cliente model, Dao<Cliente> dao) throws ValidationException {
         boolean inserting = model.getId() == null;
         Map<String, String> messages = new HashMap<>();
-        
+
         // Validação do nome
         if (!ValidationUtil.checkText(model.getNome())) {
             messages.put("nome", "Nome inválido");
         }
 
-        // TODO validar senha
-    
-        // Criptografar senha
-        // TODO: Arrumar
         if ("00000000000000000000000000000000".length() != model.getSenha().length()) {
             model.setPassword(model.getSenha());
         }
 
-        
         // Validação do CPF
         if (!ValidationUtil.checkCpf(model.getCpf())) {
             messages.put("cpf", "CPF inválido");

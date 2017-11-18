@@ -113,11 +113,12 @@ public abstract class CrudController<T extends Model> extends Controller {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        T model = null;
         try {
             beforeProcessRequest(request, response);
 
             CrudFacede<T> facede = getFacede();
-            T model = requestToBean(request);
+            model = requestToBean(request);
 
             // Process path
             String pathInfo = request.getPathInfo();
@@ -157,6 +158,7 @@ public abstract class CrudController<T extends Model> extends Controller {
             request.setAttribute("message", ex.getMessage());
             getLogger().debug("", ex);
         } finally {
+            request.setAttribute("model", model);
             try {
                 String redirectTo = request.getParameter("redirectTo").trim();
                 request.getRequestDispatcher(viewPath(String.format("%s/%s.jsp", getBasePath(), redirectTo)))
