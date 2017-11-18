@@ -158,7 +158,8 @@ public abstract class CrudController<T extends Model> extends Controller {
             getLogger().debug("", ex);
         } finally {
             try {
-                request.getRequestDispatcher(viewPath(String.format("%s/%s.jsp", getBasePath(), request.getParameter("redirectTo"))))
+                String redirectTo = request.getParameter("redirectTo").trim();
+                request.getRequestDispatcher(viewPath(String.format("%s/%s.jsp", getBasePath(), redirectTo)))
                         .forward(request, response);
             } catch (Exception ex) {
                 request.getRequestDispatcher(viewPath(String.format("%s/form.jsp", getBasePath())))
