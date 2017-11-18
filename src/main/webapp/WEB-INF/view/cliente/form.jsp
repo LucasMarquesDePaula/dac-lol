@@ -96,22 +96,16 @@
 
                                 <md-layout :md-gutter="true">
                                     <md-layout>
-                                        <c:if test="${empty model.id}">
-                                            <md-input-container md-has-password class="${empty messages.senha ? '' : 'md-input-invalid'}">
-                                                <md-icon>lock</md-icon>
-                                                <label>Senha</label>
-                                                <md-input name="senha"></md-input>
-                                                <span class="md-error"><c:out value="${messages.senha}"/></span>
-                                            </md-input-container>
-                                        </c:if>
-                                        <c:if test="${!empty model.id}">
-                                            <md-input-container md-has-password class="${empty messages.senha ? '' : 'md-input-invalid'}">
-                                                <md-icon>lock</md-icon>
-                                                <label>Senha</label>
-                                                <md-input name="password"></md-input>
-                                                <span class="md-error"><c:out value="${messages.senha}"/></span>
-                                            </md-input-container>
-                                        </c:if>
+                                        <md-layout :md-gutter="true">
+                                            <md-layout>
+                                                <md-input-container md-has-password class="${empty messages.senha ? '' : 'md-input-invalid'}">
+                                                    <md-icon>lock</md-icon>
+                                                    <label>Senha</label>
+                                                    <md-input name="senha" value="${model.senha}"></md-input>
+                                                    <span class="md-error"><c:out value="${messages.senha}"/></span>
+                                                </md-input-container>
+                                            </md-layout>
+                                        </md-layout>
                                     </md-layout>
                                     <md-layout>
                                     </md-layout>

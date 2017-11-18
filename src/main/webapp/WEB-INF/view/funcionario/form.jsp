@@ -70,9 +70,11 @@
                                         <md-input-container md-has-password class="${empty messages.senha ? '' : 'md-input-invalid'}">
                                             <md-icon>lock</md-icon>
                                             <label>Senha</label>
-                                            <md-input name="senha" value="${messages.senha}"></md-input>
+                                            <md-input name="senha" value="${model.senha}"></md-input>
                                             <span class="md-error"><c:out value="${messages.senha}"/></span>
                                         </md-input-container>
+                                    </md-layout>
+                                    <md-layout>
                                     </md-layout>
                                 </md-layout>
 
