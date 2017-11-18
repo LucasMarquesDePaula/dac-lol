@@ -57,7 +57,6 @@
                         <md-table @sort="onSort" md-sort="${param.sortField}" md-sort-type="${param.sortDirection}">
                             <md-table-header>
                                 <md-table-row>
-                                    <md-table-head></md-table-head>
                                     <md-table-head md-sort-by="id">Cód.</md-table-head>
                                     <md-table-head md-sort-by="nome">Nome</md-table-head>
                                     <md-table-head md-sort-by="cpf">CPF</md-table-head>
