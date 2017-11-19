@@ -100,7 +100,7 @@
                                         <md-table-cell><c:out value="${item.enderecoEntrega}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.observacaoCliente}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.observacaoInterna}"/></md-table-cell>
-                                        <md-table-cell><c:out value="${item.dataHoraPrazo}"/></md-table-cell>
+                                        <md-table-cell><fmt:formatDate type="both" value="${item.dataHoraPrazo}"/></md-table-cell>
                                         <md-table-cell><c:out value="${(item.realizado==1) ? 'Sim' : 'Não'}"/></md-table-cell>
                                         <md-table-cell><fmt:formatDate type="both" value="${item.dataHoraRealizacao}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.funcionarioRealizacao}"/></md-table-cell>
