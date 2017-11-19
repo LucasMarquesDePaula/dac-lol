@@ -91,14 +91,21 @@
         </dependency>
         
         <!--Relatório-->
-        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports 
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>6.4.3</version>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.2.2</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>2.4.12</version>
@@ -134,7 +141,7 @@
             <id>JBoss repository</id>
             <url>http://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
-<!--        <repository>
+        <!--        <repository>
           <id>Jasper Reports</id>
           <url>http://jasperreports.sourceforge.net/maven2</url>
         </repository>-->

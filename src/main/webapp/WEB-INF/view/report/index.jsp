@@ -34,33 +34,24 @@
                     </c:if>
                     <md-card>
                         <md-card-content>
-                            <p>Relatórios disponíveis:</p>
                             <!-- Clientes -->
-                            <form action='${contextPath}/${basePath}/clientes' target="_blank">
+                            <form action="${contextPath}/${basePath}/clientes" target="_blank">
                                 <md-button type="submit" class="md-raised">Clientes</md-button>
                             </form>
 
                             <!-- Clientes Fieis -->
-                            <form action='${contextPath}/${basePath}/clientes-fieis' target="_blank">
+                            <form action="${contextPath}/${basePath}/clientes-fieis" target="_blank">
                                 <md-button type="submit" class="md-raised">Clientes Fiéis</md-button>
                             </form>
 
                             <!-- Receitas -->
-                            <form action='${contextPath}/${basePath}/receitas' target="_blank">
+                            <form action="${contextPath}/${basePath}/receitas" target="_blank">
                                 <md-button type="submit" class="md-raised">Receitas</md-button>
                             </form>
 
                             <!-- Pedidos -->
-                            <form action='${contextPath}/${basePath}/pedidos' target="_blank">
+                            <form action="${contextPath}/${basePath}/pedidos" target="_blank">
                                 <md-button type="submit" class="md-raised">Pedidos</md-button>
-                            </form>
-
-                            <!-- Relatório 3 -->
-                            <form action='${contextPath}/${basePath}/relatorio3' target="_blank">
-                                <md-input-container>
-                                    <md-input />
-                                </md-input-container>
-                                <md-button type="submit" class="md-raised">Relatório 3</md-button>
                             </form>
                         </md-card-content>
                     </md-card>
