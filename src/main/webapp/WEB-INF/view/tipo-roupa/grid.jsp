@@ -21,12 +21,12 @@
                     <md-table-card>
                         <form>
                             <md-layout :md-gutter="true">
-                                <md-layout md-flex="15">
+                                <!--<md-layout md-flex="15">
                                     <md-input-container>
                                         <label>Código</label>
                                         <md-input name="id" value="${param.id}"></md-input>
                                     </md-input-container>
-                                </md-layout>
+                                </md-layout>-->
                                 <md-layout md-flex="35">
                                     <md-input-container>
                                         <label>Nome</label>
