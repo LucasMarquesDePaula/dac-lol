@@ -17,7 +17,7 @@
         <%@ include file="../../include/layout.jsp" %>
         <div id="app">
             <md-layout md-align="center">
-                <md-layout md-flex="70">
+                <md-layout md-flex="90">
                     <md-table-card>
                         <form>
                             <div class="field-group">
@@ -78,7 +78,7 @@
                                     <md-table-head md-sort-by="dataHoraRealizacao">Data/Hora Realização</md-table-head>
                                     <md-table-head md-sort-by="funcionarioRealizacao">Cód. Funcionário</md-table-head>
                                     <md-table-head md-sort-by="cancelado">Cancelado?</md-table-head>
-                                    <md-table-head md-sort-by="dataHoraCancelamento">Data/Hora Cancelamento?</md-table-head>
+                                    <md-table-head md-sort-by="dataHoraCancelamento">Data/Hora Cancelamento</md-table-head>
                                     <md-table-head md-sort-by="orcamentoConfirmado">Orçado?</md-table-head>
                                     <md-table-head md-sort-by="dataHoraConfirmacaoOrcamento">Data/Hora Orçamento</md-table-head>
                                     <md-table-head md-sort-by="pago">Pago?</md-table-head>

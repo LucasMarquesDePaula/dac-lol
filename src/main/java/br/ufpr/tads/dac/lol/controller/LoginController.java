@@ -64,7 +64,7 @@ public class LoginController extends Controller {
                 if (admin.getPassword().equals(password)) {
                     request.getSession().setAttribute(Role.class.getSimpleName(), Role.ADMIN);
                     request.getSession().setAttribute(Authenticable.class.getSimpleName(), admin);
-                    response.sendRedirect(request.getContextPath());
+                    response.sendRedirect(request.getContextPath() + "/pedido/grid");
                     return;
                 }
             }
@@ -85,7 +85,7 @@ public class LoginController extends Controller {
                 if (funcionario.getPassword().equals(password)) {
                     request.getSession().setAttribute(Role.class.getSimpleName(), Role.FUNCIONARIO);
                     request.getSession().setAttribute(Authenticable.class.getSimpleName(), funcionario);
-                    response.sendRedirect(request.getContextPath());
+                    response.sendRedirect(request.getContextPath() + "/pedido/grid");
                     return;
                 }
             }
@@ -109,7 +109,7 @@ public class LoginController extends Controller {
                 // if (cliente.getSenha().equals(clienteFound.getSenha())) {
                 request.getSession().setAttribute(Role.class.getSimpleName(), Role.CLIENTE);
                 request.getSession().setAttribute(Authenticable.class.getSimpleName(), clienteFound);
-                response.sendRedirect(request.getContextPath());
+                response.sendRedirect(request.getContextPath() + "/pedido/grid");
                 // }
                 return;
             }

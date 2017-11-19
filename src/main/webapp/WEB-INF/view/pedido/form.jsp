@@ -33,20 +33,22 @@
                     <md-card>
                         <md-card-content>
                             <form method="POST" action='${contextPath}/${basePath}/${empty model.id ? "create" : "update"}/${model.id}' accept-charset="ISO-8859-1">
-                                <md-layout :md-gutter="true">
-                                    <md-layout md-flex="15">
-                                        <md-input-container>
-                                            <label>Código</label>
-                                            <md-input :readonly="true" value="${model.id}"></md-input>
-                                        </md-input-container>
+                                <c:if test="${!empty model.id}">
+                                    <md-layout :md-gutter="true">
+                                        <md-layout md-flex="15">
+                                            <md-input-container>
+                                                <label>Código</label>
+                                                <md-input :readonly="true" value="${model.id}"></md-input>
+                                            </md-input-container>
+                                        </md-layout>
+                                        <md-layout md-flex="85">
+                                            <md-input-container>
+                                                <label>Cliente</label>
+                                                <md-input :readonly="true" value="${model.cliente.nome}"></md-input>
+                                            </md-input-container>
+                                        </md-layout>
                                     </md-layout>
-                                    <md-layout md-flex="85">
-                                        <md-input-container>
-                                            <label>Cliente</label>
-                                            <md-input :readonly="true" value="${model.cliente.nome}"></md-input>
-                                        </md-input-container>
-                                    </md-layout>
-                                </md-layout>
+                                </c:if>
 
                                 <md-input-container class="${empty messages.enderecoEntrega ? '' : 'md-input-invalid'}">
                                     <label>Endereço</label>

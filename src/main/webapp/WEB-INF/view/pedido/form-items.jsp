@@ -64,10 +64,12 @@
                     </md-table-row>
                 </c:forEach>
                 <md-table-row>
-                    <md-table-cell>Total</md-table-cell>
-                    <md-table-cell>Total</md-table-cell>
-                    <md-table-cell>Total</md-table-cell>
+                    <md-table-cell></md-table-cell>
+                    <md-table-cell></md-table-cell>
+                    <md-table-cell></md-table-cell>
+                    <md-table-cell>Total:</md-table-cell>
                     <md-table-cell><fmt:formatNumber value="${model.valorTotal}" type="currency"/></md-table-cell>
+                    <md-table-cell></md-table-cell>
                 </md-table-row>
             </md-table-body>
         </md-table>
