@@ -84,7 +84,7 @@ public class LoginController extends Controller {
                 funcionario.setPassword(password);
                 if (funcionario.getPassword().equals(funcionarioFound.getPassword())) {
                     request.getSession().setAttribute(Role.class.getSimpleName(), Role.FUNCIONARIO);
-                    request.getSession().setAttribute(Authenticable.class.getSimpleName(), funcionario);
+                    request.getSession().setAttribute(Authenticable.class.getSimpleName(), funcionarioFound);
                     response.sendRedirect(request.getContextPath());
                     return;
                 }
@@ -105,7 +105,7 @@ public class LoginController extends Controller {
                 cliente.setPassword(password);
                 if(cliente.getPassword().equals(clienteFound.getPassword())) {
                     request.getSession().setAttribute(Role.class.getSimpleName(), Role.CLIENTE);
-                    request.getSession().setAttribute(Authenticable.class.getSimpleName(), cliente);
+                    request.getSession().setAttribute(Authenticable.class.getSimpleName(), clienteFound);
                     response.sendRedirect(request.getContextPath());
                     return;
                 }
