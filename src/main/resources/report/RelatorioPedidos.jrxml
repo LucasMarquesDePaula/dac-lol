@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
+<!-- 2017-11-20T20:04:08 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioPedidos" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9491f02f-79a8-4673-aa20-bac96193fc33">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Tom"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL - dac-lol"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -123,8 +125,8 @@ ORDER BY
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="306" y="49" width="190" height="30" uuid="7fc16c97-55e5-4acd-a98b-a7a14e854696"/>
-				<textElement>
+				<reportElement x="284" y="24" width="190" height="30" uuid="7fc16c97-55e5-4acd-a98b-a7a14e854696"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="20"/>
 				</textElement>
 				<text><![CDATA[Relatório de Pedidos]]></text>
@@ -132,7 +134,12 @@ ORDER BY
 		</band>
 	</title>
 	<pageHeader>
-		<band height="42" splitType="Stretch"/>
+		<band height="33" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="20" y="0" width="100" height="30" uuid="c95b556b-cde2-49b4-87aa-d6a0e0f82c39"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="61" splitType="Stretch">
@@ -245,32 +252,32 @@ ORDER BY
 			<textField>
 				<reportElement x="440" y="10" width="50" height="30" uuid="cae61bcf-769a-4ea9-b8f7-8d8a60fa7292"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{realizado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{realizado} == true ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="490" y="10" width="59" height="30" uuid="f7a63a1f-f8e3-40ca-86fe-6224c9ac8442"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{cancelado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cancelado} == true ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="610" y="10" width="51" height="30" uuid="fd6c2c3c-3715-4655-b9fc-df649949e74c"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{pago}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{pago} == true ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="660" y="10" width="48" height="30" uuid="675a6b78-5aba-4c63-b7ee-57fc76ccfe18"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{recebido}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{recebido} == true ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="710" y="10" width="52" height="30" uuid="9215e31e-df3c-4b99-b580-228ca4e6162e"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{entregue}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{entregue} == true ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="549" y="10" width="60" height="30" uuid="23f6e340-55d3-407f-86b2-789d821ff8eb"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{orcamento_confirmado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{orcamento_confirmado} == true ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
