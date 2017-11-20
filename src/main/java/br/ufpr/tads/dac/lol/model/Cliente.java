@@ -158,5 +158,9 @@ public class Cliente extends Model<Integer> implements Authenticable, Serializab
     public void setPassword(String password) {
         this.setSenha(Authenticable.Util.generateHash(String.format("#%s~@~%s#", getUsername(), password)));
     }
-
+    
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }

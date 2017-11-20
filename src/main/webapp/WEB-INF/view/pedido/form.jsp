@@ -44,7 +44,7 @@
                                         <md-layout md-flex="85">
                                             <md-input-container>
                                                 <label>Cliente</label>
-                                                <md-input :readonly="true" value="${model.cliente.nome}"></md-input>
+                                                <md-input :readonly="true" value="${model.cliente}"></md-input>
                                             </md-input-container>
                                         </md-layout>
                                     </md-layout>
