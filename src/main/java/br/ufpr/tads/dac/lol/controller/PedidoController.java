@@ -161,13 +161,14 @@ public class PedidoController extends CrudController<Pedido> {
                             "pedidoId", pedido.getId().toString()
                     );
 
-                    message = client.target("http://localhost:8080/ds/webresources/ws")
+                    message = client.target("http://localhost:8080/ds/webresources/ws/")
                             .request(MediaType.APPLICATION_JSON)
                             .post(Entity.entity(message, MediaType.APPLICATION_JSON), Message.class);
 
                     pedido.setEntregaId(Integer.parseInt(message.getParameter("entregaId")));
 
                     facede.save(pedido);
+                    request.setAttribute("model", pedido);
                     request.setAttribute("message", "Entrega criada com sucesso!");
                     break;
             }

@@ -113,7 +113,7 @@
                                                 </c:if>
                                         </md-table-cell>
                                         <md-table-cell><c:out value="${item.id}"/></md-table-cell>
-                                        <md-table-cell><c:out value="${item.cliente.nome}"/></md-table-cell>
+                                        <md-table-cell><c:out value="${item.cliente}"/></md-table-cell>
                                         <md-table-cell><fmt:formatDate type="both" value="${item.dataHoraCadastro}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.enderecoEntrega}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.observacaoCliente}"/></md-table-cell>
