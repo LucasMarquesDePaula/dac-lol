@@ -161,6 +161,6 @@ public class Cliente extends Model<Integer> implements Authenticable, Serializab
     
     @Override
     public String toString() {
-        return getNome();
+        return getNome() + " (" + getId() + ")";
     }
 }
