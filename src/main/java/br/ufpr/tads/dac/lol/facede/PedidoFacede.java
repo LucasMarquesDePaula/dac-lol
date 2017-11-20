@@ -142,6 +142,7 @@ public class PedidoFacede extends CrudFacede<Pedido> {
 
         pedido.setRealizado((byte) 0x1);
         pedido.setDataHoraRealizacao(dataHora);
+        pedido.setFuncionarioRealizacao(funcionario);
 
         this.save(pedido);
         return pedido;

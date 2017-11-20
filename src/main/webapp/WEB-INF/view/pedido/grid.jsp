@@ -79,7 +79,7 @@
                         <md-table @sort="onSort" md-sort="${param.sortField}" md-sort-type="${param.sortDirection}">
                             <md-table-header>
                                 <md-table-row>
-                                    <md-table-head md-sort-by="id">Atenção</md-table-head>
+                                    <md-table-head md-sort-by="icon">Atenção</md-table-head>
                                     <md-table-head md-sort-by="id">Cód.</md-table-head>
                                     <md-table-head md-sort-by="cliente">Nome Cliente</md-table-head>
                                     <md-table-head md-sort-by="dataHoraCadastro">Data/Hora Cadastro</md-table-head>
