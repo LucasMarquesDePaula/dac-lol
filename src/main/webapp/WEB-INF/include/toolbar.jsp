@@ -29,7 +29,7 @@
             </md-menu>
         </c:if>
         <c:if test="${sessionScope.Role == null}">
-            <a href="lol/login">
+            <a href="../../lol/login">
                 <md-button class="md-icon-button">
                     <md-icon>cancel</md-icon>
                 </md-button>
