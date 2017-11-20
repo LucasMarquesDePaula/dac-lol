@@ -82,7 +82,7 @@ public class LoginController extends Controller {
             if (funcionarioList.size() == 1) {
                 funcionario.setId(funcionarioFound.getId());
                 funcionario.setPassword(password);
-                if (funcionario.getPassword().equals(password)) {
+                if (funcionario.getPassword().equals(funcionarioFound.getPassword())) {
                     request.getSession().setAttribute(Role.class.getSimpleName(), Role.FUNCIONARIO);
                     request.getSession().setAttribute(Authenticable.class.getSimpleName(), funcionario);
                     response.sendRedirect(request.getContextPath());

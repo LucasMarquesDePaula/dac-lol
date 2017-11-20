@@ -143,22 +143,22 @@ public class Funcionario extends Model<Integer> implements Authenticable, Serial
 
     @Override
     public String getUsername() {
-        return this.getEmail();
+        return getEmail();
     }
 
     @Override
     public void setUsername(String userName) {
-        this.setEmail(userName);
+        setEmail(userName);
     }
 
     @Override
     public String getPassword() {
-        return this.getSenha();
+        return getSenha();
     }
 
     @Override
     public void setPassword(String password) {
-        this.setSenha(Authenticable.Util.generateHash(String.format("#%d~!~%s#", this.getId(), password)));
+        setSenha(Authenticable.Util.generateHash(String.format("#%s~!~%s#", getUsername(), password)));
     }
 
     @Override
