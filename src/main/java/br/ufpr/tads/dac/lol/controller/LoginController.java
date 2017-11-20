@@ -100,18 +100,15 @@ public class LoginController extends Controller {
             // Encontrou o cliente no banco de dados ?
             Cliente clienteFound = clienteList.size() == 1 ? clienteList.get(0) : null;
             
-            if (clienteFound != null) {
-
-                // A senha é a mesma ?
+            if(clienteList.size() == 1) {
                 cliente.setId(clienteFound.getId());
                 cliente.setPassword(password);
-                // TODO: Arrumar senha
-                 if (cliente.getSenha().equals(clienteFound.getSenha())) {
-                request.getSession().setAttribute(Role.class.getSimpleName(), Role.CLIENTE);
-                request.getSession().setAttribute(Authenticable.class.getSimpleName(), clienteFound);
-                     response.sendRedirect(request.getContextPath());
-                 }
-                return;
+                if(cliente.getPassword().equals(clienteFound.getPassword())) {
+                    request.getSession().setAttribute(Role.class.getSimpleName(), Role.CLIENTE);
+                    request.getSession().setAttribute(Authenticable.class.getSimpleName(), cliente);
+                    response.sendRedirect(request.getContextPath());
+                    return;
+                }
             }
             
             messages.put("login", "Dados inválidos. Tente novamente");
