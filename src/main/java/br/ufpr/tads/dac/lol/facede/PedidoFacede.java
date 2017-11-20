@@ -10,7 +10,6 @@ import br.ufpr.tads.dac.lol.model.Pedido;
 import br.ufpr.tads.dac.lol.model.PedidoTipoRoupa;
 import br.ufpr.tads.dac.lol.model.PedidoTipoRoupaPK;
 import br.ufpr.tads.dac.lol.model.TipoRoupa;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
