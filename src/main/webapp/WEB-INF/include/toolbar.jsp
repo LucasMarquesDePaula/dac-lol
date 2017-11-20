@@ -9,22 +9,32 @@
 
 <div id="toolbar">
     <md-toolbar>
-        <md-button class="md-icon-button" @click="toggleSidenavLeft">
-            <md-icon>menu</md-icon>
-        </md-button>
+        <c:if test="${sessionScope.Role != null}">
+            <md-button class="md-icon-button" @click="toggleSidenavLeft">
+                <md-icon>menu</md-icon>
+            </md-button>
+        </c:if>
         <h1 class="md-title" style="flex: 1;">
             <c:out value="${param.title != null ? param.title : app.name}"/>
         </h1>
-
-        <md-menu md-direction="bottom left">
-            <md-button :md-menu-trigger="true" class="md-icon-button">
-                <md-icon>filter_list</md-icon>
-            </md-button>
-            <md-menu-content>
-                <md-menu-item>${Authenticable.username}</md-menu-item>
-                <md-menu-item @click="logout()"><a href="#">Logout</a></md-menu-item>
-            </md-menu-content>
-        </md-menu>
+        <c:if test="${sessionScope.Role != null}">
+            <md-menu md-direction="bottom left">
+                <md-button :md-menu-trigger="true" class="md-icon-button">
+                    <md-icon>filter_list</md-icon>
+                </md-button>
+                <md-menu-content>
+                    <md-menu-item>${Authenticable.username}</md-menu-item>
+                    <md-menu-item @click="logout()"><a href="#">Logout</a></md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </c:if>
+        <c:if test="${sessionScope.Role == null}">
+            <a href="lol/login">
+                <md-button class="md-icon-button">
+                    <md-icon>cancel</md-icon>
+                </md-button>
+            </a>
+        </c:if>
     </md-toolbar>
 </div>
 <st:js res="include/toolbar/toolbar.js"/>

@@ -20,12 +20,12 @@ import java.util.Map;
  * @author Lucas
  */
 public class PedidoFacede extends CrudFacede<Pedido> {
-    
+
     private static PedidoDao dao;
 
     // TODO melhorar validações
     public Pedido cancelarPedido(Integer id, Funcionario funcionario, Date dataHora) throws IllegalArgumentException, IllegalOperationException, NotFoundException, ValidationException {
-        
+
         if (id == null) {
             throw new IllegalArgumentException("O Pedido não foi informado.");
         }
@@ -37,51 +37,78 @@ public class PedidoFacede extends CrudFacede<Pedido> {
         if (dataHora == null) {
             throw new IllegalArgumentException("O Pedido não pôde ser cancelado pois a data e hora não foram informadas.");
         }
-        
+
         Pedido pedido = this.find(id);
-        
+
         if (pedido.getCancelado() == 0x1) {
             throw new IllegalOperationException("O Pedido já foi cancelado anteriormente");
         }
-        
+
         if (pedido.getRealizado() == 0x1) {
             throw new IllegalOperationException("O Pedido já foi realizado");
         }
-        
+
         pedido.setCancelado((byte) 0x1);
         pedido.setDataHoraCancelamento(dataHora);
-        
+
         this.save(pedido);
-        
+
         return pedido;
     }
 
     // TODO melhorar validações
     public Pedido confirmarOrcamento(Integer id, Date dataHora) throws IllegalOperationException, NotFoundException, ValidationException {
-        
+
         if (id == null) {
             throw new IllegalArgumentException("O Pedido não foi informado.");
         }
-        
+
         if (dataHora == null) {
             throw new IllegalArgumentException("O orçamento não foi confirmado pois a data e hora não foram informadas.");
         }
-        
+
         Pedido pedido = this.find(id);
-        
+
         if (pedido.getCancelado() == 0x1) {
             throw new IllegalOperationException("O pedido esta cancelado");
         }
-        
+
         if (pedido.getOrcamentoConfirmado() == 0x1) {
             throw new IllegalOperationException("O pedido ja foi confirmado anteriormente");
         }
-        
+
         pedido.setOrcamentoConfirmado((byte) 0x1);
         pedido.setDataHoraConfirmacaoOrcamento(dataHora);
-        
+
         this.save(pedido);
-        
+
+        return pedido;
+    }
+
+    public Pedido confirmarRecebimento(Integer id, Date dataHora) throws NotFoundException, IllegalOperationException, ValidationException {
+        if (id == null) {
+            throw new IllegalArgumentException("O Pedido não foi informado.");
+        }
+
+        if (dataHora == null) {
+            throw new IllegalArgumentException("O pedido não foi recebido pois a data e hora não foram informadas.");
+        }
+
+        Pedido pedido = this.find(id);
+
+        if (pedido.getCancelado() == 0x1) {
+            throw new IllegalOperationException("O pedido esta cancelado");
+        }
+
+        if (pedido.getRecebido()== 0x1) {
+            throw new IllegalOperationException("O pedido ja foi recebido anteriormente");
+        }
+
+        pedido.setRecebido((byte) 0x1);
+        pedido.setDataHoraRecebimento(dataHora);
+
+        this.save(pedido);
+
         return pedido;
     }
 
@@ -90,32 +117,32 @@ public class PedidoFacede extends CrudFacede<Pedido> {
         if (id == null) {
             throw new IllegalArgumentException("O Pedido não foi informado.");
         }
-        
+
         if (funcionario == null) {;
-            throw new IllegalArgumentException("O funscionario não foi informado");
+            throw new IllegalArgumentException("O funcionário não foi informado");
         }
-        
+
         if (dataHora == null) {
             throw new IllegalArgumentException("Data e hora não foram informadas.");
         }
-        
+
         Pedido pedido = this.find(id);
-        
+
         if (pedido.getCancelado() == 0x1) {
             throw new IllegalOperationException("O pedido esta cancelado");
         }
-        
+
         if (pedido.getRecebido() == 0x0) {
             throw new IllegalOperationException("O pedido não foi recebido");
         }
-        
+
         if (pedido.getRealizado() == 0x1) {
             throw new IllegalOperationException("O pedido ja foi realizado anteriormente");
         }
-        
+
         pedido.setRealizado((byte) 0x1);
         pedido.setDataHoraRealizacao(dataHora);
-        
+
         this.save(pedido);
         return pedido;
     }
@@ -125,20 +152,20 @@ public class PedidoFacede extends CrudFacede<Pedido> {
         if (id == null) {
             throw new IllegalArgumentException("O Pedido não foi informado.");
         }
-        
+
         if (funcionario == null) {;
             throw new IllegalArgumentException("O funcionario não foi informado");
         }
-        
+
         if (dataHora == null) {
             throw new IllegalArgumentException("Data e hora não foram informadas.");
         }
-        
+
         Pedido pedido = this.find(id);
-        
+
         pedido.setPago((byte) 0x1);
         pedido.setDataHoraPagamento(dataHora);
-        
+
         this.save(pedido);
         return pedido;
     }
@@ -148,7 +175,7 @@ public class PedidoFacede extends CrudFacede<Pedido> {
         if (id == null) {
             throw new IllegalArgumentException("O Pedido não foi informado.");
         }
-        
+
         try {
             justificativa = justificativa.trim();
             if (justificativa.isEmpty()) {
@@ -157,18 +184,18 @@ public class PedidoFacede extends CrudFacede<Pedido> {
         } catch (NullPointerException ex) {
             throw new IllegalArgumentException("A justificativa não foi informada");
         }
-        
+
         if (dataHora == null) {
             throw new IllegalArgumentException("Data e hora não foram informadas.");
         }
-        
+
         Pedido pedido = this.find(id);
-        
+
         pedido.setEntregaFrustrada((byte) 0x1);
         pedido.setEntregaFrustradaJustificativa(justificativa);
-        
+
         this.save(pedido);
-        
+
         return pedido;
     }
 
@@ -177,25 +204,25 @@ public class PedidoFacede extends CrudFacede<Pedido> {
         if (id == null) {
             throw new IllegalArgumentException("O Pedido não foi informado.");
         }
-        
+
         Pedido pedido = this.find(id);
-        
+
         if (pedido.getCancelado() == 0x1) {
             throw new IllegalOperationException("O pedido esta cancelado");
         }
-        
+
         if (pedido.getRecebido() == 0x0) {
             throw new IllegalOperationException("O pedido não foi recebido");
         }
-        
+
         if (pedido.getEntregue() == 0x1) {
             throw new IllegalOperationException("O pedido ja foi marcado como entregue anteriormente");
         }
-        
+
         pedido.setEntregue((byte) 0x1);
-        
+
         this.save(pedido);
-        
+
         return pedido;
     }
 
@@ -204,57 +231,57 @@ public class PedidoFacede extends CrudFacede<Pedido> {
         if (pedido == null) {
             throw new IllegalOperationException("O pedido não foi informado");
         }
-        
+
         if (pedido.getId() != null) {
             throw new IllegalOperationException("Pedidos novos não devem ter código");
         }
-        
+
         if (cliente == null) {
             throw new IllegalOperationException("O cliente não foi informado");
         }
-        
+
         if (cliente.getId() == null) {
             throw new IllegalOperationException("O cliente não esta cadastrado");
         }
-        
+
         if (cliente.getAtivo() == 0x0) {
             throw new IllegalOperationException("Clientes inativos não podem realizar novos pedidos");
         }
-        
+
         this.save(pedido);
-        
+
         return pedido;
     }
 
     // TODO melhorar validações
     public Pedido adicionarItem(Integer id, TipoRoupa tipoRoupa, Integer quantidade) throws IllegalOperationException, ValidationException, NotFoundException {
-        
+
         if (id == null) {
             throw new IllegalOperationException("O pedido não foi informado");
         }
-        
+
         if (tipoRoupa == null) {
             throw new IllegalOperationException("O tipo de roupa não foi informado");
         }
-        
+
         if (tipoRoupa.getAtivo() == 0x0) {
             throw new IllegalOperationException("O tipo de roupa esta inativado");
         }
-        
+
         if (quantidade == null) {
             throw new IllegalOperationException("A quantidade não foi informada");
         }
-        
+
         if (quantidade <= 0) {
             throw new IllegalOperationException("A quantidade deve ser maior que 0");
         }
-        
+
         Pedido pedido = this.find(id);
-        
+
         if (pedido.getOrcamentoConfirmado() == 0x1) {
             throw new IllegalOperationException("Pedidos com orçamento confirmado não podem ter itens alterados");
         }
-        
+
         if (pedido.getCliente().getAtivo() == 0x0) {
             throw new IllegalOperationException("Clientes inativos não podem alterar pedidos");
         }
@@ -273,7 +300,7 @@ public class PedidoFacede extends CrudFacede<Pedido> {
                 }
             }
         }
-        
+
         if (!found) {
             PedidoTipoRoupa pedidoTipoRoupa = new PedidoTipoRoupa();
             pedidoTipoRoupa.setId(new PedidoTipoRoupaPK());
@@ -283,28 +310,28 @@ public class PedidoFacede extends CrudFacede<Pedido> {
             pedidoTipoRoupa.setValorUnitario(tipoRoupa.getPrecoLavagem());
             pedido.addPedidoTiposRoupa(pedidoTipoRoupa);
         }
-        
+
         this.save(pedido);
-        
+
         return pedido;
     }
-    
+
     public Pedido removerItem(Integer id, TipoRoupa tipoRoupa) throws IllegalOperationException, ValidationException, NotFoundException {
-        
+
         if (id == null) {
             throw new IllegalOperationException("O pedido não foi informado");
         }
-        
+
         if (tipoRoupa == null) {
             throw new IllegalOperationException("O tipo de roupa não foi informado");
         }
-        
+
         Pedido pedido = this.find(id);
-        
+
         if (pedido.getOrcamentoConfirmado() == 0x1) {
             throw new IllegalOperationException("Pedidos com orçamento confirmado não podem ter itens alterados");
         }
-        
+
         if (pedido.getCliente().getAtivo() == 0x0) {
             throw new IllegalOperationException("Clientes inativos não podem alterar pedidos");
         }
@@ -320,12 +347,12 @@ public class PedidoFacede extends CrudFacede<Pedido> {
                 }
             }
         }
-        
+
         this.save(pedido);
-        
+
         return pedido;
     }
-    
+
     @Override
     protected Dao<Pedido> getDao() {
         if (dao == null) {
@@ -337,13 +364,13 @@ public class PedidoFacede extends CrudFacede<Pedido> {
     // TODO criar validações
     @Override
     protected void beforeSave(Pedido model, Dao<Pedido> dao) throws ValidationException {
-        
+
         Map<String, String> messages = new HashMap<>();
-        
+
         if (model.getCliente() == null) {
             messages.put("cliente", "O cliente deve ser informado");
         }
-        
+
         if (model.getPedidoTiposRoupa() != null) {
             for (PedidoTipoRoupa pedidoTipoRoupa : model.getPedidoTiposRoupa()) {
                 Integer quantidade = pedidoTipoRoupa.getQuantidade();
@@ -351,7 +378,7 @@ public class PedidoFacede extends CrudFacede<Pedido> {
                     messages.put("quantidade", "Todos os itens devem possuir quantidade maior que zero");
                     break;
                 }
-                
+
                 Float valorUnitario = pedidoTipoRoupa.getValorUnitario();
                 if (valorUnitario == null || valorUnitario.compareTo(0F) == -1) {
                     messages.put("valorUnitario", "Todos os itens devem possuir valor unitario maior ou igual a zero");
@@ -359,7 +386,7 @@ public class PedidoFacede extends CrudFacede<Pedido> {
                 }
             }
         }
-        
+
         if (!messages.isEmpty()) {
             throw new ValidationException(messages);
         }
@@ -372,5 +399,5 @@ public class PedidoFacede extends CrudFacede<Pedido> {
             throw new IllegalOperationException("Pedidos recebidos não podem ser excluidos");
         }
     }
-    
+
 }
