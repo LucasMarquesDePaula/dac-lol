@@ -9,33 +9,35 @@
         <md-toolbar>
             <h1 class="md-title">Itens</h1>
         </md-toolbar>
-        <form method="POST" action='${contextPath}/${basePath}/add-item/${model.id}' accept-charset="ISO-8859-1">
-            <md-layout :md-gutter="true">
-                <md-layout>
-                    <md-input-container>
-                        <label>Tipo de Roupa</label>
-                        <md-select name="tipoRoupa" :required="true">
-                            <c:forEach var="item" items="${tiposRoupa}">
-                                <md-option value="${item.id}">
-                                    <c:out value="${item.nome}" />
-                                </md-option>
-                            </c:forEach>
-                        </md-select>
-                    </md-input-container>
+        <c:if test="${model.orcamentoConfirmado == 0}">
+            <form method="POST" action='${contextPath}/${basePath}/add-item/${model.id}' accept-charset="ISO-8859-1">
+                <md-layout :md-gutter="true">
+                    <md-layout>
+                        <md-input-container>
+                            <label>Tipo de Roupa</label>
+                            <md-select name="tipoRoupa" :required="true">
+                                <c:forEach var="item" items="${tiposRoupa}">
+                                    <md-option value="${item.id}">
+                                        <c:out value="${item.nome}" />
+                                    </md-option>
+                                </c:forEach>
+                            </md-select>
+                        </md-input-container>
+                    </md-layout>
+                    <md-layout md-flex="35">
+                        <md-input-container>
+                            <label>Quatidade</label>
+                            <md-input name="quantidade" :required="true" type="number"></md-input>
+                        </md-input-container>
+                    </md-layout>
+                    <md-layout md-flex="15">
+                        <md-button type="submit" class="md-icon-button md-raised md-primary">
+                            <md-icon>add</md-icon>
+                        </md-button>
+                    </md-layout>
                 </md-layout>
-                <md-layout md-flex="35">
-                    <md-input-container>
-                        <label>Quatidade</label>
-                        <md-input name="quantidade" :required="true" type="number"></md-input>
-                    </md-input-container>
-                </md-layout>
-                <md-layout md-flex="15">
-                    <md-button type="submit" class="md-icon-button md-raised md-primary">
-                        <md-icon>add</md-icon>
-                    </md-button>
-                </md-layout>
-            </md-layout>
-        </form>
+            </form>
+        </c:if>
         <md-table>
             <md-table-header>
                 <md-table-row>
