@@ -27,15 +27,24 @@ public class LoginFilter implements Filter {
         String requestURI = ((HttpServletRequest) request).getRequestURI();
         String loginURI = String.format("%s/login", contextPath);
 
-        boolean loggedIn = session != null && session.getAttribute(Role.class.getSimpleName()) != null;
         boolean loginRequest = requestURI.equals(loginURI);
         boolean staticRequest = requestURI.startsWith(String.format("%s/static/", contextPath));
         boolean publicRequest = requestURI.startsWith(String.format("%s/public/", contextPath));
         boolean wsRequest = requestURI.startsWith(String.format("%s/webresources/ws/", contextPath));
         boolean clienteFormRequest = requestURI.equals(String.format("%s/cliente/form", contextPath));
         boolean clienteCreateRequest = requestURI.startsWith(String.format("%s/cliente/create", contextPath));
+
+        if (loginRequest || staticRequest || publicRequest || wsRequest || clienteFormRequest || clienteCreateRequest) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        boolean loggedIn = session != null && session.getAttribute(Role.class.getSimpleName()) != null;
         
-        if (loggedIn || loginRequest || staticRequest || publicRequest || wsRequest || clienteFormRequest || clienteCreateRequest) {
+        boolean isCliente = session != null && session.getAttribute(Role.class.getSimpleName()) == Role.CLIENTE;
+        boolean pedidoRequest = requestURI.startsWith(String.format("%s/pedido/", contextPath));
+        
+        if (loggedIn && (!isCliente || pedidoRequest)) {
             chain.doFilter(request, response);
             return;
         }
