@@ -79,6 +79,7 @@
                         <md-table @sort="onSort" md-sort="${param.sortField}" md-sort-type="${param.sortDirection}">
                             <md-table-header>
                                 <md-table-row>
+                                    <md-table-head md-sort-by="id">Atenção</md-table-head>
                                     <md-table-head md-sort-by="id">Cód.</md-table-head>
                                     <md-table-head md-sort-by="cliente">Nome Cliente</md-table-head>
                                     <md-table-head md-sort-by="dataHoraCadastro">Data/Hora Cadastro</md-table-head>
@@ -106,6 +107,11 @@
                             <md-table-body>
                                 <c:forEach var="item" items="${queryResult.list}">
                                     <md-table-row>
+                                        <md-table-cell>
+                                            <c:if test="${item.realizado == 1 && item.entregue == 0}">
+                                                <md-icon>warning</md-icon>
+                                                </c:if>
+                                        </md-table-cell>
                                         <md-table-cell><c:out value="${item.id}"/></md-table-cell>
                                         <md-table-cell><c:out value="${item.cliente.nome}"/></md-table-cell>
                                         <md-table-cell><fmt:formatDate type="both" value="${item.dataHoraCadastro}"/></md-table-cell>
