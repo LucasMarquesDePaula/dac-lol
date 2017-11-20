@@ -108,11 +108,10 @@ public class PedidoController extends CrudController<Pedido> {
                     request.setAttribute("model", facede.confirmarRealizacao(id, funcionario, new Date()));
                     request.setAttribute("message", "Realização gravada com sucesso!");
                     break;
-
-//                case "confirm-receivement":;
-//                    request.setAttribute("model", facede.confirmar(id, new Date()));
-//                    request.setAttribute("message", "Orçamento recebido com sucesso!");
-//                    break;
+                case "confirm-receivement":
+                    request.setAttribute("model", facede.confirmarRecebimento(id, new Date()));
+                    request.setAttribute("message", "Pedido recebido com sucesso!");
+                    break;
                 case "confirm-payment":
                     request.setAttribute("model", facede.confirmarPagamento(id, funcionario, new Date()));
                     request.setAttribute("message", "Pagamento registrado com sucesso!");
@@ -152,7 +151,6 @@ public class PedidoController extends CrudController<Pedido> {
                     break;
 
                 case "post-delivery":
-//                    request.setAttribute("model", facede.cancelarPedido(id, funcionario, new Date()));;
                     pedido = facede.find(id);
                     client = ClientBuilder.newClient();
 

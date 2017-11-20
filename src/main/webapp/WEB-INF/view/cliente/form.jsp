@@ -64,7 +64,6 @@
                                             <md-select name="sexo" :required="true" value="${model.sexo}">
                                                 <md-option value="F">Feminino</md-option>
                                                 <md-option value="M">Masculino</md-option>
-                                                <md-option value="O">Não declarar</md-option>
                                             </md-select>
                                             <span class="md-error"><c:out value="${messages.sexo}"/></span>
                                         </md-input-container>

@@ -3,10 +3,9 @@
     Created on : 16/11/2017, 23:57:10
     Author     : Lucas
 --%>
-${sessionScope.Role}
 <c:if test="${!empty model.id && model.cancelado == 0 && sessionScope.Role != br.ufpr.tads.dac.lol.filter.Role.CLIENTE}">
     <md-card-actions>
-        <c:if test="${model.realizado == 0 && empty model.entregaId}">
+        <c:if test="${model.realizado == 1 && empty model.entregaId}">
             <form method="POST" action='${contextPath}/${basePath}/post-delivery/${model.id}'>
                 <md-button type="submit" class="md-raised md-primary">
                     Gerar Entrega
@@ -25,7 +24,7 @@ ${sessionScope.Role}
         <c:if test="${model.recebido == 1 && model.realizado == 0}">
             <form method="POST" action='${contextPath}/${basePath}/done/${model.id}'>
                 <md-button type="submit" class="md-raised md-primary">
-                    Confirmar Realizacao
+                    Confirmar Realização
                 </md-button>
             </form>
         </c:if>

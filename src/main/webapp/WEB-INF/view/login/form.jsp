@@ -42,6 +42,7 @@
                                         <md-input type="password" name="password" required></md-input>
                                         <span class="md-error"><c:out value="${messages.password}"/></span>
                                 </md-input-container>
+                                <p><a href="${contextPath}/cliente/form"> Não está cadastrado? Cadastre-se!</a></p>
                                 <md-card-actions>
                                     <md-button type="submit" class="md-raised md-primary bt-align">Logar</md-button>
                                 </md-card-actions>
