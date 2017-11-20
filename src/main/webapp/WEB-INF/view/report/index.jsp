@@ -24,7 +24,7 @@
         </jsp:include>
         <div id="app">
             <md-layout md-align="center">
-                <md-layout md-flex="66">
+                <md-layout md-flex="33">
                     <c:if test="${!empty message}">
                         <md-card class="${messages == null || messages.length == 0 ? 'md-primary' : 'md-warn'}">
                             <md-card-header>
@@ -36,17 +36,6 @@
                         <md-card>
                             <md-card-header>
                                 <div class="md-title">Clientes</div>
-                            </md-card-header>
-                            <md-card-actions>
-                                <md-button type="submit" class="md-raised md-primary">Gerar</md-button>
-                            </md-card-actions>
-                        </md-card>
-                    </form>
-                    <br />
-                    <form action="${contextPath}/${basePath}/clientes-fieis" target="_blank">
-                        <md-card>
-                            <md-card-header>
-                                <div class="md-title">Clientes Fieis</div>
                             </md-card-header>
                             <md-card-actions>
                                 <md-button type="submit" class="md-raised md-primary">Gerar</md-button>
@@ -98,7 +87,6 @@
                                     <label>Data Inicial</label>
                                     <md-input type="date" name="dataInicial"></md-input>
                                 </md-input-container>
-
                                 <md-input-container>
                                     <label>Data Final</label>
                                     <md-input type="date" name="dataFinal"></md-input>
