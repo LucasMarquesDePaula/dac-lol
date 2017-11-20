@@ -147,6 +147,7 @@ public abstract class CrudController<T extends Model> extends Controller {
                 default:
                     throw new NotCrudActionException(action, pathParts);
             }
+            request.setAttribute("model", model);
         } catch (IllegalOperationException | ValidationException ex) {
             getLogger().debug("", ex);
             request.setAttribute("message", ex.getMessage());
@@ -158,7 +159,6 @@ public abstract class CrudController<T extends Model> extends Controller {
             request.setAttribute("message", ex.getMessage());
             getLogger().debug("", ex);
         } finally {
-            request.setAttribute("model", model);
             try {
                 String redirectTo = request.getParameter("redirectTo").trim();
                 request.getRequestDispatcher(viewPath(String.format("%s/%s.jsp", getBasePath(), redirectTo)))

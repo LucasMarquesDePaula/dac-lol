@@ -3,10 +3,9 @@
         el: "#app",
         data() {
             return {              
-                tipoFiltro: "pda"
+                tipoFiltro: "pnr"
             }
         },
-
         methods: {
             prevPage(limit, offset, count) {
                 setTimeout(() => {

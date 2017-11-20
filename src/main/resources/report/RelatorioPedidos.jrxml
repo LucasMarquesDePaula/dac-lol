@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
-<!-- 2017-11-12T14:36:26 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioPedidos" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9491f02f-79a8-4673-aa20-bac96193fc33">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Tom"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#DEDEDE">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -31,31 +32,91 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
+	<parameter name="dataInicial" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new java.util.Date(0, 0, 1)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataFinal" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new java.util.Date(200, 11, 31)]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[select * from pedido]]>
+		<![CDATA[SELECT
+     *
+FROM
+     pedido
+WHERE
+     data_hora_cadastro between $P{dataInicial} and $P{dataFinal}
+ORDER BY
+     data_hora_cadastro ASC]]>
 	</queryString>
-	<field name="id" class="java.lang.Integer"/>
-	<field name="cliente_id" class="java.lang.Integer"/>
-	<field name="data_hora_cadastro" class="java.sql.Timestamp"/>
-	<field name="endereco_entrega" class="java.lang.String"/>
-	<field name="observacao_cliente" class="java.lang.String"/>
-	<field name="observacao_interna" class="java.lang.String"/>
-	<field name="data_hora_prazo" class="java.sql.Timestamp"/>
-	<field name="realizado" class="java.lang.Boolean"/>
-	<field name="data_hora_realizacao" class="java.sql.Timestamp"/>
-	<field name="funcionario_realizacao_id" class="java.lang.Integer"/>
-	<field name="cancelado" class="java.lang.Boolean"/>
-	<field name="data_hora_cancelamento" class="java.sql.Timestamp"/>
-	<field name="orcamento_confirmado" class="java.lang.Boolean"/>
-	<field name="data_hora_confirmacao_orcamento" class="java.sql.Timestamp"/>
-	<field name="pago" class="java.lang.Boolean"/>
-	<field name="data_hora_pagamento" class="java.sql.Timestamp"/>
-	<field name="funcionario_pagamento_id" class="java.lang.Integer"/>
-	<field name="recebido" class="java.lang.Boolean"/>
-	<field name="data_hora_recebimento" class="java.sql.Timestamp"/>
-	<field name="entregue" class="java.lang.Boolean"/>
-	<field name="entrega_frustrada" class="java.lang.Boolean"/>
-	<field name="entrega_frustrada_justificativa" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cliente_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data_hora_cadastro" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="endereco_entrega" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observacao_cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observacao_interna" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data_hora_prazo" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="realizado" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data_hora_realizacao" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="funcionario_realizacao_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cancelado" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data_hora_cancelamento" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="orcamento_confirmado" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data_hora_confirmacao_orcamento" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pago" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data_hora_pagamento" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="funcionario_pagamento_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="recebido" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data_hora_recebimento" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="entrega_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="entregue" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="entrega_frustrada" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="entrega_frustrada_justificativa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

@@ -26,12 +26,19 @@
                                         <md-input-container>
                                             <label for="select">Opções de Visualização</label>
                                             <md-select v-model="tipoFiltro">
+                                                <!--
+                                                pedidos do dia atual;
+                                                pedidos por período de datas;
+                                                todos os pedidos ainda não resolvidos;
+                                                Os pedidos finalizados mas NÃO ENTREGUES devem estar destacados. Apresentando o motivo;
+                                                -->
+                                                <md-option value="pnr">Pedidos Não Resolvidos</md-option>
                                                 <md-option value="pda">Pedidos Dia Atual</md-option>
                                                 <md-option value="ppp">Pedidos por Período</md-option>
-                                                <md-option value="pnr">Pedidos Não Resolvidos</md-option>
                                             </md-select>
                                         </md-input-container>
                                     </md-layout>
+
                                     <md-layout v-if="tipoFiltro === 'ppp'" md-flex="20">
                                         <md-input-container>
                                             <label>Data Inicial</label>
@@ -45,13 +52,18 @@
                                         </md-input-container>
                                     </md-layout>
 
-                                    <md-layout v-if="tipoFiltro === 'pda'" md-flex="30">
-                                        <div class="hidden">
-                                            <jsp:useBean id="now" class="java.util.Date" />
-                                            <input name="dataInicial" value="<fmt:formatDate value="${now}" pattern="dd/MM/yyyy" />" />
-                                            <input name="dataFinal" value="<fmt:formatDate value="${now}" pattern="dd/MM/yyyy" />" />
-                                        </div>
-                                    </md-layout>    
+                                    <div v-if="tipoFiltro === 'pda'" class="hidden">
+                                        <jsp:useBean id="now" class="java.util.Date" />
+                                        <input name="dataInicial" value="<fmt:formatDate value="${now}" pattern="dd/MM/yyyy" />" />
+                                        <input name="dataFinal" value="<fmt:formatDate value="${now}" pattern="dd/MM/yyyy" />" />
+                                    </div>
+
+
+                                    <div v-if="tipoFiltro === 'pnr'" class="hidden">
+                                        <input name="recebido" value="1" />
+                                        <input name="entregue" value="0" />
+                                        <input name="cancelado" value="0" />
+                                    </div>
 
                                     <md-layout md-flex="10">
                                         <md-toolbar>

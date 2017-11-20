@@ -15,8 +15,9 @@ public class RootController extends Controller {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher(viewPath(String.format("%s/index.jsp", getBasePath())))
-                .forward(request, response);
+        response.sendRedirect(String.format("%s/pedido?recebido=1&entregue=0&cancelado=0sortField=dataHoraCadastro&sortDirection=desc", request.getContextPath()));
+//        request.getRequestDispatcher(viewPath(String.format("%s/index.jsp", getBasePath())))
+//                .forward(request, response);
     }
 
     @Override

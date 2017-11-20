@@ -32,28 +32,84 @@
                             </md-card-header>
                         </md-card>
                     </c:if>
-                    <md-card>
-                        <md-card-content>
-                            <!-- Clientes -->
-                            <form action="${contextPath}/${basePath}/clientes" target="_blank">
-                                <md-button type="submit" class="md-raised">Clientes</md-button>
-                            </form>
+                    <form action="${contextPath}/${basePath}/clientes" target="_blank">
+                        <md-card>
+                            <md-card-header>
+                                <div class="md-title">Clientes</div>
+                            </md-card-header>
+                            <md-card-actions>
+                                <md-button type="submit" class="md-raised md-primary">Gerar</md-button>
+                            </md-card-actions>
+                        </md-card>
+                    </form>
+                    <br />
+                    <form action="${contextPath}/${basePath}/clientes-fieis" target="_blank">
+                        <md-card>
+                            <md-card-header>
+                                <div class="md-title">Clientes Fieis</div>
+                            </md-card-header>
+                            <md-card-actions>
+                                <md-button type="submit" class="md-raised md-primary">Gerar</md-button>
+                            </md-card-actions>
+                        </md-card>
+                    </form>
+                    <br />
+                    <form action="${contextPath}/${basePath}/clientes-fieis" target="_blank">
+                        <md-card>
+                            <md-card-header>
+                                <div class="md-title">Clientes Fieis</div>
+                            </md-card-header>
+                            <md-card-actions>
+                                <md-button type="submit" class="md-raised md-primary">Gerar</md-button>
+                            </md-card-actions>
+                        </md-card>
+                    </form>
+                    <br />
 
-                            <!-- Clientes Fieis -->
-                            <form action="${contextPath}/${basePath}/clientes-fieis" target="_blank">
-                                <md-button type="submit" class="md-raised">Clientes Fiéis</md-button>
-                            </form>
+                    <form action="${contextPath}/${basePath}/receitas" target="_blank">
+                        <md-card>
+                            <md-card-header>
+                                <div class="md-title">Receitas</div>
+                            </md-card-header>
+                            <md-card-content>
+                                <md-input-container>
+                                    <label>Data Inicial</label>
+                                    <md-input type="date" name="dataInicial"></md-input>
+                                </md-input-container>
 
-                            <!-- Receitas -->
-                            <form action="${contextPath}/${basePath}/receitas" target="_blank">
-                                <md-button type="submit" class="md-raised">Receitas</md-button>
-                            </form>
+                                <md-input-container>
+                                    <label>Data Final</label>
+                                    <md-input type="date" name="dataFinal"></md-input>
+                                </md-input-container>
+                            </md-card-content>
+                            <md-card-actions>
+                                <md-button type="submit" class="md-raised md-primary">Gerar</md-button>
+                            </md-card-actions>
+                        </md-card>
+                    </form>
+                    <br />
+                    <form action="${contextPath}/${basePath}/pedidos" target="_blank">
+                        <md-card>
+                            <md-card-header>
+                                <div class="md-title">Pedidos</div>
+                            </md-card-header>
+                            <md-card-content>
+                                <md-input-container>
+                                    <label>Data Inicial</label>
+                                    <md-input type="date" name="dataInicial"></md-input>
+                                </md-input-container>
 
-                            <!-- Pedidos -->
-                            <form action="${contextPath}/${basePath}/pedidos" target="_blank">
-                                <md-button type="submit" class="md-raised">Pedidos</md-button>
-                            </form>
-                        </md-card-content>
+                                <md-input-container>
+                                    <label>Data Final</label>
+                                    <md-input type="date" name="dataFinal"></md-input>
+                                </md-input-container>
+                            </md-card-content>
+                            <md-card-actions>
+                                <md-button type="submit" class="md-raised md-primary">Gerar</md-button>
+                            </md-card-actions>
+                        </md-card>
+                    </form>
+                    </md-card-content>
                     </md-card>
                 </md-layout>
             </md-layout>
