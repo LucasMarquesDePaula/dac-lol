@@ -9,7 +9,7 @@
 
 <div id="toolbar">
     <md-toolbar>
-        <c:if test="${sessionScope.Role != null}">
+        <c:if test="${(sessionScope.Role != null) && (sessionScope.Role != 'CLIENTE')}">
             <md-button class="md-icon-button" @click="toggleSidenavLeft">
                 <md-icon>menu</md-icon>
             </md-button>
