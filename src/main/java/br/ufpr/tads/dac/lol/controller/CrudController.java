@@ -125,6 +125,7 @@ public abstract class CrudController<T extends Model> extends Controller {
             String[] pathParts = pathInfo.split("/");
             String action = pathParts[1];
 
+            request.setAttribute("model", model);
             request.setAttribute("basePath", getBasePath());
             switch (action) {
                 case "create":

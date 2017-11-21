@@ -23,7 +23,7 @@
 <!--Vuelidate-->
 <st:js res="vuelidate/validators.min.js" />
 <st:js res="vuelidate/vuelidate.min.js" />
-<st:js res="vuelidade-cpfcnpj/vuelidade-cpfcnpj.js" />
+<st:js res="vuelidate-cpfcnpj/vuelidate-cpfcnpj.js" />
 
 
 <!--Custom-->

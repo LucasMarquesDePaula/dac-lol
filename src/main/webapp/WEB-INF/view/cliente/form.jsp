@@ -30,7 +30,7 @@
                         </md-card>
                     </c:if>
                     <md-card>
-                        <form method="POST" action='${contextPath}/${basePath}/${empty model.id ? "create" : "update"}/${model.id}' accept-charset="ISO-8859-1">
+                        <form method="POST" action='${contextPath}/${basePath}/${empty model.id ? "create" : "update"}/${model.id}' @submit="submit" accept-charset="ISO-8859-1">
                             <md-card-content>
                                 <md-layout :md-gutter="true">
                                     <c:if test="${!empty model.id}">
@@ -51,11 +51,11 @@
                                 </md-layout>
                                 <md-layout :md-gutter="true">
                                     <md-layout>
-                                        <md-input-container class="${empty messages.cpf ? '' : 'md-input-invalid'}">
+                                        <md-input-container class="${empty messages.cpf ? '' : 'md-input-invalid'}" :class="{ 'md-input-invalid': $v.model.cpf.$error }">
                                             <md-icon>fingerprint</md-icon>
                                             <label>CPF</label>
-                                            <md-input name="cpf" :required="true" value="${model.cpf}" v-mask="'###.###.###-##'"></md-input>
-                                            <span class="md-error"><c:out value="${messages.cpf}"/></span>
+                                            <md-input name="cpf" :required="true" value="${model.cpf}" v-model="model.cpf" v-mask="'###.###.###-##'" @blur="$v.model.cpf.$touch"></md-input>
+                                            <span class="md-error"><c:out value="${empty messages.cpf ? 'CPF inválido' : messages.cpf }"/></span>
                                         </md-input-container>
                                     </md-layout>
                                     <md-layout>
@@ -86,15 +86,14 @@
                                         </md-input-container>
                                     </md-layout>
                                     <md-layout md-flex="33">
-                                        <md-input-container class="${empty messages.email ? '' : 'md-input-invalid'}">
+                                        <md-input-container class="${empty messages.email ? '' : 'md-input-invalid'}" :class="{ 'md-input-invalid': $v.model.email.$error }">
                                             <md-icon>mail</md-icon>
                                             <label>Email</label>
-                                            <md-input name="email" :required="true" value="${model.email}"></md-input>
-                                            <span class="md-error"><c:out value="${messages.email}"/></span>
+                                            <md-input name="email" :required="true" value="${model.email}" v-model="model.email" @blur="$v.model.email.$touch"></md-input>
+                                            <span class="md-error"><c:out value="${empty messages.email ? 'Email inválido' : messages.email }"/></span>
                                         </md-input-container>
                                     </md-layout>
                                 </md-layout>
-
                                 <md-layout :md-gutter="true">
                                     <md-layout>
                                         <md-layout :md-gutter="true">
@@ -123,7 +122,6 @@
                                     </md-button>
                                 </md-card-actions>
                             </md-card-content>
-
                         </form>
                     </md-card>
                 </md-layout>

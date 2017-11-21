@@ -173,15 +173,15 @@
         return false
     }
 
-    validators.cpf = withParams({type: "required"}, value => {
+    validators.cpf = vuelidate.withParams({type: "required"}, value => {
         return checkCpf(value)
     })
 
-    validators.cnpj = withParams({type: "required"}, value => {
+    validators.cnpj = vuelidate.withParams({type: "required"}, value => {
         return checkCnpj(value)
     })
 
-    validators.cpfCnpj = withParams({type: "required"}, value => {
+    validators.cpfCnpj = vuelidate.withParams({type: "required"}, value => {
         return checkCpfCnpj(value)
     })
 
