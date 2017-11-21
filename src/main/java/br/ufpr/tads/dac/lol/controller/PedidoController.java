@@ -112,6 +112,7 @@ public class PedidoController extends CrudController<Pedido> {
                     request.setAttribute("model", facede.confirmarRecebimento(id, new Date()));
                     request.setAttribute("message", "Pedido recebido com sucesso!");
                     break;
+                    
                 case "confirm-payment":
                     request.setAttribute("model", facede.confirmarPagamento(id, funcionario, new Date()));
                     request.setAttribute("message", "Pagamento registrado com sucesso!");

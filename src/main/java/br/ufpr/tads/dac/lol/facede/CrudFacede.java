@@ -30,12 +30,12 @@ public abstract class CrudFacede<T extends Model> {
         try {
             T model = getDao().findById(id);
             if (model == null) {
-                throw new NotFoundException();
+                throw new NotFoundException("Item não foi encontrado");
             }
             return model;
         } catch (NotFoundException e) {
             logger.error("", e);
-            throw new NotFoundException(e.getMessage());
+            throw e;
         }
     }
 
