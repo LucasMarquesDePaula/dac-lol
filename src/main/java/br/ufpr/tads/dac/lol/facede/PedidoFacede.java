@@ -99,7 +99,7 @@ public class PedidoFacede extends CrudFacede<Pedido> {
             throw new IllegalOperationException("O pedido esta cancelado");
         }
 
-        if (pedido.getRecebido()== 0x1) {
+        if (pedido.getRecebido() == 0x1) {
             throw new IllegalOperationException("O pedido ja foi recebido anteriormente");
         }
 
@@ -163,6 +163,10 @@ public class PedidoFacede extends CrudFacede<Pedido> {
 
         Pedido pedido = this.find(id);
 
+        if (pedido.getPago() == 0x1) {
+            throw new IllegalOperationException("O pagamento ja foi confirmado anteriormente");
+        }
+
         pedido.setPago((byte) 0x1);
         pedido.setDataHoraPagamento(dataHora);
 
@@ -198,7 +202,7 @@ public class PedidoFacede extends CrudFacede<Pedido> {
 
         return pedido;
     }
-    
+
     // TODO melhorar validações
     public Pedido confirmarEntregaFeita(Integer id) throws IllegalOperationException, ValidationException, NotFoundException {
         if (id == null) {

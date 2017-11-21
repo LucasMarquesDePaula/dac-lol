@@ -1,6 +1,7 @@
 package br.ufpr.tads.dac.lol.facede;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,12 +14,12 @@ public abstract class FacedeException extends Exception {
     private final Map<String, String> messages;
 
     public FacedeException() {
-        this.messages = Collections.unmodifiableMap(null);
+        this.messages = Collections.unmodifiableMap(new HashMap<>());
     }
 
     public FacedeException(String message) {
         super(message);
-        this.messages = Collections.unmodifiableMap(null);
+        this.messages = Collections.unmodifiableMap(new HashMap<>());
     }
 
     public FacedeException(String message, Map<String, String> messages) {
