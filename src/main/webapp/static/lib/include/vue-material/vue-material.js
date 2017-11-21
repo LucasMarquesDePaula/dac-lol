@@ -17,4 +17,5 @@
     });
 
     Vue.use(VueMaterial);
+    Vue.use(vuelidate.Vuelidate);
 })();

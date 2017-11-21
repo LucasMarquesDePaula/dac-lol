@@ -20,6 +20,12 @@
 <st:css res="vue-material/vue-material.css" />
 <st:js res="vue-material/vue-material.debug.js" />
 
+<!--Vuelidate-->
+<st:js res="vuelidate/validators.min.js" />
+<st:js res="vuelidate/vuelidate.min.js" />
+<st:js res="vuelidade-cpfcnpj/vuelidade-cpfcnpj.js" />
+
+
 <!--Custom-->
 <st:css res="include/vue-material/vue-material.css" />
 <st:js res="include/vue-material/vue-material.js" />
