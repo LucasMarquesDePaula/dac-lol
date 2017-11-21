@@ -57,12 +57,14 @@
                         <md-table-cell><fmt:formatNumber value="${item.quantidade}" type="number" maxFractionDigits="0"/></md-table-cell>                                          
                         <md-table-cell><fmt:formatNumber value="${item.valorUnitario}" type="currency"/></md-table-cell>
                         <md-table-cell><fmt:formatNumber value="${item.valorUnitario * item.quantidade}" type="currency"/></md-table-cell>
-                        <form method="POST" action='${contextPath}/${basePath}/remove-item/${model.id}' accept-charset="ISO-8859-1">
-                            <input type="hidden" name="tipoRoupa" value="${item.tipoRoupa.id}" />
-                            <md-button class="md-icon-button" type="submit">
-                                <md-icon>delete</md-icon>
-                            </md-button>
-                        </form>
+                        <c:if test="${model.orcamentoConfirmado == 0}">
+                            <form method="POST" action='${contextPath}/${basePath}/remove-item/${model.id}' accept-charset="ISO-8859-1">
+                                <input type="hidden" name="tipoRoupa" value="${item.tipoRoupa.id}" />
+                                <md-button class="md-icon-button" type="submit">
+                                    <md-icon>delete</md-icon>
+                                </md-button>
+                            </form>
+                        </c:if>
                     </md-table-row>
                 </c:forEach>
                 <md-table-row>

@@ -3,7 +3,7 @@
     Created on : 16/11/2017, 23:57:10
     Author     : Lucas
 --%>
-<c:if test="${!empty model.id && model.cancelado == 0 && sessionScope.Role != br.ufpr.tads.dac.lol.filter.Role.CLIENTE}">
+<c:if test="${!empty model.id && model.cancelado == 0 && sessionScope.Role != 'CLIENTE'}">
     <md-card-actions>
         <c:if test="${model.realizado == 1 && empty model.entregaId}">
             <form method="POST" action='${contextPath}/${basePath}/post-delivery/${model.id}'>
