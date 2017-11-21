@@ -26,6 +26,10 @@ const app = new Vue({
                 event.preventDefault()
             }
         }
+    },
+    mounted() {
+        this.model.email = this.$$.find("[name=email]").val()
+        this.model.cpf = this.$$.find("[name=cpf]").val()
     }
 });
 

@@ -85,11 +85,7 @@
      * @see http://www.todoespacoonline.com/w/
      */
     function checkCpf(cpf) {
-        const valor = `${cpf}`
-                // Garante que o valor é uma string
-                .toString()
-                // Remove caracteres inválidos do valor
-                .replace(/[^0-9]/g, "")
+        const valor = cpf;
 
         // Captura os 9 primeiros dígitos do CPF
         // Ex.: 02546288423 = 025462884
@@ -116,12 +112,8 @@
      * @see http://www.todoespacoonline.com/w/
      */
     function checkCnpj(cnpj) {
-        const valor = `${cnpj}`
-                // Garante que o valor é uma string
-                .toString()
-                // Remove caracteres inválidos do valor
-                .replace(/[^0-9]/g, "")
-
+        const valor = cnpj;
+        
         // Captura os primeiros 12 números do CNPJ
         // Faz o primeiro cálculo
         const calculo1 = calcDigitosPosicoes(valor.substr(0, 12), 5)
@@ -147,12 +139,8 @@
      */
     function checkCpfCnpj(cpfCnpj) {
         try {
-            const valor = `${cpfCnpj}`
-                    // Garante que o valor é uma string
-                    .toString()
-                    // Remove caracteres inválidos do valor
-                    .replace(/[^0-9]/g, "")
-
+            const valor = cpfCnpj
+            
             // Verifica se é CPF ou CNPJ
             const check = testCpfCnpj(valor)
 
@@ -174,15 +162,15 @@
     }
 
     validators.cpf = vuelidate.withParams({type: "required"}, value => {
-        return checkCpf(value)
+        return checkCpf(`${value}`.replace(/[^0-9]/g, ""));
     })
 
     validators.cnpj = vuelidate.withParams({type: "required"}, value => {
-        return checkCnpj(value)
+        return checkCnpj(`${value}`.replace(/[^0-9]/g, ""));
     })
 
     validators.cpfCnpj = vuelidate.withParams({type: "required"}, value => {
-        return checkCpfCnpj(value)
+        return checkCpfCnpj(`${value}`.replace(/[^0-9]/g, ""));
     })
 
 
