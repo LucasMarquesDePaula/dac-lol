@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("ws")
 public class WebService {
-    
+
     @PUT
     @Path("delivery-frustrated/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -27,15 +27,12 @@ public class WebService {
         PedidoFacede facede = new PedidoFacede();
         facede.confirmarFrustracaoEntregaPedido(id, message.getParameter("justificativa"), new Date());
     }
-    
+
     @PUT
     @Path("delivery-done/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putDeliveryDone(@PathParam("id") Integer id, Message message) throws NotFoundException, ValidationException {
-        CrudFacede<Pedido> facede = new PedidoFacede();
-        Pedido model = facede.find(id);
-        
-        model.setEntregue((byte) 0x1);
-        facede.save(model);
+    public void putDeliveryDone(@PathParam("id") Integer id, Message message) throws NotFoundException, ValidationException, IllegalOperationException {
+        PedidoFacede facede = new PedidoFacede();
+        facede.confirmarEntregaFeita(id);
     }
 }

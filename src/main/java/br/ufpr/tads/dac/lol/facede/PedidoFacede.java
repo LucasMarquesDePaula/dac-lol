@@ -198,18 +198,14 @@ public class PedidoFacede extends CrudFacede<Pedido> {
 
         return pedido;
     }
-
+    
     // TODO melhorar validações
-    public Pedido confirmarEntregaPedido(Integer id) throws IllegalOperationException, ValidationException, NotFoundException {
+    public Pedido confirmarEntregaFeita(Integer id) throws IllegalOperationException, ValidationException, NotFoundException {
         if (id == null) {
             throw new IllegalArgumentException("O Pedido não foi informado.");
         }
 
         Pedido pedido = this.find(id);
-
-        if (pedido.getCancelado() == 0x1) {
-            throw new IllegalOperationException("O pedido esta cancelado");
-        }
 
         if (pedido.getRecebido() == 0x0) {
             throw new IllegalOperationException("O pedido não foi recebido");
