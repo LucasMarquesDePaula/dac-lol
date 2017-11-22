@@ -44,10 +44,15 @@ public abstract class Dao<E extends Model> {
     }
 
     public E save(E entity) {
-        if (entity.getId() == null) {
-            getSession().persist(entity);
-        } else {
-            getSession().merge(entity);
+        try {
+            if (entity.getId() == null) {
+                getSession().persist(entity);
+            } else {
+                getSession().merge(entity);
+            }
+        } catch (Exception ex) {
+            this.flush();
+            throw ex
         }
         return entity;
     }
