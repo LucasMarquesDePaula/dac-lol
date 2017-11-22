@@ -37,13 +37,17 @@ public class FuncionarioFacede extends CrudFacede<Funcionario> {
             // Verifica se já não existe nenhum funcionario com o email cadastrado
             Funcionario funcionario = new Funcionario();
             funcionario.setEmail(model.getEmail());
-            
+
             List<Funcionario> list = super.list(Example.create(funcionario), null, null, null).getList();
             list.stream()
-                .filter((found) -> (inserting || !found.getId().equals(model.getId())))
-                .forEachOrdered((item) -> {
-                    messages.put("email", "Já existe um funcionario cadastrado com esse email");
-                });
+                    .filter((found) -> (inserting || !found.getId().equals(model.getId())))
+                    .forEachOrdered((item) -> {
+                        messages.put("email", "Já existe um funcionario cadastrado com esse email");
+                    });
+        }
+        
+        if (!messages.isEmpty()) {
+            throw new ValidationException(messages);
         }
     }
 

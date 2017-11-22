@@ -4,6 +4,7 @@ import br.ufpr.tads.dac.lol.dao.ClienteDao;
 import br.ufpr.tads.dac.lol.dao.Dao;
 import br.ufpr.tads.dac.lol.model.Cliente;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.hibernate.criterion.Example;
 
@@ -36,10 +37,10 @@ public class ClienteFacede extends CrudFacede<Cliente> {
             // Verifica se já não existe nenhum cliente com o cpf cadastrado
             Cliente cliente = new Cliente();
             cliente.setCpf(model.getCpf());
-            super.list(Example.create(cliente), null, null, null)
-                    .getList()
-                    .stream()
-                    .filter((found) -> (!found.getId().equals(model.getId())))
+            List<Cliente> list = super.list(Example.create(cliente), null, null, null).getList();
+
+            list.stream()
+                    .filter((found) -> (inserting || !found.getId().equals(model.getId())))
                     .forEachOrdered((item) -> {
                         messages.put("cpf", "Já existe um cliente cadastrado com esse cpf");
                     });
@@ -52,10 +53,10 @@ public class ClienteFacede extends CrudFacede<Cliente> {
             // Verifica se já não existe nenhum cliente com o email cadastrado
             Cliente cliente = new Cliente();
             cliente.setEmail(model.getEmail());
-            super.list(Example.create(cliente), null, null, null)
-                    .getList()
-                    .stream()
-                    .filter((found) -> (!found.getId().equals(model.getId())))
+            List<Cliente> list = super.list(Example.create(cliente), null, null, null).getList();
+
+            list.stream()
+                    .filter((found) -> (inserting || !found.getId().equals(model.getId())))
                     .forEachOrdered((item) -> {
                         messages.put("email", "Já existe um cliente cadastrado com esse email");
                     });
