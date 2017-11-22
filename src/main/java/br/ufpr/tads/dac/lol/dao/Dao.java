@@ -52,7 +52,7 @@ public abstract class Dao<E extends Model> {
             }
         } catch (Exception ex) {
             this.flush();
-            throw ex
+            throw ex;
         }
         return entity;
     }
@@ -62,7 +62,7 @@ public abstract class Dao<E extends Model> {
             getSession().delete(entity);
         } catch (Exception ex) {
             this.flush();
-            throw ex
+            throw ex;
         }
     }
 
@@ -74,7 +74,7 @@ public abstract class Dao<E extends Model> {
             }
         } catch (Exception ex) {
             this.flush();
-            throw ex
+            throw ex;
         }
     }
 
@@ -83,7 +83,7 @@ public abstract class Dao<E extends Model> {
             return getSession().createCriteria(this.entityClass).list();
         } catch (Exception ex) {
             this.flush();
-            throw ex
+            throw ex;
         }
     }
 
