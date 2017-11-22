@@ -58,18 +58,33 @@ public abstract class Dao<E extends Model> {
     }
 
     public void delete(E entity) {
-        getSession().delete(entity);
+        try {
+            getSession().delete(entity);
+        } catch (Exception ex) {
+            this.flush();
+            throw ex
+        }
     }
 
     public void deleteAll() {
-        List<E> entities = findAll();
-        for (E entity : entities) {
-            getSession().delete(entity);
+        try {
+            List<E> entities = findAll();
+            for (E entity : entities) {
+                getSession().delete(entity);
+            }
+        } catch (Exception ex) {
+            this.flush();
+            throw ex
         }
     }
 
     public List<E> findAll() {
-        return getSession().createCriteria(this.entityClass).list();
+        try {
+            return getSession().createCriteria(this.entityClass).list();
+        } catch (Exception ex) {
+            this.flush();
+            throw ex
+        }
     }
 
     public Criteria createCriteria() {
