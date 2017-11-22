@@ -5,6 +5,7 @@ import br.ufpr.tads.dac.lol.dao.FuncionarioDao;
 import br.ufpr.tads.dac.lol.model.Funcionario;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import org.hibernate.criterion.Example;
 
 /**
