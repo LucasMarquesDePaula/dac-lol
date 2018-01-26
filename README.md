@@ -1,6 +1,6 @@
 # Laundry On-Line
 
-Laundry On-Line é um sistema desenvolvido para disciplina de Desenvolvimento de Aplicações Corporativas do curso de Tacnologia em Análise e Desenvolvimento de Sistemas da Universidade Federal do Paraná.
+Laundry On-Line é um sistema criado como uma atividade para disciplina de Desenvolvimento de Aplicações Corporativas do curso de Tacnologia em Análise e Desenvolvimento de Sistemas da Universidade Federal do Paraná.
 
 O objetivo final do sistema é avaliar a capacidade de desenvolvimento dos discentes. Por isso, o trabalho envolve um ciclo completo de um software, desde a analise até a entrega final ao cliente.
 
