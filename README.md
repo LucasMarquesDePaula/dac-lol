@@ -11,6 +11,7 @@ As função do sistema é organizar e controlar o funcionamento de uma lavanderi
  2. Hibernate
  3. Maven
  4. JSP
+ 5. Jasper Reports
 
 ## Padrão de Projeto
 MVC
