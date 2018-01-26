@@ -1,12 +1,19 @@
-
-
 # Laundry On-Line
 
 Laundry On-Line é um sistema desenvolvido para disciplina de Desenvolvimento de Aplicações Corporativas do curso de Tacnologia em Análise e Desenvolvimento de Sistemas da Universidade Federal do Paraná.
 
-O objetivo do projeto é avaliação da capacidade de desenvolvimento dos discentes. Por isso, o trabalho envolve um ciclo completo de um software, desde a analise até a entrega final ao cliente.
+O objetivo final do sistema é avaliar a capacidade de desenvolvimento dos discentes. Por isso, o trabalho envolve um ciclo completo de um software, desde a analise até a entrega final ao cliente.
 
 As função do sistema é organizar e controlar o funcionamento de uma lavanderia. Para que isso ocorra de maneira satisfatória, existirão dois perfis de acesso: cliente e funcionário. O cliente poderá fazer seu cadastro no sistema, realizar pedidos, visualizá-los e cancelá-los. Já o funcionário poderá confirmar lavagens, cadastrar roupas, visualizar pedidos, cadastrar funcionários, confirmar pagamentos e emitir relatórios.
+
+## Tecnologias Utilizadas
+ 1. Vue JS
+ 2. Hibernate
+ 3. Maven
+ 4. JSP
+
+## Padrão de Projeto
+MVC
 
 ## Requisitos
 
