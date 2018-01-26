@@ -15,3 +15,9 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# ignore part of project (not considered for language detection)
+static/* linguist-vendored
+
+# consider part of project as documentation
+docs/* linguist-documentation
